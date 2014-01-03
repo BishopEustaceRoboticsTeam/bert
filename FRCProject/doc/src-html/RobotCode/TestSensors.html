@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * To change this template, choose Tools | Templates<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * and open the template in the editor.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> */<a name="line.4"></a>
+<span class="sourceLineNo">005</span>package RobotCode;<a name="line.5"></a>
+<span class="sourceLineNo">006</span><a name="line.6"></a>
+<span class="sourceLineNo">007</span>import edu.wpi.first.wpilibj.AnalogChannel;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>import edu.wpi.first.wpilibj.Timer;<a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span>public class TestSensors {<a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span>    AnalogChannel MidRangeLeft;// = new AnalogChannel(1);<a name="line.12"></a>
+<span class="sourceLineNo">013</span>    AnalogChannel MidRangeRight;// = new AnalogChannel(1);<a name="line.13"></a>
+<span class="sourceLineNo">014</span>    AnalogChannel UltraSonicFront;// = new AnalogChannel(3);<a name="line.14"></a>
+<span class="sourceLineNo">015</span>    AnalogChannel UltraSonicBack;//= new AnalogChannel(4);<a name="line.15"></a>
+<span class="sourceLineNo">016</span>    boolean done = false;<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>    TestSensors(int ir_sensor_mid_left, int ir_sensor_mid_right, int ultra_sonic_long_front, int ultra_sonic_long_back) {<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>        MidRangeRight = new AnalogChannel(ir_sensor_mid_right);<a name="line.20"></a>
+<span class="sourceLineNo">021</span>        MidRangeLeft = new AnalogChannel(ir_sensor_mid_left);<a name="line.21"></a>
+<span class="sourceLineNo">022</span><a name="line.22"></a>
+<span class="sourceLineNo">023</span>    }<a name="line.23"></a>
+<span class="sourceLineNo">024</span><a name="line.24"></a>
+<span class="sourceLineNo">025</span>    public void LeftIrSensorMathTest() {<a name="line.25"></a>
+<span class="sourceLineNo">026</span>        int data = MidRangeLeft.getAverageValue();<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        System.out.println("This is a test of sensor 1. Here is the data: " + data);<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        Timer.delay(.200);<a name="line.28"></a>
+<span class="sourceLineNo">029</span><a name="line.29"></a>
+<span class="sourceLineNo">030</span><a name="line.30"></a>
+<span class="sourceLineNo">031</span>    }<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>    public void RightIrSensorMathTest() {<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        int data = MidRangeRight.getAverageValue();<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        System.out.println("This is a test of sensor 2. Here is the data: " + data);<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        Timer.delay(.200);<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span><a name="line.38"></a>
+<span class="sourceLineNo">039</span>    }<a name="line.39"></a>
+<span class="sourceLineNo">040</span>int testData;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    public int GetAnalogDataFromPort() {<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        //AnalogChannel GetData = new AnalogChannel(1);<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        //testData = GetData.getValue();<a name="line.43"></a>
+<span class="sourceLineNo">044</span><a name="line.44"></a>
+<span class="sourceLineNo">045</span>        return 7;//testData;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>    }<a name="line.46"></a>
+<span class="sourceLineNo">047</span><a name="line.47"></a>
+<span class="sourceLineNo">048</span>    public int getRawData() {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        int v = MidRangeRight.getAverageValue();<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        System.out.println("This is the value " + v);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        return v;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    }<a name="line.52"></a>
+<span class="sourceLineNo">053</span>}<a name="line.53"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
