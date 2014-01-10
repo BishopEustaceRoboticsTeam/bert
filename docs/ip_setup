@@ -1,0 +1,23 @@
+IP Configuration for All Computers
+
+driver station computer: 10.47.50.9 (bert)
+
+cRIO: 10.47.50.2 (bert)
+
+camera: 10.47.50.11 (bert)
+
+bert1: 192.168.1.11 (git) 10.47.50.21 (bert)
+
+bert2: 192.168.1.12 (git) 10.47.50.22 (bert)
+
+bert3: 192.168.1.13 (git) 10.47.50.23 (bert)
+
+bert4: 192.168.1.14 (git) 10.47.50.24 (bert)
+
+bert5: 192.168.1.15 (git) 10.47.50.25 (bert)
+
+
+(git) This network is for connecting to the git repository
+(bert) This network is for running the robot
+
+
