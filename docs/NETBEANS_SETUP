@@ -1,0 +1,44 @@
+These are the steps required to setup netbeans and the frc plugins on 
+a linux ubuntu 12.04 machine.
+
+
+First make sure you have internet connection.
+
+
+1) Install dependencies:
+
+   $ sudo apt-get install openjdk-7-jdk ia32-libs
+
+
+
+2) Install netbeans.  Google for netbeans ubuntu.  Most likely it is at
+   https://netbeans.org/downloads/.   Download Java SE.  This should put a
+   shell script (.sh file) in your Downloads folder.  Run this by typing
+
+   $ sh netbeans-7.4-javase-linux.sh
+
+   or whatever version you have.   Follow the installer.  If the jdk installation
+   worked, there should be no problems here.
+
+
+
+3) Install the FRC netbeans plugins.  You can google for this to find the exact link.
+   In netbeans, go to Tools->Plugins, click on the settings tab and click Add.  Type
+   in 'FRC Plugins' or similar for name, then use this link for the url
+   'http://first.wpi.edu/FRC/java/netbeans/update/Release/updates.xml'  Note this may
+   change in the future, so if installation doesn't work, use different url.
+ 
+   Then click on Available Plugins tab and scroll down and you should see 6 FRC plugins.
+   If you don't, you may have entered the wrong link.  Highlight them all and say install.
+   You'll have to restart.
+
+
+
+4) Configure using your team.  Go to Tools->Options.  Select the Miscellanious tab, then the
+   FRC Configuration tab.  Put 4750 in the team name and say ok.
+
+
+You should be good to go!
+  
+
+01.12.14
