@@ -5,27 +5,35 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 
 
+
 public class StateEstimator {
     static final int team_color_port_number = 4;
     
     
     // enum for red and blue
-    boolean team_color_;  // red or blue
+    boolean team_color_;  // (false)red or (true)blue
     
     double x_meters_;
     double y_meters_;
     double yaw_radians_;
     
     boolean ball_in_posession_;
-    
+      
     // more states
     
    public StateEstimator(){
     
-      determineTeamColor(team_color_port_number);
-      System.out.println("Our team color is: " + team_color_);
-   
-   
+     determineTeamColor(team_color_port_number);
+      if(team_color_){
+        
+            System.out.println("We are blue");
+            
+        }else{ 
+          
+          System.out.println("We are red");
+          
+      }
+      
    }
     
     
@@ -59,8 +67,11 @@ public class StateEstimator {
        
         DigitalInput digital = new DigitalInput(port_number);
         team_color_ = digital.get();
+         
+        
               
     }
+   
     
     public void setXMeters(double x)
     {

@@ -25,11 +25,11 @@ public class BERT extends SimpleRobot {
     static final int IRLEFTPORT = 1;
     static final int IRRIGHTPORT = 2;
     static final int IRFRONTPORT = 3;
-    static final int IRBACKPORT = 4;
+   // static final int IRBACKPORT = 4;
     static final int IRTESTPORT = 6;
     static final int DIGITALSENSORPORT = 1;
     // SERVO PORTS
-    static final int FRONTSERVOPORT = 4;
+  //  static final int FRONTSERVOPORT = 4;
     static final int BACKSERVOPORT = 5;
     // SENSOR PARAMS
     static final double ROBOTBASEWIDTH = 17.75;// in inches
@@ -39,8 +39,8 @@ public class BERT extends SimpleRobot {
     Joystick leftStick = new Joystick(1); //Logitech setup in Driver Station
     Joystick rightStick = new Joystick(2); //Logitech setup in Driver Station
     Jaguar motorOne = new Jaguar(3);
-    Sensors sensor = new Sensors(IRLEFTPORT, IRRIGHTPORT, IRFRONTPORT, IRBACKPORT, DIGITALSENSORPORT, IRTESTPORT);// Reference to Sensor Class: IRLeftPort, IRRightPort, IRFrontPort, IRBackPort, TestPort
-    Servo disk_stopper = new Servo(FRONTSERVOPORT);
+   // Sensors sensor = new Sensors(IRLEFTPORT, IRRIGHTPORT, IRFRONTPORT, IRBACKPORT, DIGITALSENSORPORT, IRTESTPORT);// Reference to Sensor Class: IRLeftPort, IRRightPort, IRFrontPort, IRBackPort, TestPort
+    //Servo disk_stopper = new Servo(FRONTSERVOPORT);
     Servo disk_stopper_two = new Servo(BACKSERVOPORT);
     AxisCamera camera;
     Timer testTimer = new Timer();
@@ -48,6 +48,7 @@ public class BERT extends SimpleRobot {
     Autonomy autoBert = new Autonomy();
     boolean stop = true;
     Timer updateTimer = new Timer();
+    StateEstimator state_; 
 
 //    LiftControl actuator_left = new LiftControl();
 //    LiftControl actuator_right = new LiftControl();
@@ -73,7 +74,9 @@ public class BERT extends SimpleRobot {
     // run 'autonomous' mode in driver station
     public void autonomous() {
 
+        
         System.out.println("mode: autonomous");
+        state_ = new StateEstimator();
         double duration = 15.0;
         double entry_angle = 0.0;
         
@@ -96,13 +99,13 @@ public class BERT extends SimpleRobot {
                 //System.out.println("Distance good to drop!");
                 
                     //System.out.println("There is a Goal! Release all");
-                    autoBert.dropDisks(4, disk_stopper, disk_stopper_two);
+                  //  autoBert.dropDisks(4, disk_stopper, disk_stopper_two);
                     break;
                 
 
             } 
             Pizza.updateAngleToDashboard();
-            sensor.updateIRSensorsDashboard();
+           // sensor.updateIRSensorsDashboard();
             
             //used to delay the updating of the dashboard
             Timer.delay(0.25);
@@ -123,7 +126,8 @@ public class BERT extends SimpleRobot {
     public void operatorControl() {
 
         System.out.println("mode: operatorControl");
-
+       
+        
         while (isOperatorControl() && isEnabled()) {
 
             //System.out.println("Test value = " + sensor.getTestSensor() + " " + sensor.getTestSensorAvg());
@@ -132,9 +136,9 @@ public class BERT extends SimpleRobot {
             drive.tankDrive(rightStick, leftStick);//should be left and right, but we're driving backwards
             Timer.delay(0.20);
             //used to delay the updating of the dashboard
-            Pizza.getAlingingAngle(sensor.getIRLeftInches(), sensor.getIRRightInches());
+           // Pizza.getAlingingAngle(sensor.getIRLeftInches(), sensor.getIRRightInches());
             Pizza.updateAngleToDashboard();
-            sensor.updateIRSensorsDashboard();
+           // sensor.updateIRSensorsDashboard();
             //sensor.printAccelData();
             //sensor.printGyroData(); 
 
@@ -143,11 +147,11 @@ public class BERT extends SimpleRobot {
                // autoBert.dropDiskBool =true;
                 autoBert.state = 1;
                 System.out.println("Release all");
-               autoBert.dropDisks(4, disk_stopper, disk_stopper_two);// not needed if new code works
+               //autoBert.dropDisks(4, disk_stopper, disk_stopper_two);// not needed if new code works
             } else if (leftStick.getRawButton(3)) {
                 System.out.println("Release one");
                 autoBert.state2 = 1;
-                autoBert.dropDisks(1, disk_stopper, disk_stopper_two);// not needed if new code works
+        //        autoBert.dropDisks(1, disk_stopper, disk_stopper_two);// not needed if new code works
             }
            //autoBert.timeStopDisk(4, disk_stopper, disk_stopper_two);
            //autoBert.timeStopDisk(1, disk_stopper, disk_stopper_two);
@@ -164,10 +168,19 @@ public class BERT extends SimpleRobot {
         
         //testTimer.start();
         
-        while (isTest() && isEnabled()) {
-            System.out.println(", " + sensor.getIRLeftInches() + ", " + sensor.getIRRightInches() + ", " +sensor.getIRFrontInches() );
+       //while (isTest() && isEnabled()) {
+           // System.out.println(", " + sensor.getIRLeftInches() + ", " + sensor.getIRRightInches() + ", " +sensor.getIRFrontInches() );
+          
+            //test_drive.driveTenMeters();
             
-            test_drive.driveTenMeters();
+          
+          
+       
+   
+        //   }
         }
-    }
 }
+    
+
+
+
