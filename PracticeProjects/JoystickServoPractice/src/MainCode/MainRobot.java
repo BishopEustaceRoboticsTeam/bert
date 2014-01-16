@@ -18,20 +18,14 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class MainRobot extends SimpleRobot {
 
-           
     Joystick leftStick = new Joystick(1); //Logitech setup in Driver Station
-    Joystick rightStick = new Joystick(2); //Logitech setup in Driver Station
+    //Joystick rightStick = new Joystick(2); //Logitech setup in Driver Station
 
     //MainRobot() {
-        //System.out.println("Woot Woot!  Constructor");
-        
+    //System.out.println("Woot Woot!  Constructor");
         //System.out.println("Disabling the Safety");
-        //drive.setSafetyEnabled(false);
-        
+    //drive.setSafetyEnabled(false);
     //}
-    
-    
-    
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
@@ -43,6 +37,16 @@ public class MainRobot extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
+        double x_axis;
+        x_axis = leftStick.getX();
+        double y_axis;
+        y_axis = leftStick.getY();
+        Joystick.AxisType X;
+
+        System.out.println("x value is " + x_axis);
+        System.out.println("y vaule is " + y_axis);
+        
+
 
     }
 
@@ -52,43 +56,54 @@ public class MainRobot extends SimpleRobot {
     public void test() {
 
         System.out.println("Test mode");
-        
-        //TestDrive test_drive = new TestDrive(drive);
 
-        double axis = leftStick.getAxis(Joystick.AxisType.kX);
-        double x = leftStick.getX();
-        
-        
         ServoPractice servo_test = new ServoPractice(10);
 
         servo_test.getServoValue();
         servo_test.getServoAngle();
 
+        //TestDrive test_drive = new TestDrive(drive);
+        double x_axis;
+        x_axis = leftStick.getX();
+        double y_axis;
+        y_axis = leftStick.getY();
+        Joystick.AxisType X;
+
+        System.out.println("x value is " + x_axis);
+        System.out.println("y vaule is " + y_axis);
+
+//        if (leftStick.getAxis(X axis)) {
+//            servo_test.myservo_.set(left, right);
+//    }
+//        
+        //ServoPractice servo_test = new ServoPractice(10);
+        //servo_test.getServoValue();
+        //servo_test.getServoAngle();
         //testTimer.start();
         while (isTest() && isEnabled()) {
             //        System.out.println(", " + sensor.getIRLeftInches() + ", " + sensor.getIRRightInches() + ", " +sensor.getIRFrontInches() );
             //System.out.println("garret smells");
             //test_drive.driveTenMeters();
+            //System.out.println("left stick value: " + xval);
+            //double getY = leftStick.getY();
+            //System.out.println("left stick value" + yval);
 
-            double xval = leftStick.getX();
-            System.out.println("left stick value: " + xval);
-            
-            if (rightStick.getTrigger()) {
-                servo_test.myservo_.set(0);
-            }
-            if (leftStick.getTrigger()) {
-                servo_test.myservo_.set(1);
-            }
-            if (leftStick.getRawButton(4)) {
-                servo_test.myservo_.set(0.5);
-            }
-            //servo_test.myservo_.setAngle(120);
-            double servoangle = servo_test.getServoAngle();
-            System.out.println("servo angle is: " + servoangle);
-            double servovalue = servo_test.getServoValue();
-            System.out.println("servo value is: " + servovalue);
-
+            boolean yes;
+            //(leftStick.getX(-1)) { 
+            servo_test.myservo_.set(-1);
         }
-    
+        if (leftStick.getTrigger()) {
+            servo_test.myservo_.set(1);
+        }
+        if (leftStick.getRawButton(4)) {
+            servo_test.myservo_.set(0.5);
+        }
+        //servo_test.myservo_.setAngle(120);
+        double servoangle = servo_test.getServoAngle();
+        System.out.println("servo angle is: " + servoangle);
+        double servovalue = servo_test.getServoValue();
+        System.out.println("servo value is: " + servovalue);
+
     }
+
 }
