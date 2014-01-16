@@ -1,15 +1,26 @@
+<<<<<<< HEAD:PracticeProjects/BasicJava/Pathga/src/pathga/Pathga.java
 package pathga;
 
 import java.math.*;
+=======
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package insulter;
+>>>>>>> 46e340b5ad7970f2fadbab9aba96eef6e2af332b:INSULTER/src/insulter/INSULTER.java
 import java.util.Scanner;
 
 /**
  *
- * @author bert2
+ * @author bert5
  */
-public class Pathga {
+public class INSULTER {
 
     public static void main(String[] args) {
+<<<<<<< HEAD:PracticeProjects/BasicJava/Pathga/src/pathga/Pathga.java
         Scanner input = new Scanner(System.in);
         double a, b, c;
         String variable;
@@ -52,5 +63,18 @@ public class Pathga {
             System.out.println("INVALID SELECTION.\nTERMINATING USER...");
             System.out.println("You entered: " + variable);
         }
+=======
+
+        
+        
+        
+        
+    String name = "Reno";
+    String name1 = "Garret";
+    String name2 = "Tacoquin";
+    
+>>>>>>> 46e340b5ad7970f2fadbab9aba96eef6e2af332b:INSULTER/src/insulter/INSULTER.java
     }
 }
+    
+

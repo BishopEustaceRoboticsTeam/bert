@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/bert3/git/git_bert/FRCProject/src/RobotCode/BERT.java</file>
             <file>file:/home/bert3/git/git_bert/FRCProject/src/RobotCode/LiftControl.java</file>
+=======
+            <file>file:/home/bert5/git_bert/FRCProject/src/RobotCode/StateEstimator.java</file>
+            <file>file:/home/bert5/git_bert/FRCProject/src/RobotCode/BERT.java</file>
+            <file>file:/home/bert5/git_bert/FRCProject/src/RobotCode/TestDrive.java</file>
+>>>>>>> 46e340b5ad7970f2fadbab9aba96eef6e2af332b
         </group>
     </open-files>
 </project-private>
