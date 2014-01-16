@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
-
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.image.*;
 
 
 
@@ -19,7 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.th
 
-public class BERT extends SimpleRobot {
+public class BERT extends IterativeRobot {
 
     // SENSOR PORTS
     static final int IRLEFTPORT = 1;
@@ -49,6 +50,7 @@ public class BERT extends SimpleRobot {
     boolean stop = true;
     Timer updateTimer = new Timer();
     StateEstimator state_; 
+    
 
 //    LiftControl actuator_left = new LiftControl();
 //    LiftControl actuator_right = new LiftControl();
@@ -58,7 +60,6 @@ public class BERT extends SimpleRobot {
         // need to disable this if we are not running the watchdod
         System.out.println("Disabling the Safety");
         drive.setSafetyEnabled(false);
-
     }
 
     public void robotInit() {
@@ -67,120 +68,48 @@ public class BERT extends SimpleRobot {
 
         Timer.delay(10.0);
         System.out.println("Hello. This is BERT. What would you like today: TeleOp or Autonomous?");
-        //camera = AxisCamera.getInstance();
-        //camera.writeResolution(AxisCamera.ResolutionT.k320x240);
+        camera = AxisCamera.getInstance();
+        camera.writeResolution(AxisCamera.ResolutionT.k320x240);
+        
     }
 
     // run 'autonomous' mode in driver station
-    public void autonomous() {
-
-        
-        System.out.println("mode: autonomous");
-        state_ = new StateEstimator();
-        double duration = 15.0;
-        double entry_angle = 0.0;
-        
-        while (isEnabled() && isAutonomous()) {
-
-//            entry_angle = Pizza.getAlingingAngle(sensor.getIRLeftInches(), sensor.getIRRightInches());
-//            System.out.println(entry_angle);
-
-            // send values to the dashboard
-//            if (autoBert.DriveStraight(sensor.getIRLeftInches(), sensor.getIRRightInches(), sensor.getIRFrontInches(), drive)) {
-//                //System.out.println("Distance good to drop!");
-//                
-//                    //System.out.println("There is a Goal! Release all");
-//                    autoBert.dropDisks(4, disk_stopper, disk_stopper_two);
-//                    break;
-//                
-//
-//            }
-             if (autoBert.noSensorAuto(drive)) {
-                //System.out.println("Distance good to drop!");
-                
-                    //System.out.println("There is a Goal! Release all");
-                  //  autoBert.dropDisks(4, disk_stopper, disk_stopper_two);
-                    break;
-                
-
-            } 
-            Pizza.updateAngleToDashboard();
-           // sensor.updateIRSensorsDashboard();
-            
-            //used to delay the updating of the dashboard
-            Timer.delay(0.25);
-
-//            //drive.drive();
-//
-//
-//
-//            // turn the vehicle 90 degrees righ
-//            drive.drive(-0.4, 0);
-//            Timer.delay(1.0); //good for testing
-//            drive.drive(0.0, 0.0);
-        }
-        System.out.println("ENDING AUTO!");
+    //@override
+    public void autonomousPeriodic() {
+       //System.out.println("autonomousPeriodic");     
     }
-
-    //run 'teleoperated' in driver station   
-    public void operatorControl() {
-
-        System.out.println("mode: operatorControl");
-       
-        
-        while (isOperatorControl() && isEnabled()) {
-
-            //System.out.println("Test value = " + sensor.getTestSensor() + " " + sensor.getTestSensorAvg());
-
-            //DO NOT EDIT FOLLOWING LINE
-            drive.tankDrive(rightStick, leftStick);//should be left and right, but we're driving backwards
-            Timer.delay(0.20);
-            //used to delay the updating of the dashboard
-           // Pizza.getAlingingAngle(sensor.getIRLeftInches(), sensor.getIRRightInches());
-            Pizza.updateAngleToDashboard();
-           // sensor.updateIRSensorsDashboard();
-            //sensor.printAccelData();
-            //sensor.printGyroData(); 
-
-
-            if (leftStick.getTrigger()) {
-               // autoBert.dropDiskBool =true;
-                autoBert.state = 1;
-                System.out.println("Release all");
-               //autoBert.dropDisks(4, disk_stopper, disk_stopper_two);// not needed if new code works
-            } else if (leftStick.getRawButton(3)) {
-                System.out.println("Release one");
-                autoBert.state2 = 1;
-        //        autoBert.dropDisks(1, disk_stopper, disk_stopper_two);// not needed if new code works
-            }
-           //autoBert.timeStopDisk(4, disk_stopper, disk_stopper_two);
-           //autoBert.timeStopDisk(1, disk_stopper, disk_stopper_two);
-
-
-        }
-
-    }
-
-    public void test() {
-
-        System.out.println("mode: Test");
-        TestDrive test_drive = new TestDrive(drive);
-        
-        //testTimer.start();
-        
-       //while (isTest() && isEnabled()) {
-           // System.out.println(", " + sensor.getIRLeftInches() + ", " + sensor.getIRRightInches() + ", " +sensor.getIRFrontInches() );
-          
-            //test_drive.driveTenMeters();
+    public void autonomousInit(){
+        System.out.println("autonomousInit");
+        if(camera.freshImage()){
             
-          
-          
-       
-   
-        //   }
+            
         }
+    }
+    public void disabledInit(){
+        System.out.println("disabledInit");
+    }
+    public void disabledPeriodic(){
+        //System.out.println("disabledPeriodic");
+    }
+    public void teleopInit(){
+        System.out.println("teleopInit");
+        testTimer.reset();
+        testTimer.start();
+    }
+    public void teleopPeriodic(){
+        //System.out.println("teleopPeriodic");
+        /*testTimer.reset();
+        testTimer.start();
+        for( int i = 0; i <= 1000000; i++){
+            int a = 50;
+            
+        }*/
+        System.out.println("Time is " + testTimer.get());
+    }
+    public void testInit(){
+        System.out.println("testInit");
+    }
+    public void testPeriodic(){
+        //System.out.println("testPeriodic");
+    }
 }
-    
-
-
-
