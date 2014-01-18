@@ -32,22 +32,7 @@ public class SavaAnImage extends IterativeRobot {
      */
     public void robotInit() {
        camera = AxisCamera.getInstance();
-       if(camera.freshImage()){
-           try {
-               ColorImage image = camera.getImage();
-               image.write("/testImage.jpg");
-               
-           } catch (NIVisionException ex) {
-                ex.printStackTrace();
-            } catch (AxisCameraException ex) {
-                ex.printStackTrace();
-                
-            }
-               
-               
-     
-           
-       }
+      
     }
 
     /**
@@ -55,6 +40,28 @@ public class SavaAnImage extends IterativeRobot {
      */
     public void autonomousPeriodic() {
 
+    }
+    public void autonomousInit(){
+        System.out.println("Saving an image.......");
+         if(camera.freshImage()){
+           try {
+               ColorImage image = camera.getImage();
+               image.write("/testImage.png");
+               
+           } catch (NIVisionException ex) {
+               System.out.println("NIVision excepption");
+                ex.printStackTrace();
+            } catch (AxisCameraException ex) {
+                System.out.println("Axis exception");
+                ex.printStackTrace();
+                
+            }
+               
+               
+     
+         }
+       
+        
     }
 
     /**
