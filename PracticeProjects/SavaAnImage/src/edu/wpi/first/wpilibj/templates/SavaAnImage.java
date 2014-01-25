@@ -20,77 +20,53 @@ import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class SavaAnImage extends IterativeRobot {
-
-    AxisCamera camera;
+public class SavaAnImage extends IterativeRobot{
+     AxisCamera camera;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-<<<<<<< HEAD
+
         camera = AxisCamera.getInstance();
 
-=======
        camera = AxisCamera.getInstance();
       
->>>>>>> aa2cf43ad309653cb5166359290c1395bde94ddb
+
     }
 
     /**
      * This function is called periodically during autonomous
      */
-<<<<<<< HEAD
+
     public void autonomousInit() {
         System.out.println("Saving an image....");
         
         if (camera.freshImage()) {
             try {
-                ColorImage image = camera.getImage();
+                ColorImage image = null;
+                try {
+                    image = camera.getImage();
+                } catch (AxisCameraException ex) {
+                    ex.printStackTrace();
+                } catch (NIVisionException ex) {
+                    ex.printStackTrace();
+                }
                 image.write("/testImage.jpg");
 
             } catch (NIVisionException ex) {
                 System.out.println("NIvisionException");
-=======
-    public void autonomousPeriodic() {
-
-    }
-    public void autonomousInit(){
-        System.out.println("Saving an image.......");
-         if(camera.freshImage()){
-           try {
-               ColorImage image = camera.getImage();
-               image.write("/testImage.png");
-               
-           } catch (NIVisionException ex) {
-               System.out.println("NIVision excepption");
->>>>>>> aa2cf43ad309653cb5166359290c1395bde94ddb
-                ex.printStackTrace();
-            } catch (AxisCameraException ex) {
-                System.out.println("Axis exception");
-                ex.printStackTrace();
-                System.out.println("AxisCameraException");
-
             }
-<<<<<<< HEAD
-
         }
+    }
+    public void autonomousPeriodic(){
 
     }
-
-    public void autonomousPeriodic() {
-
-=======
-               
-               
-     
-         }
+    
+    
        
-        
->>>>>>> aa2cf43ad309653cb5166359290c1395bde94ddb
-    }
-
+   
     /**
      * This function is called periodically during operator control
      */
@@ -103,6 +79,6 @@ public class SavaAnImage extends IterativeRobot {
      */
     public void testPeriodic() {
 
-    }
+        }
 
-}
+}  
