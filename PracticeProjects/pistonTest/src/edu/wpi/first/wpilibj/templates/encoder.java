@@ -4,14 +4,13 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
 package edu.wpi.first.wpilibj.templates;
 
+
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.camera.AxisCamera;
-import edu.wpi.first.wpilibj.camera.AxisCameraException;
-import edu.wpi.first.wpilibj.image.*;
-import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,65 +19,81 @@ import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class SavaAnImage extends IterativeRobot{
-     AxisCamera camera;
 
+public class encoder extends IterativeRobot {
+    //                            1 = channel a 2 == channel b true
+    Encoder encoder = new Encoder(1, 2, false, EncodingType.k4X);
+    int count;
+    boolean stopped;
+    boolean direction;
+    int rawCount;
+    
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {
-
-        camera = AxisCamera.getInstance();
-
-       camera = AxisCamera.getInstance();
-      
-
+    public void robotInit() { 
+         
+        
+        
     }
+
+    
 
     /**
      * This function is called periodically during autonomous
      */
-
-    public void autonomousInit() {
-        System.out.println("Saving an image....");
+    public void autonomousPeriodic() {
         
-        if (camera.freshImage()) {
-            try {
-                ColorImage image = null;
-                try {
-                    image = camera.getImage();
-                } catch (AxisCameraException ex) {
-                    ex.printStackTrace();
-                } catch (NIVisionException ex) {
-                    ex.printStackTrace();
-                }
-                image.write("/testImage.jpg");
-
-            } catch (NIVisionException ex) {
-                System.out.println("NIvisionException");
-            }
-        }
-    }
-    public void autonomousPeriodic(){
+        
 
     }
-    
-    
-       
-   
+
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
-
+    
+    public void teleopInit(){
+        
+        encoder.setMaxPeriod(.1);
+        encoder.start();
+        encoder.setMinRate(10); 
+        encoder.setDistancePerPulse(5);
+        //encoder.setReverseDirection();
+        encoder.setSamplesToAverage(7);
+        
     }
+    public void teleopPeriodic() {
+        
+        rawCount = encoder.getRaw();
+        System.out.println("rawCount = " + rawCount);
+        direction = encoder.getDirection();
+        System.out.println("Drirection = " + direction);
+        stopped = encoder.getStopped();
+        System.out.println("Stoped? = " + stopped);
+        count = encoder.get();
+        System.out.println("count = " + count);
 
+  
+ 
+
+ 
+        
+       
+    }
+    public void disabledInit(){
+        encoder.stop();
+        encoder.reset();
+        
+        
+    }
+    
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-
-        }
-
-}  
+    
+    }
+    
+}
