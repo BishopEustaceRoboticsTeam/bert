@@ -5,6 +5,7 @@
     You may edit it freely, it doesn't affect the ant-powered build.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
  --><project xmlns="http://www.netbeans.org/ns/project/1">
     <type>org.netbeans.modules.ant.freeform</type>
     <configuration>
@@ -92,6 +93,8 @@
     </configuration>
 </project>
 =======
+=======
+>>>>>>> fa1b9d06b9dfe2948118e21af09a6d10cd2480bb
  --><project xmlns="http://www.netbeans.org/ns/project/1">
     <type>org.netbeans.modules.ant.freeform</type>
     <configuration>
@@ -178,4 +181,7 @@
         </java-data>
     </configuration>
 </project>
+<<<<<<< HEAD
+>>>>>>> fa1b9d06b9dfe2948118e21af09a6d10cd2480bb
+=======
 >>>>>>> fa1b9d06b9dfe2948118e21af09a6d10cd2480bb
