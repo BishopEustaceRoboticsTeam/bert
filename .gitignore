@@ -1,0 +1,4 @@
+# BERT REPO IGNORE FILES/FOLDERS
+
+# ignore all the build folders
+build/
