@@ -21,7 +21,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 
 public class encoder extends IterativeRobot {
-    
+    //                            1 = channel a 2 == channel b true
+    Encoder encoder = new Encoder(1, 2, false, EncodingType.k4X);
+    int count;
+    boolean stopped;
+    boolean direction;
+    int rawCount;
     
     
     /**
@@ -48,23 +53,40 @@ public class encoder extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
-      Encoder encoder;
-        encoder = new Encoder(1, 2, true, EncodingType.k4X);
+    
+    public void teleopInit(){
+        
         encoder.setMaxPeriod(.1);
+        encoder.start();
         encoder.setMinRate(10); 
         encoder.setDistancePerPulse(5);
-        encoder.setReverseDirection(true);
+        //encoder.setReverseDirection();
         encoder.setSamplesToAverage(7);
-        encoder.start();
+        
+    }
+    public void teleopPeriodic() {
+        
+        rawCount = encoder.getRaw();
+        System.out.println("rawCount = " + rawCount);
+        direction = encoder.getDirection();
+        System.out.println("Drirection = " + direction);
+        stopped = encoder.getStopped();
+        System.out.println("Stoped? = " + stopped);
+        count = encoder.get();
+        System.out.println("count = " + count);
+
+  
+ 
+
+ 
+        
+       
+    }
+    public void disabledInit(){
         encoder.stop();
         encoder.reset();
-        int count = encoder.get();
-        int rawCount = encoder.getRaw();
-        double distance = encoder.getDistance();
-        double period = encoder.getPeriod();
-        boolean direction = encoder.getDirection();
-        boolean stopped = encoder.getStopped();
+        
+        
     }
     
     /**
