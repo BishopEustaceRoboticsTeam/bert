@@ -37,7 +37,7 @@ public class MecDrive {
         
         // Step (1) - Get all the inputs from the joystick. All values
         //            should be between -1.0 and 1.0.
-        double leftX = rc_.getLeftStickX();
+        double leftX = rc_.getLeftStickX() *-1;
         double leftY = rc_.getLeftStickY();
         
         // Step (2) - Convert input into desired 2D vector velocity.
@@ -48,9 +48,9 @@ public class MecDrive {
         double br_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY)));
         
         // Convert to velocity.
-        double fl_desired_mps = fl_input * kVELOCITYFACTOR;
+        double fl_desired_mps = fl_input * kVELOCITYFACTOR *-1;
         double fr_desired_mps = fr_input * kVELOCITYFACTOR;
-        double bl_desired_mps = bl_input * kVELOCITYFACTOR;
+        double bl_desired_mps = bl_input * kVELOCITYFACTOR *-1;
         double br_desired_mps = br_input * kVELOCITYFACTOR;
         
         
