@@ -132,7 +132,8 @@ public class testMecDrive extends IterativeRobot {
             strafeRobot();
             
         }
-        if(remote.getRBButton()){
+/*
+      if(remote.getRBButton()){
         leftYAxis =  remote.getLeftStickY() * -1;
         rightYAxis = remote.getRightStickY();
         leftYAxis = leftYAxis/2;
@@ -144,7 +145,7 @@ public class testMecDrive extends IterativeRobot {
         RearRight.set(rightYAxis);
                       
         }
-        
+*/        
         
         
 //            
@@ -152,11 +153,13 @@ public class testMecDrive extends IterativeRobot {
 //        
           
 //      }
-      public void autonomousPeriodic(){
-;
+/*
+public void autonomousPeriodic(){
+
         
         }
-        //this is testing code for driving the robot with mec wheels
+*/ 
+//this is testing code for driving the robot with mec wheels
        // public void Drive(){    
             
     //myDrive.mecanumDrive_Polar(moveStick.getY(), moveStick.getX(), rotateStick.getTwist());
@@ -164,4 +167,4 @@ public class testMecDrive extends IterativeRobot {
        // }
 
         
-    }
+   // }
