@@ -107,6 +107,7 @@ public class BERT extends IterativeRobot {
     //@override
     public void teleopPeriodic() {
         //System.out.println("teleopPeriodic");
+        drive_.update();
     }
 
     //@override
