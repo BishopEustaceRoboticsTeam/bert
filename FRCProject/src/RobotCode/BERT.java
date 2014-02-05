@@ -19,7 +19,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class BERT extends IterativeRobot {
 
-    // SENSOR PORTS
+    // Motor ports
+    static final int FRONT_LEFT_PORT = 2;
+    static final int FRONT_RIGHT_PORT = 1;
+    static final int BACK_LEFT_PORT = 3;
+    static final int BACK_RIGHT_PORT = 4;
+    
     //static final int IRLEFTPORT = 1;
     //static final int IRRIGHTPORT = 2;
     //static final int IRFRONTPORT = 3;
@@ -31,6 +36,8 @@ public class BERT extends IterativeRobot {
     boolean stop = true;
     StateEstimator state_ = new StateEstimator();
     F310 rc_ = new F310(1);
+    MecDrive drive_ = new MecDrive(rc_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,
+                                        BACK_LEFT_PORT, BACK_RIGHT_PORT);
 
     // Constructor, gets called before robotInit().
     BERT() {
