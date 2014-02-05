@@ -24,7 +24,8 @@ public class BERT extends IterativeRobot {
     static final int FRONT_RIGHT_PORT = 1;
     static final int BACK_LEFT_PORT = 3;
     static final int BACK_RIGHT_PORT = 4;
-    
+    static final int RELAY_PORT = 1; //realy port
+    static final int COMPRESSOR_SWITCH_PORT = 1; //Digital io port 
     //static final int IRLEFTPORT = 1;
     //static final int IRRIGHTPORT = 2;
     //static final int IRFRONTPORT = 3;
@@ -38,6 +39,7 @@ public class BERT extends IterativeRobot {
     F310 rc_ = new F310(1);
     MecDrive drive_ = new MecDrive(rc_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,
                                         BACK_LEFT_PORT, BACK_RIGHT_PORT);
+    Pneumatics p = new Pneumatics(RELAY_PORT,COMPRESSOR_SWITCH_PORT);
 
     // Constructor, gets called before robotInit().
     BERT() {
@@ -91,6 +93,7 @@ public class BERT extends IterativeRobot {
     
     //@override
     public void disabledInit() {
+        p.stopCompressor();
         System.out.println("disabledInit");
     }
 
@@ -102,6 +105,7 @@ public class BERT extends IterativeRobot {
     //@override
     public void teleopInit() {
         System.out.println("teleopInit");
+        p.startCompressor();
     }
 
     //@override
