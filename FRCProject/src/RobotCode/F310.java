@@ -33,23 +33,23 @@ public class F310 {
         
     }
     public boolean getLBButton(){
-        return f130.getRawButton(5);
+        return f130.getRawButton(5); //test
         
     }
     public boolean getRBButton(){
-        return f130.getRawButton(6);
+        return f130.getRawButton(6);  //test
         
     }
-    public boolean getLTButton(){
-        return f130.getRawButton(7);
+    public boolean getLTButton(){ // Controls 0 to -1
+        return f130.getRawButton(3); 
         
     }
-    public boolean getRTButton(){
-        return f130.getRawButton(8);
+    public boolean getRTButton(){ // Controls 0 to 1
+        return f130.getRawButton(3);
         
     }
     public boolean getBackButton(){
-        return f130.getRawButton(9);
+        return f130.getRawButton(9); //test
         
     }
     public boolean getStartButton(){
@@ -73,11 +73,11 @@ public class F310 {
         
     }
     public double getRightStickX(){
-        return f130.getRawAxis(3);
+        return f130.getRawAxis(4);
         
     }
-    public double getRightStickY(){
-        return f130.getRawAxis(4);
+    public double getRightStickY(){   // Raw Axis Value may be incorrect
+        return f130.getRawAxis(0);
         
     }
     public double getDpadX(){

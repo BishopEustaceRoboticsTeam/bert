@@ -39,13 +39,16 @@ public class MecDrive {
         //            should be between -1.0 and 1.0.
         double leftX = rc_.getLeftStickX() *-1;
         double leftY = rc_.getLeftStickY();
+        double rightX = rc_.getRightStickX(); //for turning with right stick
+        double rightY = rc_.getRightStickY();
         
         // Step (2) - Convert input into desired 2D vector velocity.
         //  TODO: assume max is 10m/s
-        double fl_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY)));
-        double fr_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY)));
-        double bl_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY)));
-        double br_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY)));
+        double fl_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY - rightX)));
+        double fr_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY + rightX)));
+        double bl_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY - rightX)));
+        double br_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY + rightX)));
+        
         
         // Convert to velocity.
         double fl_desired_mps = fl_input * kVELOCITYFACTOR *-1;
@@ -53,6 +56,36 @@ public class MecDrive {
         double bl_desired_mps = bl_input * kVELOCITYFACTOR *-1;
         double br_desired_mps = br_input * kVELOCITYFACTOR;
         
+        
+        System.out.println(rc_.getLTButton() + "Left Trigger");
+        System.out.println(rc_.getRTButton() + " Right Trigger");
+        
+        if (rc_.getLTButton()) 
+            System.out.println("LTbutton");
+        else if (rc_.getRTButton())
+            System.out.println("RTbutton");
+        else if (rc_.getR3Button())
+            System.out.println("R3Button");
+        else if (rc_.getL3Button())
+            System.out.println("L3Button");
+        else if (rc_.getStartButton())
+            System.out.println("Start button");
+        else if (rc_.getBackButton())
+            System.out.println("Back button");
+        else if (rc_.getAButton())
+            System.out.println("A Button");
+        else if (rc_.getBButton())
+            System.out.println("B Button");
+        else if (rc_.getXButton())
+            System.out.println("X button");
+        else if (rc_.getYButton())
+            System.out.println("Y button");
+        else if (rc_.getLBButton())
+            System.out.println("LB Button");
+        else if (rc_.getRBButton())
+            System.out.println("RB Button");
+        
+             
         
         // Step (3) - Get actual value of each encoder velocity.
         // TODO nick
