@@ -73,11 +73,11 @@ public class Pneumatics {
       Solenoid solenoid = new Solenoid(forward_channel);
       single_solenoids_list_.addElement(solenoid);
    }
-  public void moveSingleSolenoidOut(int index) {
+  public void moveSingleSolenoidForward(int index) {
     ((Solenoid)single_solenoids_list_.elementAt(index)).set(true);
   }
 
-  public void moveSingleSolenoidIn(int index) {
+  public void turnSingleSolenoidOff(int index) {
     ((Solenoid)single_solenoids_list_.elementAt(index)).set(false);
   }
 

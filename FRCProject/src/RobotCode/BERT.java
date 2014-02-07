@@ -32,6 +32,7 @@ public class BERT extends IterativeRobot {
     // static final int IRBACKPORT = 4;
     //static final int IRTESTPORT = 6;
     //static final int DIGITALSENSORPORT = 1;
+    static final int SINGLESOLENOID_PORT = 5;
 
     // DO NOT EDIT NEXT THREE LINES
     boolean stop = true;
@@ -54,6 +55,7 @@ public class BERT extends IterativeRobot {
         //Timer.delay(10.0);
         //camera = AxisCamera.getInstance();
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
+        p.addNewSingleSolenoid(SINGLESOLENOID_PORT);
     }
 
 
@@ -106,12 +108,20 @@ public class BERT extends IterativeRobot {
     public void teleopInit() {
         System.out.println("teleopInit");
         p.startCompressor();
+        
     }
 
     //@override
     public void teleopPeriodic() {
         //System.out.println("teleopPeriodic");
         drive_.update();
+        if (rc_.getXButton()){
+            p.moveSingleSolenoidOut(0);
+           System.out.println("X button pressed.");
+        } else if (rc_.getAButton()) {
+            p.moveSingleSolenoidIn(0);
+            System.out.println("A button pressed.");
+        }
     }
 
     //@override

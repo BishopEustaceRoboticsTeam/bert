@@ -56,12 +56,9 @@ public class MecDrive {
         double bl_desired_mps = bl_input * kVELOCITYFACTOR *-1;
         double br_desired_mps = br_input * kVELOCITYFACTOR;
         
-        
-        System.out.println(rc_.getLTButton() + "Left Trigger");
-        System.out.println(rc_.getRTButton() + " Right Trigger");
-        
+        /*
         if (rc_.getLTButton()) 
-            System.out.println("LTbutton");
+            //System.out.println("LTbutton");
         else if (rc_.getRTButton())
             System.out.println("RTbutton");
         else if (rc_.getR3Button())
@@ -85,7 +82,7 @@ public class MecDrive {
         else if (rc_.getRBButton())
             System.out.println("RB Button");
         
-             
+          */   
         
         // Step (3) - Get actual value of each encoder velocity.
         // TODO nick
