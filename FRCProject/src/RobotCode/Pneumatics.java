@@ -9,6 +9,7 @@ package RobotCode;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import java.util.Vector;
+import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Relay;
 
 /**
@@ -19,7 +20,8 @@ public class Pneumatics {
   
   Compressor compressor_;
   Vector double_solenoids_list_;
-
+  Vector single_solenoids_list_;
+  
   Pneumatics(int pressure_switch_channel, int compressor_relay_channel) {
 
     // pressure_switch_channel - digital input port to pressure 
@@ -32,7 +34,7 @@ public class Pneumatics {
     // output
     compressor_ = new Compressor(pressure_switch_channel, compressor_relay_channel);
     double_solenoids_list_ = new Vector();
-    
+    single_solenoids_list_= new Vector();
   }
     
   
@@ -67,20 +69,27 @@ public class Pneumatics {
     DoubleSolenoid solenoid = new DoubleSolenoid(forward_channel, reverse_channel);
     double_solenoids_list_.addElement(solenoid);
   }
-
-  public void moveSolenoidForward(int index) {
-    ((DoubleSolenoid)double_solenoids_list_.elementAt(index)).set(DoubleSolenoid.Value.kForward);
+   public void addNewSingleSolenoid(int forward_channel){
+      Solenoid solenoid = new Solenoid(forward_channel);
+      single_solenoids_list_.addElement(solenoid);
+   }
+  public void moveSingleSolenoidForward(int index) {
+    //((DoubleSolenoid)double_solenoids_list_.elementAt(index)).set(DoubleSolenoid.Value.kForward);
+    ((Solenoid)single_solenoids_list_.elementAt(index)).set(true);
   }
 
-  public void moveSolenoidBackward(int index) {
-    ((DoubleSolenoid)double_solenoids_list_.elementAt(index)).set(DoubleSolenoid.Value.kReverse);
-  }
+//  public void moveSolenoidBackward(int index) {
+//    //((DoubleSolenoid)double_solenoids_list_.elementAt(index)).set(DoubleSolenoid.Value.kReverse);
+//  }
 
-  public void turnSolenoidOff(int index) {
-    ((DoubleSolenoid)double_solenoids_list_.elementAt(index)).set(DoubleSolenoid.Value.kOff);
+  public void turnSingleSolenoidOff(int index) {
+    //((DoubleSolenoid)double_solenoids_list_.elementAt(index)).set(DoubleSolenoid.Value.kOff);
+  ((Solenoid)single_solenoids_list_.elementAt(index)).set(false);
   }
 
   public int getNumSolenoids() {
-    return double_solenoids_list_.size();
+    //return double_solenoids_list_.size();
+    return single_solenoids_list_.size();
+   
   }
 }
