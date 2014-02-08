@@ -20,6 +20,7 @@ public class Pneumatics {
   Compressor compressor_;
   //Vector double_solenoids_list_;
   Vector single_solenoids_list_;
+  Vector solenoids_states_;
   
   Pneumatics(int pressure_switch_channel, int compressor_relay_channel) {
 
@@ -34,6 +35,7 @@ public class Pneumatics {
     compressor_ = new Compressor(pressure_switch_channel, compressor_relay_channel);
     //double_solenoids_list_ = new Vector();
     single_solenoids_list_= new Vector();
+    solenoids_states_ = new Vector();
   }
     
   
@@ -69,9 +71,10 @@ public class Pneumatics {
   //  double_solenoids_list_.addElement(solenoid);
   //}
 
-   public void addNewSingleSolenoid(int forward_channel){
+   public int addNewSingleSolenoid(int forward_channel){
       Solenoid solenoid = new Solenoid(forward_channel);
       single_solenoids_list_.addElement(solenoid);
+      return single_solenoids_list_.size() -1;
    }
   public void moveSingleSolenoidOut(int index) {
     ((Solenoid)single_solenoids_list_.elementAt(index)).set(true);

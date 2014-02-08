@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 //import edu.wpi.first.wpilibj.DigitalModule;
 //import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Solenoid;
-
 public class BERT extends IterativeRobot {
 
     // Motor ports
@@ -32,15 +31,17 @@ public class BERT extends IterativeRobot {
     // static final int IRBACKPORT = 4;
     //static final int IRTESTPORT = 6;
     //static final int DIGITALSENSORPORT = 1;
-    static final int SINGLESOLENOID_PORT = 5;
-
+    static final int SINGLESOLENOID_PORT1 = 1;
+    static final int SINGLESOLENOID_PORT2 = 2;
     // DO NOT EDIT NEXT THREE LINES
     boolean stop = true;
+    boolean state = true;
     StateEstimator state_ = new StateEstimator();
     F310 rc_ = new F310(1);
     MecDrive drive_ = new MecDrive(rc_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,
-                                        BACK_LEFT_PORT, BACK_RIGHT_PORT);
-    Pneumatics p = new Pneumatics(RELAY_PORT,COMPRESSOR_SWITCH_PORT);
+            BACK_LEFT_PORT, BACK_RIGHT_PORT);
+    Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
+    int solenoid1, solenoid2;
 
     // Constructor, gets called before robotInit().
     BERT() {
@@ -55,14 +56,13 @@ public class BERT extends IterativeRobot {
         //Timer.delay(10.0);
         //camera = AxisCamera.getInstance();
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
-        p.addNewSingleSolenoid(SINGLESOLENOID_PORT);
+        solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
+        solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
     }
-
 
     //@override
     public void autonomousPeriodic() {
         //System.out.println("autonomousPeriodic");     
-
 
     }
 
@@ -70,29 +70,28 @@ public class BERT extends IterativeRobot {
     public void autonomousInit() {
         System.out.println("autonomousInit");
 
-	// TODO: push this to a separate class
+        // TODO: push this to a separate class
 	/*
-        if (camera.freshImage()) {
-            try {
-                testImage = camera.getImage();
-            } catch (AxisCameraException AxisException) {
-                System.out.println("AxisException");
+         if (camera.freshImage()) {
+         try {
+         testImage = camera.getImage();
+         } catch (AxisCameraException AxisException) {
+         System.out.println("AxisException");
 
-            } catch (NIVisionException NIException) {
-                System.out.println("AxisException");
+         } catch (NIVisionException NIException) {
+         System.out.println("AxisException");
 
-            }
+         }
 
-            try {
-                testImage.write("picture");
-            } catch (NIVisionException NIException) {
-                System.out.println("NIVisionException");
+         try {
+         testImage.write("picture");
+         } catch (NIVisionException NIException) {
+         System.out.println("NIVisionException");
 
-            }
-	    }*/
+         }
+         }*/
     }
-    
-    
+
     //@override
     public void disabledInit() {
         p.stopCompressor();
@@ -108,19 +107,34 @@ public class BERT extends IterativeRobot {
     public void teleopInit() {
         System.out.println("teleopInit");
         p.startCompressor();
-        
+
     }
 
     //@override
     public void teleopPeriodic() {
         //System.out.println("teleopPeriodic");
         drive_.update();
-        if (rc_.getXButton()){
-            p.moveSingleSolenoidOut(0);
-           System.out.println("X button pressed.");
-        } else if (rc_.getAButton()) {
-            p.moveSingleSolenoidIn(0);
-            System.out.println("A button pressed.");
+//
+//        if (rc_.getYButton()) {
+//            if (state) {
+//                p.moveSingleSolenoidOut(solenoid1);
+//                p.moveSingleSolenoidOut(solenoid2);
+//                state = false;
+//            } else {
+//                p.moveSingleSolenoidIn(0);
+//                state = true;
+//            }
+//            System.out.println("X button pressed.");
+//        } else if (rc_.getAButton()) {
+//            p.moveSingleSolenoidIn(0);
+//            System.out.println("A button pressed.");
+//        }
+        if (rc_.getAButton()) {
+            p.moveSingleSolenoidIn(solenoid1);
+            p.moveSingleSolenoidIn(solenoid2);
+        } else if (rc_.getYButton()) {
+            p.moveSingleSolenoidOut(solenoid1);
+            p.moveSingleSolenoidOut(solenoid2);
         }
     }
 
