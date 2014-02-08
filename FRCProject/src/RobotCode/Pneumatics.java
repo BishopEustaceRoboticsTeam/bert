@@ -21,6 +21,11 @@ public class Pneumatics {
   //Vector double_solenoids_list_;
   Vector single_solenoids_list_;
   Vector solenoids_states_;
+  static Boolean trueBool = new Boolean(true);
+  static Boolean falseBool = new Boolean(false);
+  //boolean[] solenoid_states_;
+  //Arraylist<Boolean> solenoid_states_ = new ;
+  int numberOfSolenoids_ = 0;
   
   Pneumatics(int pressure_switch_channel, int compressor_relay_channel) {
 
@@ -74,8 +79,23 @@ public class Pneumatics {
    public int addNewSingleSolenoid(int forward_channel){
       Solenoid solenoid = new Solenoid(forward_channel);
       single_solenoids_list_.addElement(solenoid);
+      solenoids_states_.addElement(falseBool);
       return single_solenoids_list_.size() -1;
    }
+   
+  public void changeSolenoidState(int solenoidNumber){
+      if(solenoids_states_.elementAt(solenoidNumber).equals(trueBool)){
+          ((Solenoid)single_solenoids_list_.elementAt(solenoidNumber)).set(false);
+          solenoids_states_.setElementAt(falseBool, solenoidNumber);
+      }
+      else { 
+           ((Solenoid)single_solenoids_list_.elementAt(solenoidNumber)).set(true);
+           solenoids_states_.setElementAt(trueBool, solenoidNumber);
+      }     
+      
+  } 
+  
+  
   public void moveSingleSolenoidOut(int index) {
     ((Solenoid)single_solenoids_list_.elementAt(index)).set(true);
   }

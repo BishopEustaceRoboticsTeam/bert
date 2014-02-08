@@ -130,11 +130,13 @@ public class BERT extends IterativeRobot {
 //            System.out.println("A button pressed.");
 //        }
         if (rc_.getAButton()) {
-            p.moveSingleSolenoidIn(solenoid1);
-            p.moveSingleSolenoidIn(solenoid2);
+//            p.moveSingleSolenoidIn(solenoid1);
+//            p.moveSingleSolenoidIn(solenoid2);
+            p.changeSolenoidState(1);
         } else if (rc_.getYButton()) {
-            p.moveSingleSolenoidOut(solenoid1);
-            p.moveSingleSolenoidOut(solenoid2);
+//            p.moveSingleSolenoidOut(solenoid1);
+//            p.moveSingleSolenoidOut(solenoid2);
+            p.changeSolenoidState(1);
         }
     }
 
