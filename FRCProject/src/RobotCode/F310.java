@@ -81,6 +81,7 @@ public class F310 {
 
     }
 
+    // Mapping has been reversed to match a cartesian frame.
     public double getLeftStickX() {
         return f130.getRawAxis(4) *-1;
 
