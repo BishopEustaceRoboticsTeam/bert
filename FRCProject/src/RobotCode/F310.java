@@ -7,6 +7,8 @@ package RobotCode;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+//import com.sun.squawk.util.
+
 /**
  *
  * @author user1
@@ -80,8 +82,9 @@ public class F310 {
     }
 
     public double getLeftStickX() {
-        return f130.getRawAxis(4);
+        return f130.getRawAxis(4) *-1;
 
+        
     }
 
     public double getLeftStickY() {

@@ -24,7 +24,7 @@ public class BERT extends IterativeRobot {
     static final int BACK_LEFT_PORT = 3;
     static final int BACK_RIGHT_PORT = 4;
     static final int RELAY_PORT = 1; //realy port
-    static final int COMPRESSOR_SWITCH_PORT = 1; //Digital io port 
+    static final int COMPRESSOR_SWITCH_PORT = 9; //Digital io port 
     //static final int IRLEFTPORT = 1;
     //static final int IRRIGHTPORT = 2;
     //static final int IRFRONTPORT = 3;
@@ -57,7 +57,7 @@ public class BERT extends IterativeRobot {
         //camera = AxisCamera.getInstance();
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
         solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
-        solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
+        //solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
     }
 
     //@override
@@ -107,6 +107,7 @@ public class BERT extends IterativeRobot {
     public void teleopInit() {
         System.out.println("teleopInit");
         p.startCompressor();
+        drive_.encoderStart();
 
     }
 
@@ -120,7 +121,7 @@ public class BERT extends IterativeRobot {
 //                p.moveSingleSolenoidOut(solenoid1);
 //                p.moveSingleSolenoidOut(solenoid2);
 //                state = false;
-//            } else {
+//            } else { 
 //                p.moveSingleSolenoidIn(0);
 //                state = true;
 //            }
@@ -130,13 +131,13 @@ public class BERT extends IterativeRobot {
 //            System.out.println("A button pressed.");
 //        }
         if (rc_.getAButton()) {
-//            p.moveSingleSolenoidIn(solenoid1);
-//            p.moveSingleSolenoidIn(solenoid2);
-            p.changeSolenoidState(1);
-        } else if (rc_.getYButton()) {
-//            p.moveSingleSolenoidOut(solenoid1);
-//            p.moveSingleSolenoidOut(solenoid2);
-            p.changeSolenoidState(1);
+            p.moveSingleSolenoidIn(solenoid1);
+            //p.moveSingleSolenoidIn(solenoid2);
+           // p.changeSolenoidState(1);
+        } else if (rc_.getYButton()) {            
+            p.moveSingleSolenoidOut(solenoid1);
+            //p.moveSingleSolenoidOut(solenoid2);
+            //p.changeSolenoidState(1);
         }
     }
 

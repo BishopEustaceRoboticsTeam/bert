@@ -2,6 +2,11 @@ package RobotCode;
 
 import java.lang.Math;  // For min and max function.
 import edu.wpi.first.wpilibj.Victor; // For writing to motor controllers.
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource;
+
 
 /**
  *
@@ -10,11 +15,20 @@ import edu.wpi.first.wpilibj.Victor; // For writing to motor controllers.
 public class MecDrive {
  
     // Constant params:
-    static final double kVELOCITYFACTOR = 10.0;
+    static final double kTICSFACTOR = 10.0;
 
     // Local classes:
     F310 rc_; // Instance of the remote controller.
-    Victor motor_fl_, motor_fr_, motor_bl_, motor_br_; // Motors, duh.    
+    Victor motor_fl_, motor_fr_, motor_bl_, motor_br_; // Motors, duh.
+    Encoder fl_encoder_, fr_encoder_, bl_encoder_, br_encoder_;
+    PIDController fl_controller_, fr_controller_, bl_controller_, br_controller_;
+    
+    private final double Kp = 0.3;
+    private final double Ki = 0.0;
+    private final double Kd = 0.0;
+    
+    
+    
     
     // Constructor.
     MecDrive(F310 rc, int fl_port, int fr_port, 
@@ -26,18 +40,48 @@ public class MecDrive {
         motor_fr_ = new Victor(fr_port);
         motor_bl_ = new Victor(bl_port);
         motor_br_ = new Victor(br_port);
- 
+        
+        //fl_encoder_ = new Encoder(1, 2, true, EncodingType.k4X);
+        //fr_encoder_ = new Encoder(3, 4, false, EncodingType.k4X);
+        //bl_encoder_ = new Encoder(5, 6, true, EncodingType.k4X);
+        //br_encoder_ = new Encoder(7, 8, false, EncodingType.k4X);
+        
+        
+        fl_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        fr_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        bl_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        br_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        
+        fl_controller_ = new PIDController(Kp, Ki, Kd, fl_encoder_, motor_fl_);
+        fr_controller_ = new PIDController(Kp, Ki, Kd, fr_encoder_, motor_fr_);
+        bl_controller_ = new PIDController(Kp, Ki, Kd, bl_encoder_, motor_bl_);
+        br_controller_ = new PIDController(Kp, Ki, Kd, br_encoder_, motor_br_);
+        
+                
     }
     
     
     /* This function needs to get called at 50Hz to update the control
         to the wheels.
     */
+    public void encoderStart(){
+        
+        fl_encoder_.start();
+        fr_encoder_.start();
+        bl_encoder_.start();
+        br_encoder_.start();
+        
+        fl_controller_.enable();
+        fr_controller_.enable();
+        bl_controller_.enable();
+        br_controller_.enable();
+        
+    }
     void update() {
         
         // Step (1) - Get all the inputs from the joystick. All values
         //            should be between -1.0 and 1.0.
-        double leftX = rc_.getLeftStickX() *-1;
+        double leftX = rc_.getLeftStickX();
         double leftY = rc_.getLeftStickY();
         double rightX = rc_.getRightStickX(); //for turning with right stick
         double rightY = rc_.getRightStickY();
@@ -49,64 +93,66 @@ public class MecDrive {
         double bl_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY - rightX)));
         double br_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY + rightX)));
         
+    
+        // Convert to ticks per second
+        double fl_desired_mps = fl_input * kTICSFACTOR *-1;
+        double fr_desired_mps = fr_input * kTICSFACTOR;
+        double bl_desired_mps = bl_input * kTICSFACTOR *-1;
+        double br_desired_mps = br_input * kTICSFACTOR;
         
-        // Convert to velocity.
-        double fl_desired_mps = fl_input * kVELOCITYFACTOR *-1;
-        double fr_desired_mps = fr_input * kVELOCITYFACTOR;
-        double bl_desired_mps = bl_input * kVELOCITYFACTOR *-1;
-        double br_desired_mps = br_input * kVELOCITYFACTOR;
         
-        /*
-        if (rc_.getLTButton()) 
-            //System.out.println("LTbutton");
-        else if (rc_.getRTButton())
-            System.out.println("RTbutton");
-        else if (rc_.getR3Button())
-            System.out.println("R3Button");
-        else if (rc_.getL3Button())
-            System.out.println("L3Button");
-        else if (rc_.getStartButton())
-            System.out.println("Start button");
-        else if (rc_.getBackButton())
-            System.out.println("Back button");
-        else if (rc_.getAButton())
-            System.out.println("A Button");
-        else if (rc_.getBButton())
-            System.out.println("B Button");
-        else if (rc_.getXButton())
-            System.out.println("X button");
-        else if (rc_.getYButton())
-            System.out.println("Y button");
-        else if (rc_.getLBButton())
-            System.out.println("LB Button");
-        else if (rc_.getRBButton())
-            System.out.println("RB Button");
+        //this should set the correct
+        fl_controller_.setSetpoint(fl_desired_mps);
+        fr_controller_.setSetpoint(fr_desired_mps);
+        bl_controller_.setSetpoint(bl_desired_mps);
+        br_controller_.setSetpoint(br_desired_mps);
         
-          */   
         
         // Step (3) - Get actual value of each encoder velocity.
         // TODO nick
-        
-        
+//        double fl_RPS = fl_encoder_.getRate() / 250; //the encoders are 250 count so if you divide by 250 you will get the revolutions per second
+//        double fr_RPS = fr_encoder_.getRate() / 250;
+//        double bl_RPS = bl_encoder_.getRate() / 250;
+//        double br_RPS = br_encoder_.getRate() / 250;
         
         // Step (4) - Now that we have actual velocity and desired velocity,
         //            write PID for each of the wheels individually.
-        // TODO nick
+        // TODO nick       
+        
+        
+        
+        
         
         
         // Step (5) - Write controls to each of the wheel.
         //            Scale back to MPS.  We could just leave mps out of the
         //            whole picture, but it is here for clarity.
-        double fl_output = fl_desired_mps / kVELOCITYFACTOR;
-        double fr_output = fr_desired_mps / kVELOCITYFACTOR;
-        double bl_output = bl_desired_mps / kVELOCITYFACTOR;
-        double br_output = br_desired_mps / kVELOCITYFACTOR;
-                        
-        motor_fl_.set(fl_output);
-        motor_fr_.set(fr_output);
-        motor_bl_.set(bl_output);
-        motor_br_.set(br_output);
+//        double fl_output = fl_desired_mps / kTICSFACTOR;
+//        double fr_output = fr_desired_mps / kTICSFACTOR;
+//        double bl_output = bl_desired_mps / kTICSFACTOR;
+//        double br_output = br_desired_mps / kTICSFACTOR;
+//        
+        
+        
+        //motor_fl_.set(fl_output);
+        //motor_fr_.set(fr_output);
+        //motor_bl_.set(bl_output);
+        //motor_br_.set(br_output);
                 
+    }
+    public void encoderStop(){
+        fl_encoder_.stop();
+        fr_encoder_.stop();
+        bl_encoder_.stop();
+        br_encoder_.stop();
+        
+    }
+    public void encoderReset(){
+        fl_encoder_.reset();
+        fr_encoder_.reset();
+        bl_encoder_.reset();
+        br_encoder_.reset();
+        
     }
     
     
