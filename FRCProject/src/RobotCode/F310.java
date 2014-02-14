@@ -80,7 +80,7 @@ public class F310 {
     }
 
     public double getLeftStickX() {
-        return f130.getRawAxis(4);
+        return f130.getRawAxis(4) *-1;
 
     }
 

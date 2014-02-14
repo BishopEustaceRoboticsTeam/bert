@@ -37,7 +37,7 @@ public class MecDrive {
         
         // Step (1) - Get all the inputs from the joystick. All values
         //            should be between -1.0 and 1.0.
-        double leftX = rc_.getLeftStickX() *-1;
+        double leftX = rc_.getLeftStickX();
         double leftY = rc_.getLeftStickY();
         double rightX = rc_.getRightStickX(); //for turning with right stick
         double rightY = rc_.getRightStickY();
