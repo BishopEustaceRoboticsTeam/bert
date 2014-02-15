@@ -51,12 +51,14 @@ public class F310 {
 
     }
 
-    public double getLTButton() {
+    public double getLTAxis() {
+        //0-1
         return f130.getRawAxis(3);
 
     }
 
-    public double getRTButton() {
+    public double getRTAxis() {
+        //-1-0
         return f130.getRawAxis(3);
 
     }
@@ -83,7 +85,7 @@ public class F310 {
 
     // Mapping has been reversed to match a cartesian frame.
     public double getLeftStickX() {
-        return f130.getRawAxis(4) *-1;
+        return f130.getRawAxis(1) *-1;
 
         
     }
@@ -94,7 +96,7 @@ public class F310 {
     }
 
     public double getRightStickX() {
-        return f130.getRawAxis(1);
+        return f130.getRawAxis(4);
 
     }
 
@@ -107,6 +109,7 @@ public class F310 {
         return f130.getRawAxis(6);
 
     }
+    
    // public double getDpadY(){
     //     return f130.getRawAxis();
 
