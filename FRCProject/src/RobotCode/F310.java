@@ -16,10 +16,20 @@ import edu.wpi.first.wpilibj.Joystick;
 public class F310 {
 
     Joystick f130;
+    double dead_Zone_ = 0.19;
 
     F310(int joystickPort) {
         f130 = new Joystick(joystickPort);
 
+    }
+    private double checkDeadZone(double val){
+        if(Math.abs(val) <= dead_Zone_){
+            return 0;
+        }
+        else {
+            return val;
+            
+        }
     }
 
     public boolean getXButton() {
@@ -85,23 +95,23 @@ public class F310 {
 
     // Mapping has been reversed to match a cartesian frame.
     public double getLeftStickX() {
-        return f130.getRawAxis(1) *-1;
-
+//        return f130.getRawAxis(1) *-1;
+        return checkDeadZone(f130.getRawAxis(1));
         
     }
 
     public double getLeftStickY() {
-        return f130.getRawAxis(2);
+        return checkDeadZone(f130.getRawAxis(2));
 
     }
 
     public double getRightStickX() {
-        return f130.getRawAxis(4);
+        return checkDeadZone(f130.getRawAxis(4));
 
     }
 
     public double getRightStickY() {
-        return f130.getRawAxis(5);
+        return checkDeadZone(f130.getRawAxis(5));
 
     }
 
