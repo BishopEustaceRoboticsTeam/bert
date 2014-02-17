@@ -96,6 +96,7 @@ public class BERT extends IterativeRobot {
     public void disabledInit() {
         //p.stopCompressor();
         System.out.println("disabledInit");
+        //drive_.encoderStart();
     }
 
     //@override
