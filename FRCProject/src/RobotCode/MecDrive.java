@@ -47,15 +47,15 @@ public class MecDrive {
         //br_encoder_ = new Encoder(7, 8, false, EncodingType.k4X);
         
         
-        fl_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
-        fr_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
-        bl_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
-        br_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        //fl_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        //fr_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        //bl_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
+        //br_encoder_.setPIDSourceParameter(PIDSource.PIDSourceParameter.kRate);
         
-        fl_controller_ = new PIDController(Kp, Ki, Kd, fl_encoder_, motor_fl_);
-        fr_controller_ = new PIDController(Kp, Ki, Kd, fr_encoder_, motor_fr_);
-        bl_controller_ = new PIDController(Kp, Ki, Kd, bl_encoder_, motor_bl_);
-        br_controller_ = new PIDController(Kp, Ki, Kd, br_encoder_, motor_br_);
+        //fl_controller_ = new PIDController(Kp, Ki, Kd, fl_encoder_, motor_fl_);
+        //fr_controller_ = new PIDController(Kp, Ki, Kd, fr_encoder_, motor_fr_);
+        //bl_controller_ = new PIDController(Kp, Ki, Kd, bl_encoder_, motor_bl_);
+        //br_controller_ = new PIDController(Kp, Ki, Kd, br_encoder_, motor_br_);
         
                 
     }
@@ -66,15 +66,15 @@ public class MecDrive {
     */
     public void encoderStart(){
         
-        fl_encoder_.start();
-        fr_encoder_.start();
-        bl_encoder_.start();
-        br_encoder_.start();
-        
-        fl_controller_.enable();
-        fr_controller_.enable();
-        bl_controller_.enable();
-        br_controller_.enable();
+        //fl_encoder_.start();
+        //fr_encoder_.start();
+        //bl_encoder_.start();
+        //br_encoder_.start();
+//        
+//        fl_controller_.enable();
+//        fr_controller_.enable();
+//        bl_controller_.enable();
+//        br_controller_.enable();
         
     }
     void update() {
@@ -99,13 +99,13 @@ public class MecDrive {
         double fr_desired_mps = fr_input * kTICSFACTOR;
         double bl_desired_mps = bl_input * kTICSFACTOR *-1;
         double br_desired_mps = br_input * kTICSFACTOR;
-        
-        
-        //this should set the correct
-        fl_controller_.setSetpoint(fl_desired_mps);
-        fr_controller_.setSetpoint(fr_desired_mps);
-        bl_controller_.setSetpoint(bl_desired_mps);
-        br_controller_.setSetpoint(br_desired_mps);
+//        
+//        
+        //this should set the desired speed to the encoders
+//        fl_controller_.setSetpoint(fl_desired_mps);
+//        fr_controller_.setSetpoint(fr_desired_mps);
+//        bl_controller_.setSetpoint(bl_desired_mps);
+//        br_controller_.setSetpoint(br_desired_mps);
         
         
         // Step (3) - Get actual value of each encoder velocity.
@@ -127,31 +127,31 @@ public class MecDrive {
         // Step (5) - Write controls to each of the wheel.
         //            Scale back to MPS.  We could just leave mps out of the
         //            whole picture, but it is here for clarity.
-//        double fl_output = fl_desired_mps / kTICSFACTOR;
-//        double fr_output = fr_desired_mps / kTICSFACTOR;
-//        double bl_output = bl_desired_mps / kTICSFACTOR;
-//        double br_output = br_desired_mps / kTICSFACTOR;
-//        
+        double fl_output = fl_desired_mps / kTICSFACTOR;
+        double fr_output = fr_desired_mps / kTICSFACTOR;
+        double bl_output = bl_desired_mps / kTICSFACTOR;
+        double br_output = br_desired_mps / kTICSFACTOR;
         
         
-        //motor_fl_.set(fl_output);
-        //motor_fr_.set(fr_output);
-        //motor_bl_.set(bl_output);
-        //motor_br_.set(br_output);
+        
+        motor_fl_.set(fl_output);
+        motor_fr_.set(fr_output);
+        motor_bl_.set(bl_output);
+        motor_br_.set(br_output);
                 
     }
     public void encoderStop(){
-        fl_encoder_.stop();
-        fr_encoder_.stop();
-        bl_encoder_.stop();
-        br_encoder_.stop();
+//        fl_encoder_.stop();
+//        fr_encoder_.stop();
+//        bl_encoder_.stop();
+//        br_encoder_.stop();
         
     }
     public void encoderReset(){
-        fl_encoder_.reset();
-        fr_encoder_.reset();
-        bl_encoder_.reset();
-        br_encoder_.reset();
+//        fl_encoder_.reset();
+//        fr_encoder_.reset();
+//        bl_encoder_.reset();
+//        br_encoder_.reset();
         
     }
     

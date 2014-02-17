@@ -40,7 +40,7 @@ public class BERT extends IterativeRobot {
     F310 rc_ = new F310(1);
     MecDrive drive_ = new MecDrive(rc_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,
             BACK_LEFT_PORT, BACK_RIGHT_PORT);
-    Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
+    //Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
     int solenoid1, solenoid2;
 
     // Constructor, gets called before robotInit().
@@ -56,7 +56,7 @@ public class BERT extends IterativeRobot {
         //Timer.delay(10.0);
         //camera = AxisCamera.getInstance();
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
-        solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
+        //solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
         //solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
     }
 
@@ -94,8 +94,9 @@ public class BERT extends IterativeRobot {
 
     //@override
     public void disabledInit() {
-        p.stopCompressor();
+        //p.stopCompressor();
         System.out.println("disabledInit");
+        //drive_.encoderStart();
     }
 
     //@override
@@ -106,8 +107,8 @@ public class BERT extends IterativeRobot {
     //@override
     public void teleopInit() {
         System.out.println("teleopInit");
-        p.startCompressor();
-        drive_.encoderStart();
+        //p.startCompressor();
+        //drive_.encoderStart();
 
     }
 
@@ -131,11 +132,11 @@ public class BERT extends IterativeRobot {
 //            System.out.println("A button pressed.");
 //        }
         if (rc_.getAButton()) {
-            p.moveSingleSolenoidIn(solenoid1);
+            //p.moveSingleSolenoidIn(solenoid1);
             //p.moveSingleSolenoidIn(solenoid2);
            // p.changeSolenoidState(1);
         } else if (rc_.getYButton()) {            
-            p.moveSingleSolenoidOut(solenoid1);
+            //p.moveSingleSolenoidOut(solenoid1);
             //p.moveSingleSolenoidOut(solenoid2);
             //p.changeSolenoidState(1);
         }
