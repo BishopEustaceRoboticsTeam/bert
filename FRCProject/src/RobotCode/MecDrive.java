@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.RobotDrive;
 
 
 /**
@@ -22,6 +23,7 @@ public class MecDrive {
     Victor motor_fl_, motor_fr_, motor_bl_, motor_br_; // Motors, duh.
     Encoder fl_encoder_, fr_encoder_, bl_encoder_, br_encoder_;
     PIDController fl_controller_, fr_controller_, bl_controller_, br_controller_;
+    RobotDrive drive;
     
     private final double Kp = 0.3;
     private final double Ki = 0.0;
@@ -40,7 +42,9 @@ public class MecDrive {
         motor_fr_ = new Victor(fr_port);
         motor_bl_ = new Victor(bl_port);
         motor_br_ = new Victor(br_port);
-        
+        drive = new RobotDrive(motor_fl_, motor_bl_, motor_fr_, motor_br_);
+        drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         //fl_encoder_ = new Encoder(1, 2, true, EncodingType.k4X);
         //fr_encoder_ = new Encoder(3, 4, false, EncodingType.k4X);
         //bl_encoder_ = new Encoder(5, 6, true, EncodingType.k4X);
@@ -66,10 +70,10 @@ public class MecDrive {
     */
     public void encoderStart(){
         
-        //fl_encoder_.start();
-        //fr_encoder_.start();
-        //bl_encoder_.start();
-        //br_encoder_.start();
+//        fl_encoder_.start();
+//        fr_encoder_.start();
+//        bl_encoder_.start();
+//        br_encoder_.start();
 //        
 //        fl_controller_.enable();
 //        fr_controller_.enable();
@@ -80,32 +84,38 @@ public class MecDrive {
     void update() {
         
         // Step (1) - Get all the inputs from the joystick. All values
-        //            should be between -1.0 and 1.0.
-        double leftX = rc_.getLeftStickX();
-        double leftY = rc_.getLeftStickY();
-        double rightX = rc_.getRightStickX(); //for turning with right stick
-        double rightY = rc_.getRightStickY();
+//        //            should be between -1.0 and 1.0.
+//        double leftX = rc_.getLeftStickX();
+//        double leftY = rc_.getLeftStickY();
+//        double rightX = rc_.getRightStickX(); //for turning with right stick
+//        double rightY = rc_.getRightStickY();
+//       (-1*rc_.getRightStickX())
+        drive.mecanumDrive_Cartesian((-1*rc_.getRightStickX()), (-1 * rc_.getLeftStickY()),(-1 *rc_.getLeftStickX()) , 0.0);
+        System.out.println("LeftStickx =  " + rc_.getLeftStickX());
+        System.out.println("LeftSticky = " + rc_.getLeftStickY());
+        System.out.println("RightStickx =  " + rc_.getRightStickX());
+        
         
         // Step (2) - Convert input into desired 2D vector velocity.
         //  TODO: assume max is 10m/s
-        double fl_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY - rightX)));
-        double fr_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY + rightX)));
-        double bl_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY - rightX)));
-        double br_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY + rightX)));
-        
+//        double fl_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY - rightX)));
+//        double fr_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY + rightX)));
+//        double bl_input = Math.min(1.0, Math.max(-1.0, (-leftX + leftY - rightX)));
+//        double br_input = Math.min(1.0, Math.max(-1.0, (leftX + leftY + rightX)));
+//        
     
         // Convert to ticks per second
-        double fl_desired_mps = fl_input * kTICSFACTOR *-1;
-        double fr_desired_mps = fr_input * kTICSFACTOR;
-        double bl_desired_mps = bl_input * kTICSFACTOR *-1;
-        double br_desired_mps = br_input * kTICSFACTOR;
+//        double fl_desired_mps = fl_input * kTICSFACTOR *-1;
+//        double fr_desired_mps = fr_input * kTICSFACTOR;
+//        double bl_desired_mps = bl_input * kTICSFACTOR *-1;
+//        double br_desired_mps = br_input * kTICSFACTOR;
 //        
-//        
-        //this should set the desired speed to the encoders
-//        fl_controller_.setSetpoint(fl_desired_mps);
-//        fr_controller_.setSetpoint(fr_desired_mps);
-//        bl_controller_.setSetpoint(bl_desired_mps);
-//        br_controller_.setSetpoint(br_desired_mps);
+        
+        //this should set the correct
+        //fl_controller_.setSetpoint(fl_desired_mps);
+        //fr_controller_.setSetpoint(fr_desired_mps);
+        //bl_controller_.setSetpoint(bl_desired_mps);
+        //br_controller_.setSetpoint(br_desired_mps);
         
         
         // Step (3) - Get actual value of each encoder velocity.
@@ -127,17 +137,17 @@ public class MecDrive {
         // Step (5) - Write controls to each of the wheel.
         //            Scale back to MPS.  We could just leave mps out of the
         //            whole picture, but it is here for clarity.
-        double fl_output = fl_desired_mps / kTICSFACTOR;
-        double fr_output = fr_desired_mps / kTICSFACTOR;
-        double bl_output = bl_desired_mps / kTICSFACTOR;
-        double br_output = br_desired_mps / kTICSFACTOR;
+//        double fl_output = fl_desired_mps / kTICSFACTOR;
+//        double fr_output = fr_desired_mps / kTICSFACTOR;
+//        double bl_output = bl_desired_mps / kTICSFACTOR;
+//        double br_output = br_desired_mps / kTICSFACTOR;
+//        
         
         
-        
-        motor_fl_.set(fl_output);
-        motor_fr_.set(fr_output);
-        motor_bl_.set(bl_output);
-        motor_br_.set(br_output);
+        //motor_fl_.set(fl_input);
+        //motor_fr_.set(fr_input);
+        //motor_bl_.set(bl_input);
+        //motor_br_.set(br_input);
                 
     }
     public void encoderStop(){
@@ -152,7 +162,7 @@ public class MecDrive {
 //        fr_encoder_.reset();
 //        bl_encoder_.reset();
 //        br_encoder_.reset();
-        
+//        
     }
     
     
