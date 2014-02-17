@@ -9,7 +9,16 @@ package edu.wpi.first.wpilibj.templates;
 
 
 import edu.wpi.first.wpilibj.SimpleRobot;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
+import javax.microedition.io.Connector;
+
+
+import com.sun.squawk.io.BufferedReader;
+import com.sun.squawk.io.BufferedWriter;
+import com.sun.squawk.microedition.io.FileConnection;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the SimpleRobot
@@ -18,6 +27,23 @@ import edu.wpi.first.wpilibj.SimpleRobot;
  * directory.
  */
 public class WriteToTextFile extends SimpleRobot {
+    
+    public static void writeToFile(String fileName, String text){
+        String url = "file:///";
+        try{
+        FileConnection c = (FileConnection) Connector.open(url + fileName);
+        OutputStreamWriter writer = new OutputStreamWriter(c.openOutputStream());
+        writer.write(text);
+        c.close();
+        
+        } catch(IOException e) {
+            e.printStackTrace();
+            
+        }
+    }
+    
+    
+    
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
@@ -29,7 +55,9 @@ public class WriteToTextFile extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-
+        String text = "this is the text that i am writing to the file";
+        writeToFile("text.txt", text);
+        System.out.println("I think it worked!!!!!!!!!");
     }
     
     /**
