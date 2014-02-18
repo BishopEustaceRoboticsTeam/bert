@@ -38,8 +38,7 @@ public class BERT extends IterativeRobot {
     boolean state = true;
     StateEstimator state_ = new StateEstimator();
     F310 rc_ = new F310(1);
-    MecDrive drive_ = new MecDrive(rc_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,
-            BACK_LEFT_PORT, BACK_RIGHT_PORT);
+    MecDrive drive_ = new MecDrive(rc_, state_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,BACK_LEFT_PORT, BACK_RIGHT_PORT);
     //Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
     int solenoid1, solenoid2;
 
@@ -115,6 +114,14 @@ public class BERT extends IterativeRobot {
     //@override
     public void teleopPeriodic() {
         //System.out.println("teleopPeriodic");
+        if(rc_.getXButton()){
+            state_.setDriveMode(true);
+        }
+        else if(rc_.getBButton()){
+            state_.setDriveMode(false);
+            
+        }
+        
         drive_.update();
 //
 //        if (rc_.getYButton()) {

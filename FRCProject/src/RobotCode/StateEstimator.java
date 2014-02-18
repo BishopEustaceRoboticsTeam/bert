@@ -16,7 +16,7 @@ public class StateEstimator {
     double x_meters_;
     double y_meters_;
     double yaw_radians_;
-    
+    boolean drive_mode = true;
     boolean ball_in_posession_;
       
     // more states
@@ -39,8 +39,16 @@ public class StateEstimator {
     
     
     
-    
-    
+    public boolean getDriveMode(){
+        return drive_mode;
+    }
+    public void setDriveMode(boolean driveMode){
+        drive_mode = driveMode;
+        
+    }
+            
+            
+            
     public boolean getTeamColor()
     {
         return team_color_;
