@@ -20,7 +20,7 @@ public class MecDrive {
     // Local classes:
     F310 rc_; // Instance of the remote controller.
     Victor motor_fl_, motor_fr_, motor_bl_, motor_br_; // Motors, duh.
-    Encoder fl_encoder_, fr_encoder_, bl_encoder_, br_encoder_;
+    //Encoder fl_encoder_, fr_encoder_, bl_encoder_, br_encoder_;
     PIDController fl_controller_, fr_controller_, bl_controller_, br_controller_;
     RobotDrive drive;
     StateEstimator state_;
@@ -88,7 +88,7 @@ public class MecDrive {
             drive.mecanumDrive_Cartesian((-1 * rc_.getRightStickX()), (-1 * rc_.getLeftStickY()), (-1 * rc_.getLeftStickX()), 0.0);
         } else if (!state_.getDriveMode()) {
             //this is the reversed drive code
-            drive.mecanumDrive_Cartesian((rc_.getRightStickX()), (rc_.getLeftStickY()), (rc_.getLeftStickX()), 0.0);
+            drive.mecanumDrive_Cartesian((rc_.getRightStickX()), (rc_.getLeftStickY()), (-1*rc_.getLeftStickX()), 0.0);
         }
 
 //        System.out.println("LeftStickx =  " + rc_.getLeftStickX());

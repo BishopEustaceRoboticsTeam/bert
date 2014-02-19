@@ -23,8 +23,8 @@ public class BERT extends IterativeRobot {
     static final int FRONT_RIGHT_PORT = 1;
     static final int BACK_LEFT_PORT = 3;
     static final int BACK_RIGHT_PORT = 4;
-    static final int RELAY_PORT = 1; //realy port
-    static final int COMPRESSOR_SWITCH_PORT = 9; //Digital io port 
+    static final int RELAY_PORT = 1; //relay port compressor power
+    static final int COMPRESSOR_SWITCH_PORT = 1; //Digital io port (compressor switch) 
     //static final int IRLEFTPORT = 1;
     //static final int IRRIGHTPORT = 2;
     //static final int IRFRONTPORT = 3;
@@ -39,7 +39,7 @@ public class BERT extends IterativeRobot {
     StateEstimator state_ = new StateEstimator();
     F310 rc_ = new F310(1);
     MecDrive drive_ = new MecDrive(rc_, state_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,BACK_LEFT_PORT, BACK_RIGHT_PORT);
-    //Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
+    Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
     int solenoid1, solenoid2;
 
     // Constructor, gets called before robotInit().
@@ -55,8 +55,8 @@ public class BERT extends IterativeRobot {
         //Timer.delay(10.0);
         //camera = AxisCamera.getInstance();
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
-        //solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
-        //solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
+        solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
+        solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
     }
 
     //@override
@@ -93,9 +93,9 @@ public class BERT extends IterativeRobot {
 
     //@override
     public void disabledInit() {
-        //p.stopCompressor();
+        p.stopCompressor();
         System.out.println("disabledInit");
-        //drive_.encoderStart();
+        
     }
 
     //@override
@@ -106,8 +106,8 @@ public class BERT extends IterativeRobot {
     //@override
     public void teleopInit() {
         System.out.println("teleopInit");
-        //p.startCompressor();
-        //drive_.encoderStart();
+        p.startCompressor();
+        
 
     }
 
@@ -123,29 +123,10 @@ public class BERT extends IterativeRobot {
         }
         
         drive_.update();
-//
-//        if (rc_.getYButton()) {
-//            if (state) {
-//                p.moveSingleSolenoidOut(solenoid1);
-//                p.moveSingleSolenoidOut(solenoid2);
-//                state = false;
-//            } else { 
-//                p.moveSingleSolenoidIn(0);
-//                state = true;
-//            }
-//            System.out.println("X button pressed.");
-//        } else if (rc_.getAButton()) {
-//            p.moveSingleSolenoidIn(0);
-//            System.out.println("A button pressed.");
-//        }
         if (rc_.getAButton()) {
             //p.moveSingleSolenoidIn(solenoid1);
             //p.moveSingleSolenoidIn(solenoid2);
-           // p.changeSolenoidState(1);
-        } else if (rc_.getYButton()) {            
-            //p.moveSingleSolenoidOut(solenoid1);
-            //p.moveSingleSolenoidOut(solenoid2);
-            //p.changeSolenoidState(1);
+           p.changeSolenoidState(solenoid1);
         }
     }
 
