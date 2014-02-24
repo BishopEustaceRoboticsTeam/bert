@@ -41,6 +41,7 @@ public class BERT extends IterativeRobot {
     MecDrive drive_ = new MecDrive(rc_, state_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,BACK_LEFT_PORT, BACK_RIGHT_PORT);
     Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
     int solenoid1, solenoid2;
+    Autonomous auto;
 
     // Constructor, gets called before robotInit().
     BERT() {
@@ -57,6 +58,7 @@ public class BERT extends IterativeRobot {
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
         solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
         solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
+        auto = new Autonomous(state_, drive_);
     }
 
     //@override
