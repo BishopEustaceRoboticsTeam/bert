@@ -3,7 +3,8 @@ package RobotCode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.AnalogChannel;
-
+import edu.wpi.first.wpilibj.HiTechnicColorSensor;
+import edu.wpi.first.wpilibj.SensorBase;
 
 
 public class StateEstimator {
@@ -22,25 +23,30 @@ public class StateEstimator {
     // more states
     
     AnalogChannel analogchannel;
-   public StateEstimator(int sonarsensor_port, int team_color_port_number){
-   analogchannel = new AnalogChannel(sonarsensor_port);
-     determineTeamColor(team_color_port_number);
-      if(team_color_){
-        
-            System.out.println("We are blue");
-            
-        }else{ 
-          
-          System.out.println("We are red");
-          
-      }
-      
-   }
-   public double getDistanceMetersToWall(){
+    HiTechnicColorSensor colorsensor_;
     
-       return (double)analogchannel.getValue() * kDISTANCESONARFACTOR * 0.0254;
-       
-}
+    public StateEstimator(int sonarsensor_port, int team_color_port_number){
+   
+        analogchannel = new AnalogChannel(sonarsensor_port);
+        colorsensor_ = new HiTechnicColorSensor(SensorBase.getDefaultDigitalModule());
+        
+        determineTeamColor(team_color_port_number);
+      
+        if(team_color_) { 
+            System.out.println("We are blue");
+        }else{ 
+          System.out.println("We are red");
+        }
+    }
+   
+    public double getDistanceMetersToWall(){    
+        return (double)analogchannel.getValue() * kDISTANCESONARFACTOR * 0.0254;
+    } 
+    
+    public void  getZoneColor(){
+        HiTechnicColorSensor.RGB color= colorsensor_.getRGB();
+        System.out.println("red = " +color.getRed()+ " green= " +color.getGreen()+" blue= " +color.getBlue() );
+    }
     
     
     public boolean getDriveMode(){
