@@ -2,14 +2,14 @@
 package RobotCode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-
+import edu.wpi.first.wpilibj.AnalogChannel;
 
 
 
 public class StateEstimator {
-    static final int team_color_port_number = 4;
     
-    
+    static final double kDISTANCESONARFACTOR = 0.55; 
+    // this value is measured on 2/24/14 by awesome people
     // enum for red and blue
     boolean team_color_;  // (false)red or (true)blue
     
@@ -18,11 +18,12 @@ public class StateEstimator {
     double yaw_radians_;
     boolean drive_mode = true;
     boolean ball_in_posession_;
-      
+    double dis_to_wall_meters_;
     // more states
     
-   public StateEstimator(){
-    
+    AnalogChannel analogchannel;
+   public StateEstimator(int sonarsensor_port, int team_color_port_number){
+   analogchannel = new AnalogChannel(sonarsensor_port);
      determineTeamColor(team_color_port_number);
       if(team_color_){
         
@@ -35,8 +36,11 @@ public class StateEstimator {
       }
       
    }
+   public double getDistanceMetersToWall(){
     
-    
+       return (double)analogchannel.getValue() * kDISTANCESONARFACTOR * 0.0254;
+       
+}
     
     
     public boolean getDriveMode(){

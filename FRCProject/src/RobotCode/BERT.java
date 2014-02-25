@@ -18,25 +18,31 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 //import edu.wpi.first.wpilibj.Solenoid;
 public class BERT extends IterativeRobot {
 
-    // Motor ports
+    // PWM Port
     static final int FRONT_LEFT_PORT = 2;
     static final int FRONT_RIGHT_PORT = 1;
     static final int BACK_LEFT_PORT = 3;
     static final int BACK_RIGHT_PORT = 4;
+    
+    // relay ports
     static final int RELAY_PORT = 1; //relay port compressor power
+    
+    // digatal IO ports
     static final int COMPRESSOR_SWITCH_PORT = 1; //Digital io port (compressor switch) 
-    //static final int IRLEFTPORT = 1;
-    //static final int IRRIGHTPORT = 2;
-    //static final int IRFRONTPORT = 3;
-    // static final int IRBACKPORT = 4;
-    //static final int IRTESTPORT = 6;
-    //static final int DIGITALSENSORPORT = 1;
+    static final int TEAM_COLOR_PORT_NUMBER = 4;
+    
+    // solenoid breakout ports 
     static final int SINGLESOLENOID_PORT1 = 1;
     static final int SINGLESOLENOID_PORT2 = 2;
-    // DO NOT EDIT NEXT THREE LINES
+    
+    // analog ports
+    static final int SONARPORT = 1;
+    
+    
+    
     boolean stop = true;
     boolean state = true;
-    StateEstimator state_ = new StateEstimator();
+    StateEstimator state_ = new StateEstimator(SONARPORT ,TEAM_COLOR_PORT_NUMBER);
     F310 rc_ = new F310(1);
     MecDrive drive_ = new MecDrive(rc_, state_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,BACK_LEFT_PORT, BACK_RIGHT_PORT);
     Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
@@ -140,5 +146,6 @@ public class BERT extends IterativeRobot {
     //@override
     public void testPeriodic() {
         //System.out.println("testPeriodic");
+       //System.out.println("Distance =" + state_.getDistanceMetersToWall());
     }
 }
