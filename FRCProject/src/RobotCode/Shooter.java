@@ -52,8 +52,8 @@ public class Shooter {
         timer_.stop();
         timer_.reset();
     }
-
-    public void safeShooter() {
+    //this method will only shoot if the dist from the disired shooting pos is <= 0
+    public void safeShooter(double distFromDisired) {
         
         
         
