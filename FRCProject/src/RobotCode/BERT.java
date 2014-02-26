@@ -18,11 +18,16 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 //import edu.wpi.first.wpilibj.Solenoid;
 public class BERT extends IterativeRobot {
 
+    // Robot reference frame.
+    // Shooter is the front of the robot
+    
     // PWM Port
     static final int FRONT_LEFT_PORT = 2;
     static final int FRONT_RIGHT_PORT = 1;
     static final int BACK_LEFT_PORT = 3;
     static final int BACK_RIGHT_PORT = 4;
+    static final int SHOOTER_LEFT_PORT = 5;
+    static final int SHOOTER_RIGHT_PORT = 6;
     
     // relay ports
     static final int RELAY_PORT = 1; //relay port compressor power
@@ -30,6 +35,7 @@ public class BERT extends IterativeRobot {
     // digatal IO ports
     static final int COMPRESSOR_SWITCH_PORT = 1; //Digital io port (compressor switch) 
     static final int TEAM_COLOR_PORT_NUMBER = 4;
+    static final int BUMP_SWITCH_IO_PORT = 2;
     
     // solenoid breakout ports 
     static final int SINGLESOLENOID_PORT1 = 1;
@@ -42,13 +48,13 @@ public class BERT extends IterativeRobot {
     
     boolean stop = true;
     boolean state = true;
-    StateEstimator state_ = new StateEstimator(SONARPORT ,TEAM_COLOR_PORT_NUMBER);
+    StateEstimator state_ = new StateEstimator(SONARPORT ,TEAM_COLOR_PORT_NUMBER, BUMP_SWITCH_IO_PORT);
     F310 rc_ = new F310(1);
     MecDrive drive_ = new MecDrive(rc_, state_, FRONT_LEFT_PORT, FRONT_RIGHT_PORT,BACK_LEFT_PORT, BACK_RIGHT_PORT);
     Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
     int solenoid1, solenoid2;
     Autonomous auto;
-
+    Shooter shooter_  = new Shooter(SHOOTER_LEFT_PORT, SHOOTER_RIGHT_PORT, state_);
     // Constructor, gets called before robotInit().
     BERT() {
         // Need to disable this if we are not running the watchdog.
@@ -130,12 +136,15 @@ public class BERT extends IterativeRobot {
             
         }
         
-        drive_.update();
+        
+        
         if (rc_.getAButton()) {
             //p.moveSingleSolenoidIn(solenoid1);
             //p.moveSingleSolenoidIn(solenoid2);
            p.changeSolenoidState(solenoid1);
         }
+        drive_.update();
+        
     }
 
     //@override

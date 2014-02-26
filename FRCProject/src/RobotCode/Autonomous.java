@@ -25,17 +25,18 @@ MecDrive drive_;
         
     }
     
-    public void driveToShoot(){
+    public boolean driveToShoot(){
         double dist = state_.getDistanceMetersToWall();
         double distFromDisiredShootingDistance = dist - k_desired_shooting_distance;
         if(distFromDisiredShootingDistance >=  0.0){
             //while the distance is greater then 0 meters drive at toward the goal
             drive_.driveWithShooterInFront(k_autonomous_velocity);
-            
+            return false;
         }
         else {
             //stop the robot at the disired distance
-            drive_.driveWithPickerUpperInFront(0.0);
+            drive_.driveWithShooterInFront(0.0);
+            return true;
         }
     
   }    

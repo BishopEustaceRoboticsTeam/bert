@@ -24,11 +24,13 @@ public class StateEstimator {
     
     AnalogChannel analogchannel;
     HiTechnicColorSensor colorsensor_;
+    DigitalInput bumpSwitch_;
     
-    public StateEstimator(int sonarsensor_port, int team_color_port_number){
+    public StateEstimator(int sonarsensor_port, int team_color_port_number, int bumb_switch_port){
    
         analogchannel = new AnalogChannel(sonarsensor_port);
         colorsensor_ = new HiTechnicColorSensor(SensorBase.getDefaultDigitalModule());
+        bumpSwitch_ = new DigitalInput(bumb_switch_port);
         
         determineTeamColor(team_color_port_number);
       
@@ -56,6 +58,14 @@ public class StateEstimator {
         drive_mode = driveMode;
         
     }
+    public boolean getBumpSwitchState(){
+        
+        return bumpSwitch_.get();
+    }
+    
+    
+    
+    
             
             
             

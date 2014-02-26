@@ -21,10 +21,18 @@ public class Shooter {
     StateEstimator state_;
 
     final double k_SHOOTER_TIME = 0.42; //in seconds
-
-    Shooter(Victor left, Victor right, StateEstimator state) {
-        left_motor = left; // This should be a pwm port
-        right_motor = right;
+    
+    boolean shootering_ = false;
+    
+    final int RIGHT_MOTOR_UP = 1;
+    final int LEFT_MOTOR_UP = -1;
+    final int RIGHT_MOTOR_DOWN = -1;
+    final int LEFT_MOTOR_DOWN = 1;
+    
+    //
+    Shooter(int _left_motor_port, int right_motor_port, StateEstimator state) {
+        left_motor = new Victor(_left_motor_port); // This should be a pwm port
+        right_motor = new Victor(right_motor_port);
         state_ = state;
     }
 
@@ -36,21 +44,37 @@ public class Shooter {
         right_motor.set(0);
         left_motor.set(0);
     }
+    
+    public void shoot(){
+        timer_.start();
+        shootering_ = true;
+    }
 
     //this needs to be called in a loop 
     //The purpose of this is to not tie up the robot while shooting
-    public void timerShoot() {
-        timer_.start();
+    public void update() {
+        if (!shootering_){
+            return;
+            
+        }
         if (timer_.get() <= k_SHOOTER_TIME) {
-            right_motor.set(1);
-            left_motor.set(-1);
-        } else {
+            right_motor.set(RIGHT_MOTOR_UP);
+            left_motor.set(LEFT_MOTOR_UP);
+        } 
+        else if (!state_.getBumpSwitchState()) 
+        {
+            right_motor.set(RIGHT_MOTOR_DOWN);
+            left_motor.set(LEFT_MOTOR_DOWN);
+            //reset_shooter_ = true;
+        }
+        else {
             right_motor.set(0);
             left_motor.set(0);
-
+            timer_.stop();
+            timer_.reset();
+            shootering_ = false;
         }
-        timer_.stop();
-        timer_.reset();
+        
     }
     //this method will only shoot if the dist from the disired shooting pos is <= 0
     public void safeShooter(double distFromDisired) {
@@ -59,5 +83,9 @@ public class Shooter {
         
         
     }
+    
+    
+        
+   
 
 }
