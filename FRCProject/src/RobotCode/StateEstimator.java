@@ -11,6 +11,9 @@ public class StateEstimator {
     
     static final double kDISTANCESONARFACTOR = 0.55; 
     // this value is measured on 2/24/14 by awesome people
+    static final double kMINCOLORTHRESH = 50.0;
+    static final double kINVALIDCOLORTHRESH = 30.0;
+
     // enum for red and blue
     boolean team_color_;  // (false)red or (true)blue
     
@@ -29,6 +32,8 @@ public class StateEstimator {
    
         analogchannel = new AnalogChannel(sonarsensor_port);
         colorsensor_ = new HiTechnicColorSensor(SensorBase.getDefaultDigitalModule());
+        // Turn off the LED until we are ready to use it.
+        colorsensor_.setMode(HiTechnicColorSensor.tColorSensorMode.kPassive); 
         
         determineTeamColor(team_color_port_number);
       
@@ -43,9 +48,24 @@ public class StateEstimator {
         return (double)analogchannel.getValue() * kDISTANCESONARFACTOR * 0.0254;
     } 
     
-    public void  getZoneColor(){
+    public void getNXTColor(){
         HiTechnicColorSensor.RGB color= colorsensor_.getRGB();
-        System.out.println("red = " +color.getRed()+ " green= " +color.getGreen()+" blue= " +color.getBlue() );
+	if ((color.getRed() > kMINCOLORTHRESH) &&
+	    (color.getGreen() < kINVALIDCOLORTHRESH) &&
+	    (color.getBlue() < kINVALIDCOLORTHRESH)) {
+	  // Red is high, others are low, assume Red detection.
+
+	} else if ((color.getBlue() > kMINCOLORTHRESH) &&
+		   (color.getRed() < kINVALIDCOLORTHRESH) &&
+		   (color.getGreen() < kINVALIDCOLORTHRESH)) {
+	  // Blue is high, others are low, assume Blue detection.
+
+	} else {
+	  // Not a state we prefer, consider invalid color
+	}
+
+        //System.out.println("red = " +color.getRed()+ " green= " +color.getGreen()+" blue= " +color.getBlue() );
+	
     }
     
     
