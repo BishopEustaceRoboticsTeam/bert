@@ -13,8 +13,9 @@ package RobotCode;
 
 public class Autonomous {
 
-double desired_shooting_distance = 24;
-    
+double k_desired_shooting_distance = 0.914; //0.914m = three ft
+double k_autonomous_velocity = 0.5;
+
 StateEstimator state_;
 MecDrive drive_;
 
@@ -25,7 +26,17 @@ MecDrive drive_;
     }
     
     public void driveToShoot(){
-    
+        double dist = state_.getDistanceMetersToWall();
+        double distFromDisiredShootingDistance = dist - k_desired_shooting_distance;
+        if(distFromDisiredShootingDistance >=  0.0){
+            //while the distance is greater then 0 meters drive at toward the goal
+            drive_.driveWithShooterInFront(k_autonomous_velocity);
+            
+        }
+        else {
+            //stop the robot at the disired distance
+            drive_.driveWithPickerUpperInFront(0.0);
+        }
     
   }    
     

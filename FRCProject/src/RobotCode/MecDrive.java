@@ -83,11 +83,13 @@ public class MecDrive {
 //        double rightX = rc_.getRightStickX(); //for turning with right stick
 //        double rightY = rc_.getRightStickY();
 //       (-1*rc_.getRightStickX())
+        
+        
         if (state_.getDriveMode()) {
-            //this is the normal drive state
+            //this is the normal drive state (pickerupper in front)
             drive.mecanumDrive_Cartesian((-1 * rc_.getRightStickX()), (-1 * rc_.getLeftStickY()), (-1 * rc_.getLeftStickX()), 0.0);
         } else if (!state_.getDriveMode()) {
-            //this is the reversed drive code
+            //this is the reversed drive code (shooter in front)
             drive.mecanumDrive_Cartesian((rc_.getRightStickX()), (rc_.getLeftStickY()), (-1*rc_.getLeftStickX()), 0.0);
         }
 
@@ -135,6 +137,18 @@ public class MecDrive {
         //motor_bl_.set(bl_input);
         //motor_br_.set(br_input);
     }
+    
+    //the input is a value from -1 - 1  
+    public void driveWithShooterInFront(double speed){
+        drive.mecanumDrive_Cartesian(0, (-1 * speed), 0, 0);
+        
+    }
+    
+    //the input is a value from -1 - 1  
+    public void driveWithPickerUpperInFront(double speed){
+        drive.mecanumDrive_Cartesian(0, speed, 0, 0);
+        
+    }
 
     public void encoderStop() {
 //        fl_encoder_.stop();
@@ -151,5 +165,6 @@ public class MecDrive {
 //        br_encoder_.reset();
 //        
     }
+    
 
 }
