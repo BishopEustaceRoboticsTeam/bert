@@ -154,7 +154,8 @@ public class BERT extends IterativeRobot {
 
     //@override
     public void testPeriodic() {
-        //System.out.println("testPeriodic");
+      //System.out.println("testPeriodic");
        //System.out.println("Distance =" + state_.getDistanceMetersToWall());
+      //state_.getNXTColor();
     }
 }
