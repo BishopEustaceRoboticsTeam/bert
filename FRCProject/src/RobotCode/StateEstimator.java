@@ -58,9 +58,10 @@ public class StateEstimator {
         drive_mode = driveMode;
         
     }
+    
     public boolean getBumpSwitchState(){
-        
-        return bumpSwitch_.get();
+        // True means its getting hit.  Sorry, wiring is backwards.
+        return !bumpSwitch_.get();
     }
     
     

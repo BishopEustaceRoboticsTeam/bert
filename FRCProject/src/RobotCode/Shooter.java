@@ -20,14 +20,14 @@ public class Shooter {
     
     StateEstimator state_;
 
-    final double k_SHOOTER_TIME = 0.42; //in seconds
+    final double k_SHOOTER_TIME = 0.34; //in seconds
     
     boolean shootering_ = false;
     
-    final int RIGHT_MOTOR_UP = 1;
-    final int LEFT_MOTOR_UP = -1;
-    final int RIGHT_MOTOR_DOWN = -1;
-    final int LEFT_MOTOR_DOWN = 1;
+    final double RIGHT_MOTOR_UP = -1.0;
+    final double LEFT_MOTOR_UP = 1.0;
+    final double RIGHT_MOTOR_DOWN = 0.35;
+    final double LEFT_MOTOR_DOWN = -0.35;
     
     //
     Shooter(int _left_motor_port, int right_motor_port, StateEstimator state) {
@@ -54,8 +54,7 @@ public class Shooter {
     //The purpose of this is to not tie up the robot while shooting
     public void update() {
         if (!shootering_){
-            return;
-            
+            return;            
         }
         if (timer_.get() <= k_SHOOTER_TIME) {
             right_motor.set(RIGHT_MOTOR_UP);
@@ -63,6 +62,8 @@ public class Shooter {
         } 
         else if (!state_.getBumpSwitchState()) 
         {
+            right_motor.set(0.0);
+            left_motor.set(0.0);
             right_motor.set(RIGHT_MOTOR_DOWN);
             left_motor.set(LEFT_MOTOR_DOWN);
             //reset_shooter_ = true;

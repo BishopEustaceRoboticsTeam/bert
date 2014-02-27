@@ -76,33 +76,16 @@ public class BERT extends IterativeRobot {
     //@override
     public void autonomousPeriodic() {
         //System.out.println("autonomousPeriodic");     
-
+        shooter_.update();
+        if(auto.driveToShoot()){
+            shooter_.shoot();            
+        }
     }
 
     //@override
     public void autonomousInit() {
         System.out.println("autonomousInit");
 
-        // TODO: push this to a separate class
-	/*
-         if (camera.freshImage()) {
-         try {
-         testImage = camera.getImage();
-         } catch (AxisCameraException AxisException) {
-         System.out.println("AxisException");
-
-         } catch (NIVisionException NIException) {
-         System.out.println("AxisException");
-
-         }
-
-         try {
-         testImage.write("picture");
-         } catch (NIVisionException NIException) {
-         System.out.println("NIVisionException");
-
-         }
-         }*/
     }
 
     //@override
@@ -128,6 +111,13 @@ public class BERT extends IterativeRobot {
     //@override
     public void teleopPeriodic() {
         //System.out.println("teleopPeriodic");
+        
+        if(rc_.getRBButton()){
+            shooter_.shoot();
+            
+        }
+        
+        
         if(rc_.getXButton()){
             state_.setDriveMode(true);
         }
@@ -144,6 +134,7 @@ public class BERT extends IterativeRobot {
            p.changeSolenoidState(solenoid1);
         }
         drive_.update();
+        shooter_.update();
         
     }
 
