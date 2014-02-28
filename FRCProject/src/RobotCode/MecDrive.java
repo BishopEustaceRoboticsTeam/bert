@@ -43,6 +43,7 @@ public class MecDrive {
         drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         state_ = state;
+        drive.setSafetyEnabled(false);
         //fl_encoder_ = new Encoder(1, 2, true, EncodingType.k4X);
         //fr_encoder_ = new Encoder(3, 4, false, EncodingType.k4X);
         //bl_encoder_ = new Encoder(5, 6, true, EncodingType.k4X);

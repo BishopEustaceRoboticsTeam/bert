@@ -95,7 +95,15 @@ public class Pneumatics {
       
   } 
   
+  public void setSingleSolenoidDefault(int index){
+      ((Solenoid)single_solenoids_list_.elementAt(index)).set(false);
+      
+  }
   
+  public void setSingleSolenoidNotDefault(int index){
+      ((Solenoid)single_solenoids_list_.elementAt(index)).set(true);
+      
+  }
   public void moveSingleSolenoidOut(int index) {
     ((Solenoid)single_solenoids_list_.elementAt(index)).set(true);
   }

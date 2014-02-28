@@ -11,13 +11,14 @@ package RobotCode;
 //import edu.wpi.first.wpilibj.camera.AxisCameraException;
 //import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.image.*;
 
 //import edu.wpi.first.wpilibj.DigitalModule;
 //import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.first.wpilibj.Solenoid;
 public class BERT extends IterativeRobot {
-
+   
     // Robot reference frame.
     // Shooter is the front of the robot
     
@@ -39,7 +40,7 @@ public class BERT extends IterativeRobot {
     
     // solenoid breakout ports 
     static final int SINGLESOLENOID_PORT1 = 1;
-    static final int SINGLESOLENOID_PORT2 = 2;
+    //static final int SINGLESOLENOID_PORT2 = 2;
     
     // analog ports
     static final int SONARPORT = 1;
@@ -54,7 +55,11 @@ public class BERT extends IterativeRobot {
     Pneumatics p = new Pneumatics(RELAY_PORT, COMPRESSOR_SWITCH_PORT);
     int solenoid1, solenoid2;
     Autonomous auto;
-    Shooter shooter_  = new Shooter(SHOOTER_LEFT_PORT, SHOOTER_RIGHT_PORT, state_);
+    Shooter shooter_  = new Shooter(SHOOTER_LEFT_PORT, SHOOTER_RIGHT_PORT, state_, p);
+    
+    
+    double shooting_time = 0;
+    
     // Constructor, gets called before robotInit().
     BERT() {
         // Need to disable this if we are not running the watchdog.
@@ -69,7 +74,6 @@ public class BERT extends IterativeRobot {
         //camera = AxisCamera.getInstance();
         //camera.writeResolution(AxisCamera.ResolutionT.k640x480);
         solenoid1 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT1);
-        solenoid2 = p.addNewSingleSolenoid(SINGLESOLENOID_PORT2);
         auto = new Autonomous(state_, drive_);
     }
 
@@ -78,7 +82,8 @@ public class BERT extends IterativeRobot {
         //System.out.println("autonomousPeriodic");     
         shooter_.update();
         if(auto.driveToShoot()){
-            shooter_.shoot();            
+            //not using because we can't shoot
+            //shooter_.shoot();            
         }
     }
 
@@ -114,23 +119,32 @@ public class BERT extends IterativeRobot {
         
         if(rc_.getRBButton()){
             shooter_.shoot();
+        }
+        else if (rc_.getLBButton()){
+            shooter_.pass();
             
         }
-        
+        if (rc_.getDpadX() <= 0){
+            shooting_time -= 0.01;
+            System.out.println("Shooting time = " + shooting_time);
+            shooter_.setShootingTimer(shooting_time);
+            Timer.delay(0.1);
+        }
+          if (rc_.getDpadX() >= 0){
+            System.out.println("Shooting time = " + shooting_time);
+            shooting_time += 0.01;
+            shooter_.setShootingTimer(shooting_time);
+            Timer.delay(0.1);
+        }
         
         if(rc_.getXButton()){
             state_.setDriveMode(true);
         }
         else if(rc_.getBButton()){
-            state_.setDriveMode(false);
-            
+            state_.setDriveMode(false);   
         }
         
-        
-        
         if (rc_.getAButton()) {
-            //p.moveSingleSolenoidIn(solenoid1);
-            //p.moveSingleSolenoidIn(solenoid2);
            p.changeSolenoidState(solenoid1);
         }
         drive_.update();
@@ -145,8 +159,33 @@ public class BERT extends IterativeRobot {
 
     //@override
     public void testPeriodic() {
-      //System.out.println("testPeriodic");
-       //System.out.println("Distance =" + state_.getDistanceMetersToWall());
-      //state_.getNXTColor();
+//      //System.out.println("testPeriodic");
+//       //System.out.println("Distance =" + state_.getDistanceMetersToWall());
+//      //state_.getNXTColor();
+//        //public void debug(double leftMotor, double rightMotor, boolean shoot, double time, boolean retract) 
+//        if(rc_.getRBButton()){
+//            //shoot
+//            shooter_.debug(0, 0, true, counter, false);
+//            
+//        }
+//        else if(rc_.getBButton()){
+//            shooter_.debug(0, 0, false, counter, true);
+//            
+//        }
+//        else if(rc_.getYButton()){
+//            counter += 0.01;
+//            
+//            
+//        }
+//        else if (rc_.getXButton()){
+//            counter -= 0.01;
+//            
+//        }
+//        shooter_.debug(rc_.getLeftStickY(), -1*rc_.getLeftStickY(), false, 0, false);
+//        System.out.println("Timer = " + counter);
+//        
+//        
+//        
+        
     }
 }

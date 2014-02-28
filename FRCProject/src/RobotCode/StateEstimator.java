@@ -23,13 +23,13 @@ public class StateEstimator {
     // more states
     
     AnalogChannel analogchannel;
-    HiTechnicColorSensor colorsensor_;
+    //HiTechnicColorSensor colorsensor_;
     DigitalInput bumpSwitch_;
     
     public StateEstimator(int sonarsensor_port, int team_color_port_number, int bumb_switch_port){
    
         analogchannel = new AnalogChannel(sonarsensor_port);
-        colorsensor_ = new HiTechnicColorSensor(SensorBase.getDefaultDigitalModule());
+        //colorsensor_ = new HiTechnicColorSensor(SensorBase.getDefaultDigitalModule());
         bumpSwitch_ = new DigitalInput(bumb_switch_port);
         
         determineTeamColor(team_color_port_number);
@@ -46,8 +46,8 @@ public class StateEstimator {
     } 
     
     public void  getZoneColor(){
-        HiTechnicColorSensor.RGB color= colorsensor_.getRGB();
-        System.out.println("red = " +color.getRed()+ " green= " +color.getGreen()+" blue= " +color.getBlue() );
+//        HiTechnicColorSensor.RGB color= colorsensor_.getRGB();
+//        System.out.println("red = " +color.getRed()+ " green= " +color.getGreen()+" blue= " +color.getBlue() );
     }
     
     

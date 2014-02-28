@@ -14,8 +14,8 @@ package RobotCode;
 public class Autonomous {
 
   //double k_desired_shooting_distance = 0.914; //0.914m = three ft
-  double k_desired_shooting_distance = 1.2; // meters , tested 022614
-double k_autonomous_velocity = 0.5;
+  double k_desired_shooting_distance = 2; // meters , tested 022614
+double k_autonomous_velocity = 0.3;
 
 StateEstimator state_;
 MecDrive drive_;
