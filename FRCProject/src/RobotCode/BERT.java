@@ -83,7 +83,7 @@ public class BERT extends IterativeRobot {
         shooter_.update();
         if(auto.driveToShoot()){
             //not using because we can't shoot
-            //shooter_.shoot();            
+            shooter_.shoot();            
         }
     }
 
@@ -124,18 +124,18 @@ public class BERT extends IterativeRobot {
             shooter_.pass();
             
         }
-        if (rc_.getDpadX() <= 0){
-            shooting_time -= 0.01;
-            System.out.println("Shooting time = " + shooting_time);
-            shooter_.setShootingTimer(shooting_time);
-            Timer.delay(0.1);
-        }
-          if (rc_.getDpadX() >= 0){
-            System.out.println("Shooting time = " + shooting_time);
-            shooting_time += 0.01;
-            shooter_.setShootingTimer(shooting_time);
-            Timer.delay(0.1);
-        }
+//        if (rc_.getDpadX() <= -1){
+//            shooting_time -= 0.01;
+//            System.out.println("Shooting time = " + shooting_time);
+//            shooter_.setShootingTimer(shooting_time);
+//            Timer.delay(0.1);
+//        }
+//          if (rc_.getDpadX() >= 1){
+//            System.out.println("Shooting time = " + shooting_time);
+//            shooting_time += 0.01;
+//            shooter_.setShootingTimer(shooting_time);
+//            Timer.delay(0.1);
+//        }
         
         if(rc_.getXButton()){
             state_.setDriveMode(true);
@@ -186,6 +186,6 @@ public class BERT extends IterativeRobot {
 //        
 //        
 //        
-        
+        shooter_.debug(rc_.getLeftStickY(), -1*rc_.getLeftStickY(), false, 0, false);
     }
 }

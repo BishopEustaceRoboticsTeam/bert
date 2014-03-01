@@ -17,7 +17,7 @@ public class F310 {
 
     final double time_between_buttons = 0.2;
     Joystick f130;
-    double dead_Zone_ = 0.19;
+    double dead_Zone_ = 0.05;
     Timer timer_;
 
     F310(int joystickPort) {

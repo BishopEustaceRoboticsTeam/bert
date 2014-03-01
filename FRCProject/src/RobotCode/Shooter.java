@@ -20,17 +20,18 @@ public class Shooter {
 
     StateEstimator state_;
 
-    double k_SHOOTER_TIME = 0.399999999999999997; //in seconds
-    double k_PASSING_TIME = 0.13;
-    final double k_DROP_PICKERUPPER_TIME = 1.0;
+    double k_SHOOTER_TIME = 0.399999999997; //in seconds
+    double k_PASSING_TIME = 0.10;
+    final double k_DROP_PICKERUPPER_TIME = 0.0;
     boolean shootering_ = false;
     boolean passing_ = false;
     double MOTOR_TIME = 0;
     // Motor speeds.  Shoot fast up, slow down on the way back.
     final double RIGHT_MOTOR_UP = -1.0;
     final double LEFT_MOTOR_UP = 1.0;
-    final double RIGHT_MOTOR_DOWN = 0.65;
-    final double LEFT_MOTOR_DOWN = -0.65;
+    final double RIGHT_MOTOR_DOWN = 0.35;
+    final double LEFT_MOTOR_DOWN = -0.35;
+    final double STOP_TIME = 0.1;
 
     final int PICKERUPPER_SOLINOID_INDEX = 0;
 
@@ -61,7 +62,7 @@ public class Shooter {
         putPickerupperDown();
     }
 
-//    public void debug(double leftMotor, double rightMotor, boolean shoot, double time, boolean retract) {
+    public void debug(double leftMotor, double rightMotor, boolean shoot, double time, boolean retract) {
 //        if (shoot) {
 //            System.out.println("shooting");
 //            right_motor.set(RIGHT_MOTOR_UP);
@@ -83,10 +84,10 @@ public class Shooter {
 //            right_motor.set(0);
 //            left_motor.set(0);
 //        }
-//
-//        left_motor.set(leftMotor);
-//        right_motor.set(rightMotor);
-//    }
+
+        left_motor.set(leftMotor);
+        right_motor.set(rightMotor);
+    }
 
     //this is the overided shooting
     public void sudoShoot() {
@@ -121,10 +122,14 @@ public class Shooter {
         } else if (timer_.get() <= MOTOR_TIME + k_DROP_PICKERUPPER_TIME) {
             right_motor.set(RIGHT_MOTOR_UP);
             left_motor.set(LEFT_MOTOR_UP);
-        } else if (!state_.getBumpSwitchState()) {
+            
+        } 
+        else if (timer_.get() <= MOTOR_TIME + k_DROP_PICKERUPPER_TIME + STOP_TIME){
+            //we are waiting?
             right_motor.set(0.0);
-            left_motor.set(0.0);
-            Timer.delay(.1);//this may be needed
+            left_motor.set(0.0);            
+        }
+        else if (!state_.getBumpSwitchState()) {
             right_motor.set(RIGHT_MOTOR_DOWN);
             left_motor.set(LEFT_MOTOR_DOWN);
         } else {
