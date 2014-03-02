@@ -6,6 +6,8 @@
 
 package RobotCode;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  *
  * @author bert2
@@ -14,8 +16,8 @@ package RobotCode;
 public class Autonomous {
 
   //double k_desired_shooting_distance = 0.914; //0.914m = three ft
-  double k_desired_shooting_distance = 2; // meters , tested 022614
-double k_autonomous_velocity = 0.3;
+  double k_desired_shooting_distance = 1.5; // meters , tested 022614
+double k_autonomous_velocity = 0.35;
 
 StateEstimator state_;
 MecDrive drive_;
@@ -29,7 +31,8 @@ MecDrive drive_;
     public boolean driveToShoot(){
         double dist = state_.getDistanceMetersToWall();
         double distFromDisiredShootingDistance = dist - k_desired_shooting_distance;
-        if(distFromDisiredShootingDistance >=  0.0){
+        if(distFromDisiredShootingDistance >=  0.09){
+            System.out.println("dist = " + distFromDisiredShootingDistance);
             //while the distance is greater then 0 meters drive at toward the goal
             drive_.driveWithShooterInFront(k_autonomous_velocity);
             return false;

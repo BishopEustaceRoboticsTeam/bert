@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.SensorBase;
 public class StateEstimator {
     
     static final double kDISTANCESONARFACTOR = 0.55; 
-    // this value is measured on 2/24/14 by awesome people
+    // this value is measured on 2/24/14 by awesome people 
     // enum for red and blue
     boolean team_color_;  // (false)red or (true)blue
     
@@ -42,7 +42,7 @@ public class StateEstimator {
     }
    
     public double getDistanceMetersToWall(){    
-        return (double)analogchannel.getValue() * kDISTANCESONARFACTOR * 0.0254;
+        return (double)analogchannel.getAverageValue() * kDISTANCESONARFACTOR * 0.0254;
     } 
     
     public void  getZoneColor(){
@@ -100,6 +100,7 @@ public class StateEstimator {
         
               
     }
+    
    
     
     public void setXMeters(double x)

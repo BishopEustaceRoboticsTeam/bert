@@ -20,7 +20,7 @@ public class Shooter {
 
     StateEstimator state_;
 
-    double k_SHOOTER_TIME = 0.399999999997; //in seconds
+    double k_SHOOTER_TIME = 0.399999999997; //in seconds that is alot of 9's!
     double k_PASSING_TIME = 0.10;
     final double k_DROP_PICKERUPPER_TIME = 0.0;
     boolean shootering_ = false;
@@ -29,8 +29,8 @@ public class Shooter {
     // Motor speeds.  Shoot fast up, slow down on the way back.
     final double RIGHT_MOTOR_UP = -1.0;
     final double LEFT_MOTOR_UP = 1.0;
-    final double RIGHT_MOTOR_DOWN = 0.35;
-    final double LEFT_MOTOR_DOWN = -0.35;
+    final double RIGHT_MOTOR_DOWN = 0.48;
+    final double LEFT_MOTOR_DOWN = -0.48;
     final double STOP_TIME = 0.1;
 
     final int PICKERUPPER_SOLINOID_INDEX = 0;
@@ -102,18 +102,22 @@ public class Shooter {
         MOTOR_TIME = k_SHOOTER_TIME;
         timer_.start();
         shootering_ = true;
-        putPickerupperDown();
+        putPickerupperDown();              
     }
-
-    private void putPickerupperDown() {
+                
+    public void putPickerupperDown() {
         //this will put the picker up down on the floor
         p_.setSingleSolenoidNotDefault(PICKERUPPER_SOLINOID_INDEX);
     }
 
+    public void putPickerupperUp() {
+        //this will put the picker up down on the floor
+        p_.setSingleSolenoidDefault(PICKERUPPER_SOLINOID_INDEX);
+    }
     //this needs to be called in a loop 
     //The purpose of this is to not tie up the robot while shooting
     public void update() {
-        if (!shootering_) {
+        if (!shootering_) { //shootering?
             return;
         }
         if (timer_.get() <= k_DROP_PICKERUPPER_TIME) {
@@ -154,4 +158,17 @@ public class Shooter {
 
     }
 
+    
+    public void lowerShooter() {
+        
+        right_motor.set(RIGHT_MOTOR_DOWN);
+        left_motor.set(LEFT_MOTOR_DOWN);
+        while(!state_.getBumpSwitchState()) {
+	  // empty loop check
+	}
+        right_motor.set(0.0);
+        left_motor.set(0.0);
+    
+    }
+    
 }
