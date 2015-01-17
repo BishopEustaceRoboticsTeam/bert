@@ -2,7 +2,6 @@
 package robotCode;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -17,8 +16,11 @@ public class BERT extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
+	F310 joy_1 = new F310(0);
+	
+	
     public void robotInit() {
-
+   
     }
 
     /**
@@ -31,6 +33,10 @@ public class BERT extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
+    public void teleopInit(){
+    
+    }
+    
     public void teleopPeriodic() {
         
     }
