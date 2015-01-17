@@ -1,0 +1,24 @@
+Mode: w/o light
+
+button :
+1 A
+2 B
+3 X
+4 Y
+5 LB
+6 RB
+7 Back
+8 Start
+9 left stick down
+10 right stick down
+
+Axis:
+
+0 left x
+1 left y
+2 left tigger
+3 right tigger
+4 right x 
+5 right y
+
+POV d-pad
