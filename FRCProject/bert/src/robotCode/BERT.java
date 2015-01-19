@@ -24,9 +24,9 @@ public class BERT extends IterativeRobot {
 	Pneumatics pneu = new Pneumatics(LIFTER_SOLENOID_PORT, LOCK_SOLENOID_PORT);
 	
 	//Motor controller PWM ports:
-	final int FRONT_RIGHT_MOTOR = 0;
-	final int FRONT_LEFT_MOTOR = 1;
-	final int BACK_RIGHT_MOTOR = 2;
+	final int FRONT_RIGHT_MOTOR = 2;
+	final int FRONT_LEFT_MOTOR = 0;
+	final int BACK_RIGHT_MOTOR = 1;
 	final int BACK_LEFT_MOTOR = 3;
 	
 	
@@ -40,6 +40,9 @@ public class BERT extends IterativeRobot {
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
 	CameraServer server;
 	
+	
+	//create instance of drive class
+	Drive drive = new Drive(rc, FRONT_LEFT_MOTOR, BACK_LEFT_MOTOR, FRONT_RIGHT_MOTOR, BACK_RIGHT_MOTOR);
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -85,7 +88,7 @@ public class BERT extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        
+    	drive.controllerDrive();
     }
     
     //****DISABLED****:

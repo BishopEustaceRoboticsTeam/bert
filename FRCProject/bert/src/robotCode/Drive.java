@@ -2,23 +2,38 @@ package robotCode;
 //This class will handle moving the robot
 
 //imports
-
-
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 
 public class Drive {
 	//global class vars go here
 	final int WHEEL_RADIUS = 3; //in inches
 	final double pi = 3.1459;
+	F310 remote;
+	Talon frMotor, flMotor, brMotor, blMotor; 
 	
-	
-	
-	public Drive(){
+	 
+	RobotDrive driver;
+	public Drive(F310 _rc, int _fl_port, int _bl_port, int _fr_port, int _br_port){
 		//constructor
-		
+		frMotor = new Talon(_fr_port);
+		flMotor = new Talon(_fl_port);
+		brMotor = new Talon(_br_port);
+		blMotor = new Talon(_bl_port);
+		remote = _rc;
+		driver = new RobotDrive(flMotor, blMotor, frMotor, brMotor);
+		driver.setSafetyEnabled(false);
 	}
- 
 	//controlleDrive method that needs to be called in teleop periodic
 	//it will drive the robot using the f310 remote
+		public void controllerDrive(){
+     		driver.arcadeDrive(remote.getLeftStickY(), remote.getLeftStickX());
+			
+		}
+		public void setsafety(boolean enable){
+			driver.setSafetyEnabled(enable);
+		}
+
 	
 	//straight(double speed) method that will drive the robot straight using encoders
 	//it will take an input of a double between -1 - 1. 1: full forward  -1: full back
@@ -29,5 +44,4 @@ public class Drive {
 	//turn(int degree) //degree is 0-360 that will turn the robot using the encoders
 	//to the specified angle from the start position. counter clockwise! (90 is to the left)
 	
-
 }
