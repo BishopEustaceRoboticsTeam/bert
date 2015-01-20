@@ -14,35 +14,20 @@ import edu.wpi.first.wpilibj.Talon;
 
 
 public class BERT extends IterativeRobot {
-	//Controller vars:
-	final int F310_REMOTE_USB_PORT = 0;
-	F310 rc = new F310(F310_REMOTE_USB_PORT);
+	//Controller Class:
+	F310 rc = new F310(RobotValues.F310_REMOTE_USB_PORT_ONE);
 	
-	//Pneumatics vars:
-	final int LIFTER_SOLENOID_PORT = 0;
-	final int LOCK_SOLENOID_PORT = 1;
-	Pneumatics pneu = new Pneumatics(LIFTER_SOLENOID_PORT, LOCK_SOLENOID_PORT);
+	//Pneumatics Class:
+	Pneumatics pneu = new Pneumatics();
 	
-	//Motor controller PWM ports:
-	final int FRONT_RIGHT_MOTOR = 2;
-	final int FRONT_LEFT_MOTOR = 0;
-	final int BACK_RIGHT_MOTOR = 1;
-	final int BACK_LEFT_MOTOR = 3;
+	//Drive Class:
+	Drive drive = new Drive(rc);
 	
-	
-	//Digital sensor ports:
-	
-	
-	//Analog sensor ports:
-	
-	//Camera vars:
+	//Camera Vars:
 	final int CAMERA_QUALITY = 50;
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
 	CameraServer server;
 	
-	
-	//create instance of drive class
-	Drive drive = new Drive(rc, FRONT_LEFT_MOTOR, BACK_LEFT_MOTOR, FRONT_RIGHT_MOTOR, BACK_RIGHT_MOTOR);
 	
     /**
      * This function is run when the robot is first started up and should be
@@ -51,9 +36,9 @@ public class BERT extends IterativeRobot {
 	
     public void robotInit() {
     	//set up the camera for viewing
-        server = CameraServer.getInstance();
-        server.setQuality(CAMERA_QUALITY);
-        server.startAutomaticCapture("CAMERA_NAME");
+        //server = CameraServer.getInstance();
+        //server.setQuality(CAMERA_QUALITY);
+        //server.startAutomaticCapture("CAMERA_NAME");
         
    
     }
@@ -88,7 +73,7 @@ public class BERT extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	drive.controllerDrive();
+        drive.controllerDrive();
     }
     
     //****DISABLED****:

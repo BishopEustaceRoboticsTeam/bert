@@ -14,12 +14,12 @@ public class Drive {
 	
 	 
 	RobotDrive driver;
-	public Drive(F310 _rc, int _fl_port, int _bl_port, int _fr_port, int _br_port){
+	public Drive(F310 _rc){
 		//constructor
-		frMotor = new Talon(_fr_port);
-		flMotor = new Talon(_fl_port);
-		brMotor = new Talon(_br_port);
-		blMotor = new Talon(_bl_port);
+		frMotor = new Talon(RobotValues.FRONT_RIGHT_MOTOR);
+		flMotor = new Talon(RobotValues.FRONT_LEFT_MOTOR);
+		brMotor = new Talon(RobotValues.BACK_RIGHT_MOTOR);
+		blMotor = new Talon(RobotValues.BACK_LEFT_MOTOR);
 		remote = _rc;
 		driver = new RobotDrive(flMotor, blMotor, frMotor, brMotor);
 		driver.setSafetyEnabled(false);
@@ -27,7 +27,7 @@ public class Drive {
 	//controlleDrive method that needs to be called in teleop periodic
 	//it will drive the robot using the f310 remote
 		public void controllerDrive(){
-     		driver.arcadeDrive(remote.getLeftStickY(), remote.getLeftStickX());
+     		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getLeftStickX());
 			
 		}
 		public void setsafety(boolean enable){

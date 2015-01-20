@@ -10,9 +10,9 @@ public class Pneumatics  {
 	
 	Compressor compressor;
 	
-	public Pneumatics(int lifterPort, int lockPort){
-		lifter = new Solenoid(lifterPort);
-		locker = new Solenoid(lockPort);
+	public Pneumatics(){
+		lifter = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
+		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);
 		compressor = new Compressor();
 	}
 	//method to engage the locking mech
