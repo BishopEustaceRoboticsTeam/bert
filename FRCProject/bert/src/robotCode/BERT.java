@@ -69,7 +69,7 @@ public class BERT extends IterativeRobot {
     
    //this method is called once at the start of teleop
     public void teleopInit(){
-    
+    	
     }
     
     /**
@@ -77,7 +77,14 @@ public class BERT extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	drive.controllerDrive();
-    	
+    	if(rc.getXButton()){
+    		drive.rightAngleTurn(true);
+    		
+    	}
+    	else if(rc.getBButton()){
+    		drive.rightAngleTurn(false);
+    		
+    	}
     }
     
     //****DISABLED****:

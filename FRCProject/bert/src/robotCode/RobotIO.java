@@ -10,9 +10,6 @@ public class RobotIO {
 	final double PI = 3.14159;
 	final double TICKS_PER_REVOLUTION = 250;
 	double DIST_PER_TICK = (WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;
-	//375 ticks per wheel for 90 degree turn with both motors
-	final int TICKS_PER_90_RIGHT = 375;
-	final int TICKS_PER_90_LEFT = 375;	
 	//883 for just one motor
 	
 	//create the sensor vars
@@ -49,8 +46,10 @@ public class RobotIO {
 	public int getRightEncoderCount(){
 		return rightEncoder.get();
 	}
-	
-	
-	
+	//function to print out encoder values
+	public void printEncoderValues(){
+		System.out.print("Left Encoder get: " + getLeftEncoderCount());
+		System.out.println(" Right Encoder get: " + getRightEncoderCount());
+	}
 	
 }

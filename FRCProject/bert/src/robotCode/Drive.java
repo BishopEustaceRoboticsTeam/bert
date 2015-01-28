@@ -7,6 +7,11 @@ import edu.wpi.first.wpilibj.Talon;
 
 public class Drive {
 	//global class vars go here
+	
+	//375 ticks per wheel for 90 degree turn with both motors
+	final int TICKS_PER_90_RIGHT = 375;
+	final int TICKS_PER_90_LEFT = 375;	
+	
 	final int WHEEL_RADIUS = 3; //in inches
 	final double pi = 3.1459;
 	F310 remote;
@@ -42,6 +47,21 @@ public class Drive {
 	//rightAngleTurn(var leftOrRight) //this will use the encoders to make
 	//a perfect right angle turn //need to decide what var type to use. enum? int? boolean
 	public void rightAngleTurn(boolean left){
+		robotIO.resetEncoders();
+		if (left){
+			while(robotIO.getLeftEncoderCount() > -TICKS_PER_90_LEFT && robotIO.getRightEncoderCount() < TICKS_PER_90_RIGHT){
+				driver.arcadeDrive(0, .4);
+				robotIO.printEncoderValues();
+			}
+		}
+		else{
+			
+			while(robotIO.getLeftEncoderCount() < TICKS_PER_90_LEFT && robotIO.getRightEncoderCount() > -TICKS_PER_90_RIGHT){
+				driver.arcadeDrive(0, -.4);
+				robotIO.printEncoderValues();
+			}
+		}
+		
 		
 	}
 	//turn(int degree) //degree is 0-360 that will turn the robot using the encoders
