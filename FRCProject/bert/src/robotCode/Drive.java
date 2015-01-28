@@ -11,16 +11,17 @@ public class Drive {
 	final double pi = 3.1459;
 	F310 remote;
 	Talon frMotor, flMotor, brMotor, blMotor; 
-	
+	RobotIO robotIO;
 	 
 	RobotDrive driver;
-	public Drive(F310 _rc){
+	public Drive(F310 _rc, RobotIO _IO){
 		//constructor
 		frMotor = new Talon(RobotValues.FRONT_RIGHT_MOTOR);
 		flMotor = new Talon(RobotValues.FRONT_LEFT_MOTOR);
 		brMotor = new Talon(RobotValues.BACK_RIGHT_MOTOR);
 		blMotor = new Talon(RobotValues.BACK_LEFT_MOTOR);
 		remote = _rc;
+		robotIO = _IO;
 		driver = new RobotDrive(flMotor, blMotor, frMotor, brMotor);
 		driver.setSafetyEnabled(false);
 	}
@@ -40,7 +41,9 @@ public class Drive {
 	
 	//rightAngleTurn(var leftOrRight) //this will use the encoders to make
 	//a perfect right angle turn //need to decide what var type to use. enum? int? boolean
-	
+	public void rightAngleTurn(boolean left){
+		
+	}
 	//turn(int degree) //degree is 0-360 that will turn the robot using the encoders
 	//to the specified angle from the start position. counter clockwise! (90 is to the left)
 	

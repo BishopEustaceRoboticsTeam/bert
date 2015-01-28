@@ -17,7 +17,14 @@ public class RobotValues {
 	
 
 	//Digital sensor ports:
+	public static final int LEFT_ENCODER_A = 0;
+	public static final int LEFT_ENCODER_B = 1;
+	public static final int RIGHT_ENCODER_A = 2;
+	public static final int RIGHT_ENCODER_B = 3;
 	
+	//Digital sensor values:
+	public static final boolean REVERSE_LEFT_ENCODER_DIRECTION = true;
+	public static final boolean REVERSE_RIGHT_ENCODER_DIRECTION = false;
 	
 	//Analog sensor ports:
 	

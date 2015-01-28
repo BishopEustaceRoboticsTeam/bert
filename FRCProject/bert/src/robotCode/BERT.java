@@ -20,9 +20,12 @@ public class BERT extends IterativeRobot {
 	//Pneumatics Class:
 	Pneumatics pneu = new Pneumatics();
 	
-	//Drive Class:
-	Drive drive = new Drive(rc);
+	//Robot input output
+	RobotIO inputOutput = new RobotIO();
 	
+	//Drive Class:
+	Drive drive = new Drive(rc, inputOutput);
+
 	//Camera Vars:
 	final int CAMERA_QUALITY = 50;
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
@@ -73,7 +76,8 @@ public class BERT extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        drive.controllerDrive();
+    	drive.controllerDrive();
+    	
     }
     
     //****DISABLED****:
