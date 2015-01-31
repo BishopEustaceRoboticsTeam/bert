@@ -1,9 +1,11 @@
 
 package robotCode;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -31,7 +33,8 @@ public class BERT extends IterativeRobot {
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
 	CameraServer server;
 	
-	
+	//PDP object
+	//PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -61,7 +64,7 @@ public class BERT extends IterativeRobot {
      */
     
     public void autonomousPeriodic() {
-
+    		
     }
 
   //****TELEOP****:
@@ -69,21 +72,28 @@ public class BERT extends IterativeRobot {
     
    //this method is called once at the start of teleop
     public void teleopInit(){
-    	
+    	//set the drive mode to controllerDrive
+    	drive.startControllerDrive();
     }
     
     /**
      * This function is called periodically during operator control
      */
+   
     public void teleopPeriodic() {
-    	drive.controllerDrive();
+    	drive.update();
+    	
+    	if(rc.getBButton()){
+    		//make sure it finished the previous task
+    		if(drive.Done()){
+    			drive.startRightAngleTurn(true);
+    		}
+    	} 
     	if(rc.getXButton()){
-    		drive.rightAngleTurn(true);
-    		
-    	}
-    	else if(rc.getBButton()){
-    		drive.rightAngleTurn(false);
-    		
+    		//make sure it finished the previous task
+    		if(drive.Done()){
+    			drive.startRightAngleTurn(false);
+    		}
     	}
     }
     
@@ -97,6 +107,7 @@ public class BERT extends IterativeRobot {
     
     //this runs periodically during disabled (loop)
     public void disabledPeriodic(){
+    	System.out.println("Disabled!");
     	
     	
     }

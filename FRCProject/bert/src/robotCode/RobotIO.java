@@ -1,6 +1,7 @@
 package robotCode;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class RobotIO {
@@ -51,5 +52,15 @@ public class RobotIO {
 		System.out.print("Left Encoder get: " + getLeftEncoderCount());
 		System.out.println(" Right Encoder get: " + getRightEncoderCount());
 	}
+	
+	/*
+	 * SmartDashboard.putNumber("PDP Current (port 1)", pdp.getCurrent(1));
+    	SmartDashboard.putNumber("PDP Power (watts)", pdp.getTotalPower());
+    	SmartDashboard.putNumber("PDP Voltage (volts)", pdp.getVoltage());
+    	SmartDashboard.putNumber("PDP Energy (joules)", pdp.getTotalEnergy());
+    	
+	 * 
+	 * 
+	 * */
 	
 }
