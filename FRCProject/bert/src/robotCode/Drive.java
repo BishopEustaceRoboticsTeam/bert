@@ -75,7 +75,7 @@ public class Drive {
 				break;
 			case OVERRIDE:
 				//override give the user control again
-				currentDriveState = States.Drive.CONTROLLER_DRIVE;
+				startControllerDrive();
 				break;
 				
 		}
@@ -84,6 +84,8 @@ public class Drive {
 	
 	public void startControllerDrive(){
 		currentDriveState = States.Drive.CONTROLLER_DRIVE;
+		//set the stateCompleted variable to true to allow for a new state.
+		completed();
 	}
 	
 	//controlleDrive method that needs to be called in teleop periodic
