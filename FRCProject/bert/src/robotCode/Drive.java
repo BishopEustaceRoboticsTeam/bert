@@ -5,8 +5,10 @@ package robotCode;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive {
+	
 	//global class vars go here
 	
 	//375 ticks per wheel for 90 degree turn with both motors
@@ -25,9 +27,25 @@ public class Drive {
 	//vars for rightAngleTurn()
 	private boolean isLeft = true;
 	
-	//vars for distanceDrive()
-	private double driveDistance = 0;
-	
+	//vars for distanceDrive():
+		//hold the distance the user want to drive to
+		private double driveDistance = 0;
+		//hold the current distance of the robot
+		private double currentDistance = 0;
+		//the min speed of the robot
+		private final double minSpeed = 0.75; //(must be between 0 - 1)
+		//the constant for the proportional controller to be multiplied 
+		private final double Pc = .5;
+		//the integral constant to multiply by the sum of the errors
+		private final double Ic = 0; //zero right now because we are not using
+		//the current error between the two motors
+		private double currentError = 0;
+		//the sum of all the error over time
+		private double totalError = 0;
+		//the value between -.25 and .25 that is added to the motors
+		private double motorDifferential;
+		
+		
 	//tells when the current state has finished
 	private boolean stateCompleted = false;
 	
@@ -111,15 +129,57 @@ public class Drive {
 		currentDriveState = States.Drive.DISTANCE_DRIVE;
 		driveDistance = distance;
 		
+		//reset all the vars needed
+		totalError = 0;
+		
+		
 	}
 	
 	//this method is internal to the drive class and will get called
 	//in the update if distance drive is true
 	private void distanceDrive(){
 		//code to control distance drive
-		//the drive distance is driveDistance;
-		driver.tankDrive(0.75, 0.75);
-		completed();
+		
+		//calculate the current distance by taking the average of the 
+		//the two motors. TODO: do a more accurate calculation of the distance
+		currentDistance = (robotIO.getLeftEncoderDistance() + robotIO.getRightEncoderDistance())/2;
+		
+		SmartDashboard.putNumber("Distance: ", currentDistance);
+		//check to see if the current distance has reach the desired distance
+		if(currentDistance >= driveDistance){
+			completed();
+		}
+		else{
+			//calculate the current error
+			currentError = robotIO.getLeftEncoderDistance() - robotIO.getRightEncoderDistance();
+		
+			//added the current error to the total error;
+			totalError += currentError;
+		
+			//calculate the motorDiffernetial
+			//the current error time the proportional const + the total error times the intergral const 
+			motorDifferential = currentError*Pc; //+ totalError*Ic;
+		
+			//make sure the the motorDifferential plus the min motor speed 
+			//is not over the max motor value of 1
+			
+			//for dubuging purposes put the motordiff on the smartdash
+			SmartDashboard.putNumber("Motor Diff: ", motorDifferential);
+			
+			
+			if(Math.abs((motorDifferential) + minSpeed) > 1){
+				if(motorDifferential < 0){
+					motorDifferential = -(1-minSpeed);
+				}
+				else{
+					motorDifferential = (1-minSpeed);
+				}
+			}
+			
+			//for dubuging purposes put the motordiff on the smartdash
+			//set the motor to the speeds to what 
+			//driver.tankDrive((minSpeed + motorDifferential), (minSpeed - motorDifferential));
+		}
 	}
 		
 		

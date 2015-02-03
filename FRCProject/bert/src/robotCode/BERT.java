@@ -82,8 +82,10 @@ public class BERT extends IterativeRobot {
    
     public void teleopPeriodic() {
     	drive.update();
-    	inputOutput.printEncoderValues();
-    	if(rc.getAButton()){
+    	
+    	//inputOutput.printEncoderValues();
+    	
+    	if(rc.getYButton()){
     		drive.override();
     	}
     	if(rc.getBButton()){
@@ -98,6 +100,12 @@ public class BERT extends IterativeRobot {
     			drive.startRightAngleTurn(false);
     		}
     	}
+    	if(rc.getAButton()){
+    		if(drive.Done()){
+    			drive.startDistanceDrive(1);
+    		}
+    	}
+    	
     }
     
     //****DISABLED****:

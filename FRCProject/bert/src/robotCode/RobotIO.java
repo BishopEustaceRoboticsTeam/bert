@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.Encoder;
 public class RobotIO {
 	
 	
-	final int WHEEL_DIAMETER = 4; //in inches
+	final double WHEEL_DIAMETER = 0.101; // in meters (4 inches)
 	final double PI = 3.14159;
-	final double TICKS_PER_REVOLUTION = 250;
-	double DIST_PER_TICK = (WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;
-	//883 for just one motor
+	final double TICKS_PER_REVOLUTION = 250; //the number of ticks the encoder gets per one revolution
+	final double DIST_PER_TICK = 0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
+	//883 ticks for 90 degree turn with just one motor
 	
 	//create the sensor vars
 	Encoder leftEncoder = new Encoder(RobotValues.LEFT_ENCODER_A,  RobotValues.LEFT_ENCODER_B, RobotValues.REVERSE_LEFT_ENCODER_DIRECTION, EncodingType.k2X);
@@ -33,11 +33,11 @@ public class RobotIO {
 	}
 	//function to get left encoder distance
 	public double getLeftEncoderDistance(){
-		return leftEncoder.getDistance();
+		return leftEncoder.getDistance()* DIST_PER_TICK;
 	}
 	//function to get right encoder distance
 	public double getRightEncoderDistance(){
-		return rightEncoder.getDistance();
+		return rightEncoder.getDistance()* DIST_PER_TICK;
 	}
 	//function to get left ticks
 	public int getLeftEncoderCount(){
@@ -49,8 +49,10 @@ public class RobotIO {
 	}
 	//function to print out encoder values
 	public void printEncoderValues(){
-		SmartDashboard.putNumber("Left Encoder", getLeftEncoderCount());;
+		SmartDashboard.putNumber("Left Encoder", getLeftEncoderCount());
 		SmartDashboard.putNumber("Right Encoder", getRightEncoderCount());
+		SmartDashboard.putNumber("Left Encoder dist", getLeftEncoderDistance() * DIST_PER_TICK);
+		SmartDashboard.putNumber("Right Encoder dist", getRightEncoderDistance()* DIST_PER_TICK);
 	}
 	
 	/*
