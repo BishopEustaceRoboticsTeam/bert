@@ -10,10 +10,10 @@ public class Drive {
 	//global class vars go here
 	
 	//375 ticks per wheel for 90 degree turn with both motors
-	final int TICKS_PER_90_RIGHT = 375;
-	final int TICKS_PER_90_LEFT = 375;	
+	final int TICKS_PER_90_RIGHT = 384;
+	final int TICKS_PER_90_LEFT = 385;
 	
-	final int WHEEL_RADIUS = 3; //in inches
+	final int WHEEL_RADIUS = 3; //in inhes
 	final double pi = 3.1459;
 	F310 remote;
 	Talon frMotor, flMotor, brMotor, blMotor; 
@@ -134,11 +134,9 @@ public class Drive {
 	//rightAngleTurn(var leftOrRight) //this will use the encoders to make
 	//a perfect right angle turn //need to decide what var type to use. enum? int? boolean
 	private void rightAngleTurn(){
-		robotIO.resetEncoders();
-		
 		//leftTurn
 		if (isLeft){
-			if(robotIO.getLeftEncoderCount() > -TICKS_PER_90_LEFT && robotIO.getRightEncoderCount() < TICKS_PER_90_RIGHT){
+			if(robotIO.getLeftEncoderCount() > -TICKS_PER_90_LEFT && robotIO.getRightEncoderCount() < TICKS_PER_90_LEFT){
 				driver.arcadeDrive(0, .4);
 				robotIO.printEncoderValues();
 			}
@@ -151,7 +149,7 @@ public class Drive {
 		//rightTurn
 		else{
 			
-			if(robotIO.getLeftEncoderCount() < TICKS_PER_90_LEFT && robotIO.getRightEncoderCount() > -TICKS_PER_90_RIGHT){
+			if(robotIO.getLeftEncoderCount() < TICKS_PER_90_RIGHT && robotIO.getRightEncoderCount() > -TICKS_PER_90_RIGHT){
 				driver.arcadeDrive(0, -.4);
 				robotIO.printEncoderValues();
 			}

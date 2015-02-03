@@ -49,8 +49,8 @@ public class RobotIO {
 	}
 	//function to print out encoder values
 	public void printEncoderValues(){
-		System.out.print("Left Encoder get: " + getLeftEncoderCount());
-		System.out.println(" Right Encoder get: " + getRightEncoderCount());
+		SmartDashboard.putNumber("Left Encoder", getLeftEncoderCount());;
+		SmartDashboard.putNumber("Right Encoder", getRightEncoderCount());
 	}
 	
 	/*

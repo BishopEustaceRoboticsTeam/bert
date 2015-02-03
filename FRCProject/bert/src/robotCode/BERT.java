@@ -82,7 +82,10 @@ public class BERT extends IterativeRobot {
    
     public void teleopPeriodic() {
     	drive.update();
-    	
+    	inputOutput.printEncoderValues();
+    	if(rc.getAButton()){
+    		drive.override();
+    	}
     	if(rc.getBButton()){
     		//make sure it finished the previous task
     		if(drive.Done()){
@@ -101,7 +104,7 @@ public class BERT extends IterativeRobot {
     
     //this runs once at the start of disable
     public void disabledInit(){
-    	
+    	inputOutput.resetEncoders();
     	
     }
     
