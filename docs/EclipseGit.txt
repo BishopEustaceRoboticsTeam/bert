@@ -1,0 +1,15 @@
+1. Delete current Bert project
+2. Go to File-->Import
+3. Click Git, then Projects from Git
+4. Click Clone URI
+5. In the box labeled URI, enter this:
+"https://bert_user@bitbucket.org/nfarnesi4/bert.git"
+6. Type the password in the appropiate box.
+7. Leave evrything else the way it is and click next.
+8. Click next again.
+9. Check the clone submodules checkbox.
+10. Click next.
+11. Add 2 to the end of the directory name.
+12. Click next.
+13. Check "Import existing  projects."
+14. Click next, then finish.
