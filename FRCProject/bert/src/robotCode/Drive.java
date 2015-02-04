@@ -2,12 +2,24 @@ package robotCode;
 //This class will handle moving the robot
 
 //imports
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive {
+	
+	final double WHEEL_DIAMETER = 0.101; // in meters (4 inches)
+	final double PI = 3.14159;
+	final double TICKS_PER_REVOLUTION = 250; //the number of ticks the encoder gets per one revolution
+	final double DIST_PER_TICK = 0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
+	//883 ticks for 90 degree turn with just one motor
+	
+	//create the sensor vars
+	Encoder leftEncoder = new Encoder(RobotValues.LEFT_ENCODER_A,  RobotValues.LEFT_ENCODER_B, RobotValues.REVERSE_LEFT_ENCODER_DIRECTION, EncodingType.k2X);
+	Encoder rightEncoder = new Encoder(RobotValues.RIGHT_ENCODER_A, RobotValues.RIGHT_ENCODER_B, RobotValues.REVERSE_RIGHT_ENCODER_DIRECTION, EncodingType.k2X);
 	
 	//global class vars go here
 	
@@ -19,7 +31,7 @@ public class Drive {
 	final double pi = 3.1459;
 	F310 remote;
 	Talon frMotor, flMotor, brMotor, blMotor; 
-	RobotIO robotIO;
+	
 	
 	//create a drive states variable
 	private States.Drive currentDriveState = States.Drive.CONTROLLER_DRIVE; 
@@ -33,9 +45,9 @@ public class Drive {
 		//hold the current distance of the robot
 		private double currentDistance = 0;
 		//the min speed of the robot
-		private final double minSpeed = 0.75; //(must be between 0 - 1)
+		private final double minSpeed = 0.5; //(must be between 0 - 1)
 		//the constant for the proportional controller to be multiplied 
-		private final double Pc = .5;
+		private double Pc = .67;
 		//the integral constant to multiply by the sum of the errors
 		private final double Ic = 0; //zero right now because we are not using
 		//the current error between the two motors
@@ -51,16 +63,19 @@ public class Drive {
 	
 	private RobotDrive driver;
 	
-	public Drive(F310 _rc, RobotIO _IO){
+	public Drive(F310 _rc){
 		//constructor
 		frMotor = new Talon(RobotValues.FRONT_RIGHT_MOTOR);
 		flMotor = new Talon(RobotValues.FRONT_LEFT_MOTOR);
 		brMotor = new Talon(RobotValues.BACK_RIGHT_MOTOR);
 		blMotor = new Talon(RobotValues.BACK_LEFT_MOTOR);
 		remote = _rc;
-		robotIO = _IO;
 		driver = new RobotDrive(flMotor, blMotor, frMotor, brMotor);
 		driver.setSafetyEnabled(false);
+		leftEncoder.setDistancePerPulse(DIST_PER_TICK);
+		rightEncoder.setDistancePerPulse(DIST_PER_TICK);
+		SmartDashboard.putNumber("P:", Pc);
+		
 	}
 	public void setsafety(boolean enable){
 		driver.setSafetyEnabled(enable);
@@ -125,10 +140,11 @@ public class Drive {
 	//it should only be called once and not in a loop
 	public void startDistanceDrive(double distance){
 		notCompleted();
-		robotIO.resetEncoders();
+		resetEncoders();
 		currentDriveState = States.Drive.DISTANCE_DRIVE;
 		driveDistance = distance;
 		
+		Pc = SmartDashboard.getNumber("P:");
 		//reset all the vars needed
 		totalError = 0;
 		
@@ -142,16 +158,18 @@ public class Drive {
 		
 		//calculate the current distance by taking the average of the 
 		//the two motors. TODO: do a more accurate calculation of the distance
-		currentDistance = (robotIO.getLeftEncoderDistance() + robotIO.getRightEncoderDistance())/2;
-		
+		currentDistance = (getLeftEncoderDistance() + getRightEncoderDistance())/2;
 		SmartDashboard.putNumber("Distance: ", currentDistance);
+		SmartDashboard.putNumber("Left Distance: ", getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right Distance: ", getRightEncoderDistance());
 		//check to see if the current distance has reach the desired distance
 		if(currentDistance >= driveDistance){
 			completed();
 		}
 		else{
 			//calculate the current error
-			currentError = robotIO.getLeftEncoderDistance() - robotIO.getRightEncoderDistance();
+			currentError = getLeftEncoderDistance() - getRightEncoderDistance();
+			SmartDashboard.putNumber("Current error: ", currentError);
 		
 			//added the current error to the total error;
 			totalError += currentError;
@@ -178,7 +196,9 @@ public class Drive {
 			
 			//for dubuging purposes put the motordiff on the smartdash
 			//set the motor to the speeds to what 
-			//driver.tankDrive((minSpeed + motorDifferential), (minSpeed - motorDifferential));
+			driver.tankDrive((minSpeed - motorDifferential), (minSpeed + motorDifferential));
+			SmartDashboard.putNumber("LEFT Motor speed: ", (minSpeed - motorDifferential));
+			SmartDashboard.putNumber("RIGHT Motor speed: ", (minSpeed + motorDifferential));
 		}
 	}
 		
@@ -186,7 +206,7 @@ public class Drive {
 	public void startRightAngleTurn(boolean left){
 		//turn off all states
 		notCompleted();
-		robotIO.resetEncoders();
+		resetEncoders();
 		currentDriveState = States.Drive.RIGHT_ANGLE_TURN;
 		isLeft = left;
 	}
@@ -196,9 +216,9 @@ public class Drive {
 	private void rightAngleTurn(){
 		//leftTurn
 		if (isLeft){
-			if(robotIO.getLeftEncoderCount() > -TICKS_PER_90_LEFT && robotIO.getRightEncoderCount() < TICKS_PER_90_LEFT){
+			if(getLeftEncoderCount() > -TICKS_PER_90_LEFT && getRightEncoderCount() < TICKS_PER_90_LEFT){
 				driver.arcadeDrive(0, .4);
-				robotIO.printEncoderValues();
+				printEncoderValues();
 			}
 			else{
 				//where done turning
@@ -209,9 +229,9 @@ public class Drive {
 		//rightTurn
 		else{
 			
-			if(robotIO.getLeftEncoderCount() < TICKS_PER_90_RIGHT && robotIO.getRightEncoderCount() > -TICKS_PER_90_RIGHT){
+			if(getLeftEncoderCount() < TICKS_PER_90_RIGHT && getRightEncoderCount() > -TICKS_PER_90_RIGHT){
 				driver.arcadeDrive(0, -.4);
-				robotIO.printEncoderValues();
+				printEncoderValues();
 			}
 			else{
 				//where done turning
@@ -228,5 +248,35 @@ public class Drive {
 	}
 	//turn(int degree) //degree is 0-360 that will turn the robot using the encoders
 	//to the specified angle from the start position. counter clockwise! (90 is to the left)
+
+	//function to reset both encoders
+	public void resetEncoders(){
+		//this will reset the distances tracked by the encoders
+		leftEncoder.reset();
+		rightEncoder.reset();
+	}
+	//function to get left encoder distance
+	private double getLeftEncoderDistance(){
+		return leftEncoder.get()* DIST_PER_TICK;
+	}
+	//function to get right encoder distance
+	private double getRightEncoderDistance(){
+		return rightEncoder.get()* DIST_PER_TICK;
+	}
+	//function to get left ticks
+	private int getLeftEncoderCount(){
+		return leftEncoder.get();
+	}
+	//function to get right ticks
+	private int getRightEncoderCount(){
+		return rightEncoder.get();
+	}
+	//function to print out encoder values
+	private void printEncoderValues(){
+		SmartDashboard.putNumber("Left Encoder", getLeftEncoderCount());
+		SmartDashboard.putNumber("Right Encoder", getRightEncoderCount());
+		SmartDashboard.putNumber("Left Encoder dist", getLeftEncoderDistance() * DIST_PER_TICK);
+		SmartDashboard.putNumber("Right Encoder dist", getRightEncoderDistance()* DIST_PER_TICK);
+	}
 	
 }

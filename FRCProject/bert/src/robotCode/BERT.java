@@ -23,10 +23,10 @@ public class BERT extends IterativeRobot {
 	Pneumatics pneu = new Pneumatics();
 	
 	//Robot input output
-	RobotIO inputOutput = new RobotIO();
+	//RobotIO inputOutput = new RobotIO();
 	
 	//Drive Class:
-	Drive drive = new Drive(rc, inputOutput);
+	Drive drive = new Drive(rc);
 
 	//Camera Vars:
 	final int CAMERA_QUALITY = 50;
@@ -102,7 +102,7 @@ public class BERT extends IterativeRobot {
     	}
     	if(rc.getAButton()){
     		if(drive.Done()){
-    			drive.startDistanceDrive(1);
+    			drive.startDistanceDrive(4.5);
     		}
     	}
     	
@@ -112,7 +112,7 @@ public class BERT extends IterativeRobot {
     
     //this runs once at the start of disable
     public void disabledInit(){
-    	inputOutput.resetEncoders();
+    	drive.resetEncoders();
     	
     }
     

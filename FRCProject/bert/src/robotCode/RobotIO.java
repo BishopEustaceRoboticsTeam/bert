@@ -33,11 +33,11 @@ public class RobotIO {
 	}
 	//function to get left encoder distance
 	public double getLeftEncoderDistance(){
-		return leftEncoder.getDistance()* DIST_PER_TICK;
+		return leftEncoder.get()* DIST_PER_TICK;
 	}
 	//function to get right encoder distance
 	public double getRightEncoderDistance(){
-		return rightEncoder.getDistance()* DIST_PER_TICK;
+		return rightEncoder.get()* DIST_PER_TICK;
 	}
 	//function to get left ticks
 	public int getLeftEncoderCount(){
