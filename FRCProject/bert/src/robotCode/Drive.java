@@ -14,7 +14,8 @@ public class Drive {
 	final double WHEEL_DIAMETER = 0.101; // in meters (4 inches)
 	final double PI = 3.14159;
 	final double TICKS_PER_REVOLUTION = 250; //the number of ticks the encoder gets per one revolution
-	final double DIST_PER_TICK = 0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
+	final double DIST_PER_TICK_LEFT = 0.0013245033;  //0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
+	final double DIST_PER_TICK_RIGHT = 0.0013831258; //0.0012692034;
 	//883 ticks for 90 degree turn with just one motor
 	
 	//create the sensor vars
@@ -47,7 +48,7 @@ public class Drive {
 		//the min speed of the robot
 		private final double minSpeed = 0.5; //(must be between 0 - 1)
 		//the constant for the proportional controller to be multiplied 
-		private double Pc = .67;
+		private double Pc = 2;
 		//the integral constant to multiply by the sum of the errors
 		private final double Ic = 0; //zero right now because we are not using
 		//the current error between the two motors
@@ -72,8 +73,8 @@ public class Drive {
 		remote = _rc;
 		driver = new RobotDrive(flMotor, blMotor, frMotor, brMotor);
 		driver.setSafetyEnabled(false);
-		leftEncoder.setDistancePerPulse(DIST_PER_TICK);
-		rightEncoder.setDistancePerPulse(DIST_PER_TICK);
+		leftEncoder.setDistancePerPulse(DIST_PER_TICK_LEFT);
+		rightEncoder.setDistancePerPulse(DIST_PER_TICK_RIGHT);
 		SmartDashboard.putNumber("P:", Pc);
 		
 	}
@@ -160,8 +161,8 @@ public class Drive {
 		//the two motors. TODO: do a more accurate calculation of the distance
 		currentDistance = (getLeftEncoderDistance() + getRightEncoderDistance())/2;
 		SmartDashboard.putNumber("Distance: ", currentDistance);
-		SmartDashboard.putNumber("Left Distance: ", getLeftEncoderDistance());
-		SmartDashboard.putNumber("Right Distance: ", getRightEncoderDistance());
+		
+		printEncoderValues();
 		//check to see if the current distance has reach the desired distance
 		if(currentDistance >= driveDistance){
 			completed();
@@ -257,11 +258,11 @@ public class Drive {
 	}
 	//function to get left encoder distance
 	private double getLeftEncoderDistance(){
-		return leftEncoder.get()* DIST_PER_TICK;
+		return leftEncoder.get()* DIST_PER_TICK_LEFT;
 	}
 	//function to get right encoder distance
 	private double getRightEncoderDistance(){
-		return rightEncoder.get()* DIST_PER_TICK;
+		return rightEncoder.get()* DIST_PER_TICK_RIGHT;
 	}
 	//function to get left ticks
 	private int getLeftEncoderCount(){
@@ -275,8 +276,8 @@ public class Drive {
 	private void printEncoderValues(){
 		SmartDashboard.putNumber("Left Encoder", getLeftEncoderCount());
 		SmartDashboard.putNumber("Right Encoder", getRightEncoderCount());
-		SmartDashboard.putNumber("Left Encoder dist", getLeftEncoderDistance() * DIST_PER_TICK);
-		SmartDashboard.putNumber("Right Encoder dist", getRightEncoderDistance()* DIST_PER_TICK);
+		SmartDashboard.putNumber("Left Encoder dist", getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right Encoder dist", getRightEncoderDistance());
 	}
 	
 }

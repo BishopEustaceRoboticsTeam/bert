@@ -102,7 +102,7 @@ public class BERT extends IterativeRobot {
     	}
     	if(rc.getAButton()){
     		if(drive.Done()){
-    			drive.startDistanceDrive(4.5);
+    			drive.startDistanceDrive(2);
     		}
     	}
     	
