@@ -5,16 +5,36 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Pneumatics  {
-	Solenoid lifter;
-	Solenoid locker;
+	private Solenoid lifter;
+	private Solenoid locker;
 	
-	Compressor compressor;
+	private Compressor compressor;
+	
+	private boolean stateCompleted = true;
 	
 	public Pneumatics(){
 		lifter = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
 		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);
 		compressor = new Compressor();
 	}
+	
+	//this is the update method
+	public void update(){
+		
+		
+	}
+	
+	private void notCompleted(){
+		stateCompleted = false;
+	}
+	private void completed(){ 
+		stateCompleted = true;
+		
+	}
+	public boolean Done(){
+		return stateCompleted;
+	}
+	
 	//method to engage the locking mech
 	public void lock(){
 		locker.set(true);
@@ -65,5 +85,13 @@ public class Pneumatics  {
 		//put the lift back down
 		lower();
 		
+	}
+	
+	public void placeStack(){
+		lift();
+		Timer.delay(1);
+		unlock();
+		Timer.delay(1);
+		lower();
 	}
 }

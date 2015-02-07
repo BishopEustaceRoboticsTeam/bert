@@ -19,5 +19,12 @@ public class States {
 	public enum Lock {
 		
 	}
-
+    
+	public enum AutoTote {
+		DRIVE_TO_TOTE, LIFT, TURN_90, DRIVE_TO_AUTO_ZONE, DROP_STACK, BACKUP, END;
+	}
+	
+	public enum AutoBin{
+		DRIVE_TO_BIN, LIFT_BIN, TURN_90, DRIVE_TO_AUTO_ZONE, DROP_BIN, BACKUP, END;
+	}
 }

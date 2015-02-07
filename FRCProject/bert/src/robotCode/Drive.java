@@ -28,10 +28,12 @@ public class Drive {
 	final int TICKS_PER_90_RIGHT = 384;
 	final int TICKS_PER_90_LEFT = 385;
 	
+	private final double DISTANCE_PER_90 = 0.6; //0.47876; //in meters
+	
 	final int WHEEL_RADIUS = 3; //in inhes
 	final double pi = 3.1459;
 	F310 remote;
-	Talon frMotor, flMotor, brMotor, blMotor; 
+	private Talon frMotor, flMotor, brMotor, blMotor; 
 	
 	
 	//create a drive states variable
@@ -60,7 +62,7 @@ public class Drive {
 		
 		
 	//tells when the current state has finished
-	private boolean stateCompleted = false;
+	private boolean stateCompleted = true;
 	
 	private RobotDrive driver;
 	
@@ -140,15 +142,16 @@ public class Drive {
 	//method that will drive the robot straight using encoders
 	//it should only be called once and not in a loop
 	public void startDistanceDrive(double distance){
-		notCompleted();
-		resetEncoders();
-		currentDriveState = States.Drive.DISTANCE_DRIVE;
-		driveDistance = distance;
 		
-		Pc = SmartDashboard.getNumber("P:");
-		//reset all the vars needed
-		totalError = 0;
-		
+		if(Done()){
+			notCompleted();
+			resetEncoders();
+			currentDriveState = States.Drive.DISTANCE_DRIVE;
+			driveDistance = distance;
+			Pc = SmartDashboard.getNumber("P:");
+			//reset all the vars needed
+			totalError = 0;
+		}
 		
 	}
 	
@@ -205,11 +208,13 @@ public class Drive {
 		
 		
 	public void startRightAngleTurn(boolean left){
-		//turn off all states
-		notCompleted();
-		resetEncoders();
-		currentDriveState = States.Drive.RIGHT_ANGLE_TURN;
-		isLeft = left;
+		if(Done()){
+			//turn off all states
+			notCompleted();
+			resetEncoders();
+			currentDriveState = States.Drive.RIGHT_ANGLE_TURN;
+			isLeft = left;
+		}
 	}
 	
 	//rightAngleTurn(var leftOrRight) //this will use the encoders to make
@@ -217,7 +222,7 @@ public class Drive {
 	private void rightAngleTurn(){
 		//leftTurn
 		if (isLeft){
-			if(getLeftEncoderCount() > -TICKS_PER_90_LEFT && getRightEncoderCount() < TICKS_PER_90_LEFT){
+			if(getLeftEncoderDistance() > -DISTANCE_PER_90 && getRightEncoderDistance() < DISTANCE_PER_90){
 				driver.arcadeDrive(0, .4);
 				printEncoderValues();
 			}
@@ -230,7 +235,7 @@ public class Drive {
 		//rightTurn
 		else{
 			
-			if(getLeftEncoderCount() < TICKS_PER_90_RIGHT && getRightEncoderCount() > -TICKS_PER_90_RIGHT){
+			if(getLeftEncoderDistance() < DISTANCE_PER_90 && getRightEncoderDistance() > -DISTANCE_PER_90){
 				driver.arcadeDrive(0, -.4);
 				printEncoderValues();
 			}

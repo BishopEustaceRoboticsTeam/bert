@@ -33,6 +33,9 @@ public class BERT extends IterativeRobot {
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
 	CameraServer server;
 	
+	//Autonomous class
+	Autonomous auto;
+	
 	//PDP object
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
@@ -45,7 +48,7 @@ public class BERT extends IterativeRobot {
         //server = CameraServer.getInstance();
         //server.setQuality(CAMERA_QUALITY);
         //server.startAutomaticCapture("CAMERA_NAME");
-        
+    	 auto = new Autonomous(drive, pneu);
    
     }
     
@@ -55,7 +58,7 @@ public class BERT extends IterativeRobot {
     //this method is called once at the start of autonomous
     
     public void autonomousInit(){
-    	
+    	// TODO: read your switch here to know which autonomous mode you're doing
     	
     }
 
@@ -64,7 +67,14 @@ public class BERT extends IterativeRobot {
      */
     
     public void autonomousPeriodic() {
-    		
+    	//if(automode == TOTE) {
+    		//if(drivestate == forward) {
+    			//keep driving forward
+    			
+    		//} else if (drivestate== FORWARDDONE) {
+    			
+    		//}
+    	//}
     }
 
   //****TELEOP****:
@@ -82,28 +92,24 @@ public class BERT extends IterativeRobot {
    
     public void teleopPeriodic() {
     	drive.update();
-    	
-    	//inputOutput.printEncoderValues();
+    	//auto.toteToZone();
+    	auto.binToZone();
+    	//auto.driveToZone();
     	
     	if(rc.getYButton()){
     		drive.override();
     	}
     	if(rc.getBButton()){
-    		//make sure it finished the previous task
-    		if(drive.Done()){
-    			drive.startRightAngleTurn(true);
-    		}
+    		drive.startRightAngleTurn(true);
     	} 
     	if(rc.getXButton()){
-    		//make sure it finished the previous task
-    		if(drive.Done()){
-    			drive.startRightAngleTurn(false);
-    		}
+    		drive.startRightAngleTurn(false);
     	}
     	if(rc.getAButton()){
-    		if(drive.Done()){
-    			drive.startDistanceDrive(2);
-    		}
+    		drive.startDistanceDrive(2);
+    	}	
+    	if(rc.getRBButton()){
+    		auto.resetStates();
     	}
     	
     }
@@ -115,7 +121,7 @@ public class BERT extends IterativeRobot {
     	drive.resetEncoders();
     	
     }
-    
+     
     //this runs periodically during disabled (loop)
     public void disabledPeriodic(){
     	System.out.println("Disabled!");
