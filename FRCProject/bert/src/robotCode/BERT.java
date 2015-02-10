@@ -98,7 +98,9 @@ public class BERT extends IterativeRobot {
     	//auto.toteToZone();
     	//auto.binToZone();
     	//auto.driveToZone();
-    	
+    	if(rc.getR3Button()){
+    		drive.startFineControl();
+    	}
     	if(joy.getRawButton(2)){
     		rollers.startRollerIntake();
     	}

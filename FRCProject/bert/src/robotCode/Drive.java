@@ -42,6 +42,9 @@ public class Drive {
 	//vars for rightAngleTurn()
 	private boolean isLeft = true;
 	
+	//vars for controller drive
+	//private boolean fineControl = false;
+	
 	//vars for distanceDrive():
 		//hold the distance the user want to drive to
 		private double driveDistance = 0;
@@ -103,6 +106,9 @@ public class Drive {
 			case CONTROLLER_DRIVE:
 				controllerDrive();
 				break;
+			case FINE_CONTROL:
+				fineControl();
+				break;
 			case DISTANCE_DRIVE:
 				distanceDrive();
 				break;
@@ -126,11 +132,20 @@ public class Drive {
 	
 	//controlleDrive method that needs to be called in teleop periodic
 	//it will drive the robot using the f310 remote
-		private void controllerDrive(){
-     		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getLeftStickX());
-		}
-
+	private void controllerDrive(){	
+		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getLeftStickX());
+	}
 	
+	private void fineControl(){	
+		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getLeftStickX()/2);
+	}
+	
+	
+	public void startFineControl(){
+		currentDriveState = States.Drive.FINE_CONTROL;
+		completed();
+	}
+
 	//allow the user to override all other states to get control of
 	//the robot in the event of a disaster 
 	public void override(){

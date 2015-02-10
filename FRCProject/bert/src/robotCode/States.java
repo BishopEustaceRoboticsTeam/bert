@@ -8,9 +8,8 @@ public class States {
 	
 	
 	public enum Drive {
-		RIGHT_ANGLE_TURN , CONTROLLER_DRIVE, OVERRIDE, DISTANCE_DRIVE;
+		RIGHT_ANGLE_TURN , CONTROLLER_DRIVE, FINE_CONTROL, OVERRIDE, DISTANCE_DRIVE;
 	}
-	
 	
 	public enum Rollers{
 		CONTROLLED, IN, OUT;
