@@ -61,7 +61,7 @@ public class Rollers {
 	}
 	
 	public void rollerControl(){
-		roller_controller.arcadeDrive(joy.getRawAxis(1), -joy.getRawAxis(0));
+		roller_controller.arcadeDrive(-joy.getRawAxis(1), joy.getRawAxis(0));
 	}
 	
 	public void startRollerIntake(){
