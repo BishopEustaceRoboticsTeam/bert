@@ -1,16 +1,23 @@
 package robotCode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
+
 
 public class Pneumatics  {
 	private Solenoid lifter;
 	private Solenoid locker;
 	
 	private Compressor compressor;
-	
+	private boolean taskCompleted = true;
 	private boolean stateCompleted = true;
+	private States.Pneumatics currentPneumaticState = States.Pneumatics.READY;
+	private States.Stack currentStackState = States.Stack.LOWER;
+	private States.Place currentPlaceState = States.Place.LOWER;
+	private DigitalInput closedReadSwitch = new DigitalInput(RobotValues.CLOSED_READ_SWITCH_PORT);
+	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_READ_SWITCH_PORT);
 	
 	public Pneumatics(){
 		lifter = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
@@ -20,29 +27,50 @@ public class Pneumatics  {
 	
 	//this is the update method
 	public void update(){
-		
+		switch(currentPneumaticState){
+			case READY:
+				break;
+			case UNLOCK:
+				unlock();
+				break;
+			case LOCK:
+				lock();
+				break;
+			case LIFTER_UP:
+				lifterUp();
+				break;
+			case LIFTER_DOWN:
+				lifterDown();
+				break;
+				
+		}
 		
 	}
 	
 	private void notCompleted(){
 		stateCompleted = false;
 	}
+	
 	private void completed(){ 
 		stateCompleted = true;
-		
+		currentPneumaticState = States.Pneumatics.READY;
 	}
+	
 	public boolean Done(){
 		return stateCompleted;
 	}
 	
+	
 	//method to engage the locking mech
 	public void lock(){
 		locker.set(true);
+		completed();
 	}
 	
 	//method to unlock the locking mech
 	public void unlock(){
 		locker.set(false);
+		completed();
 	}
 	
 	//method to raise the lifter
@@ -66,8 +94,23 @@ public class Pneumatics  {
 	    return lifter.get();
 	}
 	
+	public void startLifterUp(){
+		if(Done()){
+			currentPneumaticState = States.Pneumatics.LIFTER_UP;
+			notCompleted();
+		}
+	}	
+	
+	private void lifterUp(){
+		lifter.set(false);
+		if(closedReadSwitch.get()){
+			completed();
+		}
+	}
+		
+	
 	//method that will use the above methods to lift a tote and lock it and put the lifter down
-	public void stack(){
+	private void stackOld(){
 		if(getLock()){
 			unlock();
 		}
@@ -84,14 +127,19 @@ public class Pneumatics  {
 		
 		//put the lift back down
 		lower();
-		
 	}
 	
-	public void placeStack(){
-		lift();
-		Timer.delay(1);
-		unlock();
-		Timer.delay(1);
-		lower();
+	public void startLifterDown(){
+		if(Done()){
+			currentPneumaticState = States.Pneumatics.LIFTER_DOWN;
+			notCompleted();
+		}
+	}
+	
+	private void lifterDown(){
+		lifter.set(true);
+		if(openReadSwitch.get()){
+			completed();
+		}
 	}
 }

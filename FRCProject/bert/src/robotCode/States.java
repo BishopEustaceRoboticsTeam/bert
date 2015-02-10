@@ -23,4 +23,22 @@ public class States {
 	public enum AutoBin{
 		DRIVE_TO_BIN, LIFT_BIN, TURN_90, DRIVE_TO_AUTO_ZONE, DROP_BIN, BACKUP, END;
 	}
+	
+	public enum Pneumatics{
+		READY, UNLOCK, LOCK, LIFTER_UP, LIFTER_DOWN;
+	}
+	
+	public enum Stack{
+		LIFT, LOWER, END;
+	}
+	
+	public enum Place{
+		LIFT, UNLOCK, LOWER, END;
+	}
+	
+	public enum Actuator{
+		READY, STACK, PLACE;
+	}
+	
+	
 }

@@ -37,7 +37,7 @@ public class Autonomous {
 					break;
 				case LIFT:
 					//start the lift
-					lifter.stack();
+					lifter.startLifterUp();
 					//set the next state
 					currentAutoToteState = States.AutoTote.TURN_90;
 					break;
@@ -55,7 +55,7 @@ public class Autonomous {
 					break;
 				case DROP_STACK:
 					//start the drop stack
-					lifter.placeStack();
+					lifter.startLifterDown();
 					//change to the next state
 					currentAutoToteState = States.AutoTote.BACKUP;
 					break;
