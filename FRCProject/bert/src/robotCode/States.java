@@ -12,12 +12,8 @@ public class States {
 	}
 	
 	
-	public enum Lifter {
-		
-	}
-	
-	public enum Lock {
-		
+	public enum Rollers{
+		CONTROLLED, IN, OUT;
 	}
     
 	public enum AutoTote {

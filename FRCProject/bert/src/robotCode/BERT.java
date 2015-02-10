@@ -1,6 +1,7 @@
 
 package robotCode;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -18,10 +19,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class BERT extends IterativeRobot {
 	//Controller Class:
 	F310 rc = new F310(RobotValues.F310_REMOTE_USB_PORT_ONE);
-	
+	Joystick joy = new Joystick(RobotValues.JOYSTICK_USB_PORT);
 	//Pneumatics Class:
 	Pneumatics pneu = new Pneumatics();
-	
+	//Roller Class:
+	Rollers rollers = new Rollers(joy);
 	//Robot input output
 	//RobotIO inputOutput = new RobotIO();
 	
@@ -92,9 +94,18 @@ public class BERT extends IterativeRobot {
    
     public void teleopPeriodic() {
     	drive.update();
+    	rollers.update();
     	//auto.toteToZone();
-    	auto.binToZone();
+    	//auto.binToZone();
     	//auto.driveToZone();
+    	
+    	if(joy.getRawButton(2)){
+    		rollers.startRollerIntake();
+    	}
+    	
+    	if(joy.getRawButton(3)){
+    		rollers.startRollerEject();
+    	}
     	
     	if(rc.getYButton()){
     		drive.override();
