@@ -69,6 +69,7 @@ public class BERT extends IterativeRobot {
      */
     
     public void autonomousPeriodic() {
+    	auto.update();
     	//if(automode == TOTE) {
     		//if(drivestate == forward) {
     			//keep driving forward
@@ -101,6 +102,7 @@ public class BERT extends IterativeRobot {
     	if(rc.getR3Button()){
     		drive.startFineControl();
     	}
+    	
     	if(joy.getRawButton(2)){
     		rollers.startRollerIntake();
     	}
@@ -109,18 +111,38 @@ public class BERT extends IterativeRobot {
     		rollers.startRollerEject();
     	}
     	
+    	if(joy.getRawButton(4)){
+    		pneu.lower();
+    	}
+    	
+    	if(joy.getRawButton(5)){
+    		pneu.lift();
+    	}
+    	
+    	if(joy.getRawButton(6)){
+    		pneu.lock();
+    	}
+    	
+    	if(joy.getRawButton(7)){
+    		pneu.unlock();
+    	}
+    	
     	if(rc.getYButton()){
     		drive.override();
     	}
+    	
     	if(rc.getBButton()){
     		drive.startRightAngleTurn(true);
-    	} 
+    	}
+    	
     	if(rc.getXButton()){
     		drive.startRightAngleTurn(false);
     	}
+    	
     	if(rc.getAButton()){
     		drive.startDistanceDrive(2);
-    	}	
+    	}
+    	
     	if(rc.getRBButton()){
     		auto.resetStates();
     	}
@@ -137,7 +159,7 @@ public class BERT extends IterativeRobot {
      
     //this runs periodically during disabled (loop)
     public void disabledPeriodic(){
-    	System.out.println("Disabled!");
+    	auto.displayAutoMode();
     	
     	
     }

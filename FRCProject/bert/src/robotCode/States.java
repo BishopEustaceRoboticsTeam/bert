@@ -15,6 +15,10 @@ public class States {
 		CONTROLLED, IN, OUT;
 	}
     
+	public enum Autonomous {
+		READY, DRIVE_TO_ZONE, TOTE_TO_ZONE, BIN_TO_ZONE, TO_BE_DETERMINED, DO_NOTHING, END;
+	}
+	
 	public enum AutoTote {
 		DRIVE_TO_TOTE, LIFT, TURN_90, DRIVE_TO_AUTO_ZONE, DROP_STACK, BACKUP, END;
 	}
@@ -38,6 +42,7 @@ public class States {
 	public enum Actuator{
 		READY, STACK, PLACE;
 	}
+	
 	
 	
 }
