@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -24,9 +25,10 @@ public class BERT extends IterativeRobot {
 	Pneumatics pneu = new Pneumatics();
 	//Roller Class:
 	Rollers rollers = new Rollers(joy);
+	//Actuators Class:
+	Actuators actuator = new Actuators(pneu);
 	//Robot input output
 	//RobotIO inputOutput = new RobotIO();
-	
 	//Drive Class:
 	Drive drive = new Drive(rc);
 
@@ -50,7 +52,7 @@ public class BERT extends IterativeRobot {
         //server = CameraServer.getInstance();
         //server.setQuality(CAMERA_QUALITY);
         //server.startAutomaticCapture("CAMERA_NAME");
-    	 auto = new Autonomous(drive, pneu);
+    	 auto = new Autonomous(drive, actuator, pneu);
    
     }
     
@@ -120,11 +122,19 @@ public class BERT extends IterativeRobot {
     	}
     	
     	if(joy.getRawButton(6)){
-    		pneu.lock();
+    		pneu.startLock();
     	}
     	
     	if(joy.getRawButton(7)){
-    		pneu.unlock();
+    		pneu.startUnlock();
+    	}
+    	
+    	if(joy.getRawButton(8)){
+    		pneu.startRollerIn();
+    	}
+    	
+    	if(joy.getRawButton(9)){
+    		pneu.startRollerOut();
     	}
     	
     	if(rc.getYButton()){

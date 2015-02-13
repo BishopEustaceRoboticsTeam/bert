@@ -12,7 +12,9 @@ public class Autonomous {
 	private final double DISTANCE_TO_BIN = 0.25;
 
 	private Drive drive;
-	private Pneumatics lifter;
+	private Actuators lifter;
+	private Pneumatics pneu;
+	private Rollers roller;
 	
 	private final boolean left = true;
 	
@@ -27,10 +29,10 @@ public class Autonomous {
 	Boolean currentActuatorState;
 	Boolean stateCompleted;
 	
-	public Autonomous(Drive _drive, Pneumatics _pneumatics){
+	public Autonomous(Drive _drive, Actuators _lifter, Pneumatics _pneumatics){
 		drive = _drive;
-		lifter = _pneumatics;
-		
+		lifter = _lifter;
+		pneu = _pneumatics;
 	}
 	
 	public void update(){
@@ -83,11 +85,15 @@ public class Autonomous {
 					//drive to the tote
 					drive.startDistanceDrive(DISTANCE_TO_TOTE);
 					//set the state to the next state
-					currentAutoToteState = States.AutoTote.LIFT;
+					currentAutoToteState = States.AutoTote.INTAKE;
 					break;
+				case INTAKE:
+					roller.startRollerIntake();
+					currentAutoToteState = States.AutoTote.LIFT;
 				case LIFT:
+					roller.startRollerIntake();
 					//start the lift
-					lifter.startLifterUp();
+					lifter.startStack();
 					//set the next state
 					currentAutoToteState = States.AutoTote.TURN_90;
 					break;
@@ -105,13 +111,13 @@ public class Autonomous {
 					break;
 				case DROP_STACK:
 					//start the drop stack
-					lifter.startLifterDown();
+					lifter.startPlace();
 					//change to the next state
 					currentAutoToteState = States.AutoTote.BACKUP;
 					break;
 				case BACKUP:
 					//start the distance drive backwards
-					drive.startDistanceDrive(-1);
+					drive.startBDistanceDrive(1);
 					//change to end because we're done
 					currentAutoToteState = States.AutoTote.END;
 					break;
@@ -142,11 +148,14 @@ public class Autonomous {
 					//drive to the bin
 					drive.startDistanceDrive(DISTANCE_TO_BIN);
 					//set the state to the next state
-					currentAutoBinState = States.AutoBin.LIFT_BIN;
+					currentAutoBinState = States.AutoBin.INTAKE;
 					break;
+				case INTAKE:
+					roller.startRollerIntake();
+					currentAutoBinState = States.AutoBin.LIFT_BIN;
 				case LIFT_BIN:
 					//start the lift
-					lifter.lift();
+					pneu.lift();
 					//set the next state
 					currentAutoBinState = States.AutoBin.TURN_90;
 					break;
@@ -164,13 +173,13 @@ public class Autonomous {
 					break;
 				case DROP_BIN:
 					//start the drop 
-					lifter.lower();
+					pneu.lower();
 					//change to the next state
 					currentAutoBinState = States.AutoBin.BACKUP;
 					break;
 				case BACKUP:
 					//start the distance drive backwards
-					drive.startDistanceDrive(-1);
+					drive.startBDistanceDrive(1);
 					//change to end because we're done
 					currentAutoBinState = States.AutoBin.END;
 					break;

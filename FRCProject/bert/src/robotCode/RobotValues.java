@@ -5,6 +5,7 @@ public class RobotValues {
 	//Pneumatics vars
 	public static final int LIFTER_SOLENOID_PORT = 0;
 	public static final int LOCK_SOLENOID_PORT = 1;
+	public static final int ROLLER_PISTON_PORT = 2;
 	
 	//Motor Controller PWM ports
 	public static final int FRONT_RIGHT_MOTOR = 2;

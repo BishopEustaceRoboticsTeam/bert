@@ -78,7 +78,7 @@ public class Actuators {
 					pneu.startLifterUp();
 					break;
 				case UNLOCK:
-					pneu.unlock();
+					pneu.startUnlock();
 					break;
 				case LOWER:
 					pneu.startLifterDown();

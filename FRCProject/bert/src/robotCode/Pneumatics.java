@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Pneumatics  {
 	private Solenoid lifter;
 	private Solenoid locker;
+	private Solenoid rollerPiston;
 	
 	private Compressor compressor;
 	private boolean taskCompleted = true;
@@ -23,6 +24,7 @@ public class Pneumatics  {
 		lifter = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
 		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);
 		compressor = new Compressor();
+		rollerPiston = new Solenoid(RobotValues.ROLLER_PISTON_PORT);
 	}
 	
 	//this is the update method
@@ -42,6 +44,13 @@ public class Pneumatics  {
 			case LIFTER_DOWN:
 				lifterDown();
 				break;
+			case ROLLER_IN:
+				rollerIn();
+				break;
+			case ROLLER_OUT:
+				rollerOut();
+				break;
+				
 				
 		}
 		
@@ -60,15 +69,30 @@ public class Pneumatics  {
 		return stateCompleted;
 	}
 	
+	public void startLock(){
+		if(Done()){
+			currentPneumaticState = States.Pneumatics.LOCK;
+			notCompleted();
+		}
+	}
 	
 	//method to engage the locking mech
-	public void lock(){
+	private void lock(){
 		locker.set(true);
 		completed();
 	}
 	
+	public void startUnlock(){
+		if(Done()){
+			currentPneumaticState = States.Pneumatics.UNLOCK;
+			notCompleted();
+		}
+	}
+	
+	
+
 	//method to unlock the locking mech
-	public void unlock(){
+	private void unlock(){
 		locker.set(false);
 		completed();
 	}
@@ -141,5 +165,28 @@ public class Pneumatics  {
 		if(openReadSwitch.get()){
 			completed();
 		}
+	}
+	
+	public void startRollerIn(){
+		if(Done()){
+			currentPneumaticState = States.Pneumatics.ROLLER_IN;
+			notCompleted();
+		}
+	}
+	
+	private void rollerIn(){
+		rollerPiston.set(true);
+		completed();
+	}
+	
+	public void startRollerOut(){
+		if(Done()){
+			currentPneumaticState = States.Pneumatics.ROLLER_OUT;
+			notCompleted();
+		}
+	}
+	private void rollerOut(){
+		rollerPiston.set(false);
+		completed();
 	}
 }

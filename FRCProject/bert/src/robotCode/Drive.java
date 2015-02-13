@@ -112,6 +112,8 @@ public class Drive {
 			case DISTANCE_DRIVE:
 				distanceDrive();
 				break;
+			case BACKWARD_DISTANCE_DRIVE:
+				backwardDistanceDrive();
 			case RIGHT_ANGLE_TURN:
 				rightAngleTurn();
 				break;
@@ -163,7 +165,7 @@ public class Drive {
 			resetEncoders();
 			currentDriveState = States.Drive.DISTANCE_DRIVE;
 			driveDistance = distance;
-			Pc = SmartDashboard.getNumber("P:");
+			//Pc = SmartDashboard.getNumber("P:");
 			//reset all the vars needed
 			totalError = 0;
 		}
@@ -220,8 +222,67 @@ public class Drive {
 			SmartDashboard.putNumber("RIGHT Motor speed: ", (minSpeed + motorDifferential));
 		}
 	}
+	
+	public void startBDistanceDrive(double b_Distance){
+		if(Done()){
+			notCompleted();
+			resetEncoders();
+			currentDriveState = States.Drive.BACKWARD_DISTANCE_DRIVE;
+			driveDistance = b_Distance;
+			//reset the vars
+			totalError = 0;
+		}
+	}
+	
+	private void backwardDistanceDrive(){
+		//code to control distance drive
 		
-		
+				//calculate the current distance by taking the average of the 
+				//the two motors. TODO: do a more accurate calculation of the distance
+				currentDistance = (-getLeftEncoderDistance() + -getRightEncoderDistance())/2;
+				SmartDashboard.putNumber("Distance: ", currentDistance);
+				
+				printEncoderValues();
+				//check to see if the current distance has reach the desired distance
+				if(currentDistance >= driveDistance){
+					completed();
+				}
+				else{
+					//calculate the current error
+					currentError = -getLeftEncoderDistance() - -getRightEncoderDistance();
+					SmartDashboard.putNumber("Current error: ", currentError);
+				
+					//added the current error to the total error;
+					totalError += currentError;
+				
+					//calculate the motorDiffernetial
+					//the current error time the proportional const + the total error times the intergral const 
+					motorDifferential = currentError*Pc; //+ totalError*Ic;
+				
+					//make sure the the motorDifferential plus the min motor speed 
+					//is not over the max motor value of 1
+					
+					//for dubuging purposes put the motordiff on the smartdash
+					SmartDashboard.putNumber("Motor Diff: ", motorDifferential);
+					
+					
+					if(Math.abs((motorDifferential) + minSpeed) > 1){
+						if(motorDifferential > 0){
+							motorDifferential = -(1-minSpeed);
+						}
+						else{
+							motorDifferential = (1-minSpeed);
+						}
+					}
+					
+					//for dubuging purposes put the motordiff on the smartdash
+					//set the motor to the speeds to what 
+					driver.tankDrive((motorDifferential + -(minSpeed)), (-motorDifferential + (-minSpeed)));
+					SmartDashboard.putNumber("LEFT Motor speed: ", (minSpeed + motorDifferential));
+					SmartDashboard.putNumber("RIGHT Motor speed: ", (minSpeed - motorDifferential));
+				}	
+	}
+	
 	public void startRightAngleTurn(boolean left){
 		if(Done()){
 			//turn off all states
