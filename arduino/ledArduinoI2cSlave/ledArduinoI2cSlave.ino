@@ -17,8 +17,8 @@ void loop()
 
 
 void receiveEvent(int howMany){
-  Serial.print("Recieved data! ");
-  int ledCode = Wire.read();
-  Serial.print("The led code is: ");
-  Serial.println(ledCode);
+  for(int i = howMany; i > 0; i--){
+    //Serial.print("Recieved data: ");
+    Serial.println(Wire.read());
+  }
 }
