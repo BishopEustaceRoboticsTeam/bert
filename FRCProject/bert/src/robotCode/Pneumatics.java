@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Pneumatics  {
@@ -169,23 +170,27 @@ public class Pneumatics  {
 	
 	public void startRollerIn(){
 		if(Done()){
+			SmartDashboard.putString("Roller", "start Roller in");
 			currentPneumaticState = States.Pneumatics.ROLLER_IN;
 			notCompleted();
 		}
 	}
 	
 	private void rollerIn(){
+		SmartDashboard.putString("Roller", "Roller in");
 		rollerPiston.set(true);
 		completed();
 	}
 	
 	public void startRollerOut(){
 		if(Done()){
+			SmartDashboard.putString("Roller", "start Roller out");
 			currentPneumaticState = States.Pneumatics.ROLLER_OUT;
 			notCompleted();
 		}
 	}
 	private void rollerOut(){
+		SmartDashboard.putString("Roller", "start Roller out");
 		rollerPiston.set(false);
 		completed();
 	}

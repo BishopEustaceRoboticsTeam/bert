@@ -98,6 +98,7 @@ public class BERT extends IterativeRobot {
     public void teleopPeriodic() {
     	drive.update();
     	rollers.update();
+    	pneu.update();
     	//auto.toteToZone();
     	//auto.binToZone();
     	//auto.driveToZone();
