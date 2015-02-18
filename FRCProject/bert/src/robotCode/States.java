@@ -39,8 +39,8 @@ public class States {
 		LIFT, UNLOCK, LOWER, END;
 	}
 	
-	public enum Actuator{
-		READY, STACK, PLACE;
+	public enum LifterStates{
+		READY, STACK, PLACE, RESET;
 	}
 	
 	

@@ -36,6 +36,18 @@ public class RobotValues {
 	public static final boolean REVERSE_LEFT_ENCODER_DIRECTION = true;
 	public static final boolean REVERSE_RIGHT_ENCODER_DIRECTION = false;
 	
-	//Analog sensor ports:
+	//Buttons for the second driver
+		//the lifter buttons
+		public static final int STACK = 1;
+		public static final int PLACE = 2;
+		public static final int RESET_LIFTER = 3;
+		
+		//the roller buttons
+		public static final int ROLLER_IN = 4;
+		public static final int ROLLER_OUT = 5;
+	
+		//the locking buttons
+		public static final int LOCK = 6;
+		public static final int UNLOCK = 7;
 	
 }

@@ -1,10 +1,9 @@
 package robotCode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-
+import robotCode.LED.*;
+//class to 
 public class Autonomous {
 	private final double DISTANCE_TO_AUTO_ZONE = 2.75;  //2.7178 is the exact value
 	private final double DISTANCE_FROM_WALL_TO_AUTO_ZONE = 4.1402;
@@ -12,9 +11,10 @@ public class Autonomous {
 	private final double DISTANCE_TO_BIN = 0.25;
 
 	private Drive drive;
-	private Actuators lifter;
+	private Lifter lifter;
 	private Pneumatics pneu;
 	private Rollers roller;
+	
 	
 	private final boolean left = true;
 	
@@ -29,7 +29,7 @@ public class Autonomous {
 	Boolean currentActuatorState;
 	Boolean stateCompleted;
 	
-	public Autonomous(Drive _drive, Actuators _lifter, Pneumatics _pneumatics){
+	public Autonomous(Drive _drive, Lifter _lifter, Pneumatics _pneumatics){
 		drive = _drive;
 		lifter = _lifter;
 		pneu = _pneumatics;
@@ -57,6 +57,8 @@ public class Autonomous {
 			break;
 		case END:
 			SmartDashboard.putString("Auto", "Done");
+			//auto is over it's time for the light show!
+			LED.setLEDs(LEDModes.RAINBOW);
 			break;
 		}
 		
@@ -124,11 +126,13 @@ public class Autonomous {
 				case END:
 					//were done this mode of autonomous!
 					SmartDashboard.putString("Auto", "Finished AutoTote");
+					completed();
 					break;
 			}
 		}
 	}
 	
+	//only for debugging
 	public void resetStates(){
 		currentAutoToteState = States.AutoTote.DRIVE_TO_TOTE;
 		currentAutoBinState = States.AutoBin.DRIVE_TO_BIN;
@@ -142,7 +146,7 @@ public class Autonomous {
 	    //drive.startRightAngleTurn(left);
 	    //drive.startDistanceDrive(DISTANCE_TO_AUTO_ZONE);
 	    //lifter.lower();
-		if(drive.Done() && lifter.Done()){
+		if(drive.Done() && pneu.Done()){
 			switch(currentAutoBinState){
 				case DRIVE_TO_BIN:
 					//drive to the bin
@@ -155,7 +159,7 @@ public class Autonomous {
 					currentAutoBinState = States.AutoBin.LIFT_BIN;
 				case LIFT_BIN:
 					//start the lift
-					pneu.lift();
+					pneu.startLifterUp();
 					//set the next state
 					currentAutoBinState = States.AutoBin.TURN_90;
 					break;
@@ -173,7 +177,7 @@ public class Autonomous {
 					break;
 				case DROP_BIN:
 					//start the drop 
-					pneu.lower();
+					pneu.startLifterDown();
 					//change to the next state
 					currentAutoBinState = States.AutoBin.BACKUP;
 					break;
@@ -186,6 +190,7 @@ public class Autonomous {
 				case END:
 					//were done this mode of autonomous!
 					SmartDashboard.putString("Auto", "Finished AutoBin");
+					completed();
 					break;
 			}
 	
@@ -196,6 +201,7 @@ public class Autonomous {
 	public void driveToZone(){
 		drive.startDistanceDrive(DISTANCE_TO_AUTO_ZONE);
 		SmartDashboard.putString("Auto", "Finished DriveToZone");
+		completed();
 	}
 	
 	//method that will display the auto mode in the smartdashboad 
@@ -206,7 +212,35 @@ public class Autonomous {
 		
 		
 		//led code:
+		switch(switchPos){
+			case 1:
+				//drive to zone
+				LED.setLEDs(LEDModes.BLUE);
+				break;
+			case 2:
+				//tote to zone
+				LED.setLEDs(LEDModes.YELLOW);
+				break;
+			case 3:
+				//bin to zone
+				LED.setLEDs(LEDModes.GREEN);
+				break;
+			case 4:
+				//TBD
+				LED.setLEDs(LEDModes.PURPLE);
+				break;
+			case 5:
+				//do nothing
+				LED.setLEDs(LEDModes.RED);
+				break;
+			case 0:
+				//error still going to drive to zone
+				LED.setLEDs(LEDModes.ERROR);
+				break;
+			
+				
 		
+		}
 		return switchPos;
 	}
 	
@@ -217,38 +251,41 @@ public class Autonomous {
 			
 			case 1:
 				currentAutonomousState = States.Autonomous.DRIVE_TO_ZONE;
-			break;
+				break;
 			
 			case 2:
 				currentAutonomousState = States.Autonomous.TOTE_TO_ZONE;
-			break;
+				break;
 			
 			case 3:
 				currentAutonomousState = States.Autonomous.BIN_TO_ZONE;
-			break;
+				break;
 			
 			case 4:
 				currentAutonomousState = States.Autonomous.TO_BE_DETERMINED;
-			break;
+				break;
 			
 			case 5:
 				currentAutonomousState = States.Autonomous.DO_NOTHING;
-			break;
-			
+				break;
+				
+			//error with the switch
 			case 0:
 				currentAutonomousState = States.Autonomous.DRIVE_TO_ZONE;
 				SmartDashboard.putString("Auto Error", "Switch failed.");
-			break;
+				break;
 		}
 	}
 	
 	private int getAutoSwitchPos(boolean one, boolean two, boolean three){
-		/*pos|bit
-		 * 1 |110
-		 * 2 |100
-		 * 3 |101
-		 * 4 |001
-		 * 5 |011
+		/*
+		 * pos|bits
+		 * 1  |110
+		 * 2  |100
+		 * 3  |101
+		 * 4  |001
+		 * 5  |011
+		 * 
 		 */
 		
 		if(one && two){
@@ -267,6 +304,7 @@ public class Autonomous {
 			return 5;
 		}
 		else {
+			//error case
 			return 0;
 		}
 		

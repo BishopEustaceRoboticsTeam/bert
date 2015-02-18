@@ -26,7 +26,7 @@ public class BERT extends IterativeRobot {
 	//Roller Class:
 	Rollers rollers = new Rollers(joy);
 	//Actuators Class:
-	Actuators actuator = new Actuators(pneu);
+	Lifter lifter = new Lifter(pneu);
 	//Robot input output
 	//RobotIO inputOutput = new RobotIO();
 	//Drive Class:
@@ -52,7 +52,7 @@ public class BERT extends IterativeRobot {
         //server = CameraServer.getInstance();
         //server.setQuality(CAMERA_QUALITY);
         //server.startAutomaticCapture("CAMERA_NAME");
-    	 auto = new Autonomous(drive, actuator, pneu);
+    	 auto = new Autonomous(drive, lifter, pneu);
    
     }
     
@@ -62,7 +62,8 @@ public class BERT extends IterativeRobot {
     //this method is called once at the start of autonomous
     
     public void autonomousInit(){
-    	// TODO: read your switch here to know which autonomous mode you're doing
+    	//set the auto mode based on the switch position
+    	auto.setAutoMode();
     	
     }
 
@@ -72,14 +73,13 @@ public class BERT extends IterativeRobot {
     
     public void autonomousPeriodic() {
     	auto.update();
-    	//if(automode == TOTE) {
-    		//if(drivestate == forward) {
-    			//keep driving forward
-    			
-    		//} else if (drivestate== FORWARDDONE) {
-    			
-    		//}
-    	//}
+    	
+    	//update everything for auto
+    	drive.update();
+    	rollers.update();
+    	pneu.update();
+    	lifter.update();
+ 
     }
 
   //****TELEOP****:
@@ -89,6 +89,7 @@ public class BERT extends IterativeRobot {
     public void teleopInit(){
     	//set the drive mode to controllerDrive
     	drive.startControllerDrive();
+    	rollers.startRollerControl();
     }
     
     /**
@@ -96,13 +97,116 @@ public class BERT extends IterativeRobot {
      */
    
     public void teleopPeriodic() {
+    	//update all the classes
     	drive.update();
     	rollers.update();
     	pneu.update();
-    	//auto.toteToZone();
-    	//auto.binToZone();
-    	//auto.driveToZone();
+    	lifter.update();
+    	
+    	
+    	//here is where the buttons are mapped
+    	
+    	//---Driver 1---
+    	
+    	//r3 sets fine control
     	if(rc.getR3Button()){
+    		drive.startFineControl();
+    	}
+    	
+    	//left 90 degree turn
+    	if(rc.getBButton()){
+    		drive.startRightAngleTurn(true);
+    	}
+    	
+    	//right 90 degree turn
+    	if(rc.getXButton()){
+    		drive.startRightAngleTurn(false);
+    	}
+    	
+    	//overide
+    	if(rc.getYButton()){
+    		drive.override();
+    	}
+    	//---Driver 2---
+    	
+    	//the lifter
+    	
+    	//stack
+    	if(joy.getRawButton(RobotValues.STACK)){
+    		lifter.startStack();
+    	}
+    	
+    	//place
+    	if(joy.getRawButton(RobotValues.PLACE)){
+    		lifter.startPlace();
+    	}
+    	
+    	//reset the lifter
+    	if(joy.getRawButton(RobotValues.RESET_LIFTER)){
+    		lifter.startReset();
+    	}
+    	
+    	//the rollers
+    	
+    	//roller in
+    	if(joy.getRawButton(RobotValues.ROLLER_IN)){
+    		pneu.startRollerIn();
+    	}
+    	
+    	//roller out 
+    	if(joy.getRawButton(RobotValues.ROLLER_OUT)){
+    		pneu.startRollerOut();
+    	}
+    	
+    	//the locking mech
+    	
+    	
+    	//lock
+    	if(joy.getRawButton(RobotValues.LOCK)){
+    		pneu.startLock();
+    	}
+    	
+    	//unlock
+    	if(joy.getRawButton(RobotValues.UNLOCK)){
+    		pneu.startUnlock();
+    	}
+    }
+    
+    //****DISABLED****:
+    
+    //this runs once at the start of disable
+    public void disabledInit(){
+    	drive.resetEncoders();
+    	
+    }
+     
+    //this runs periodically during disabled (loop)
+    public void disabledPeriodic(){
+    	auto.displayAutoMode();
+    	
+    	
+    }
+    
+    //****TEST****:
+    
+    //this method is called once at the start of test
+    public void testInit(){
+    	
+    	
+    }
+    
+    /**
+     * This function is called periodically during test mode
+     */
+    public void testPeriodic() {
+    	//update all the classes
+    	drive.update();
+    	rollers.update();
+    	pneu.update();
+    	lifter.update();
+    	
+    	
+     	if(rc.getR3Button()){
     		drive.startFineControl();
     	}
     	
@@ -157,36 +261,6 @@ public class BERT extends IterativeRobot {
     	if(rc.getRBButton()){
     		auto.resetStates();
     	}
-    	
-    }
-    
-    //****DISABLED****:
-    
-    //this runs once at the start of disable
-    public void disabledInit(){
-    	drive.resetEncoders();
-    	
-    }
-     
-    //this runs periodically during disabled (loop)
-    public void disabledPeriodic(){
-    	auto.displayAutoMode();
-    	
-    	
-    }
-    
-    //****TEST****:
-    
-    //this method is called once at the start of test
-    public void testInit(){
-    	
-    	
-    }
-    
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
     
     }
     

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Pneumatics  {
-	private Solenoid lifter;
+	private Solenoid lifterPiston;
 	private Solenoid locker;
 	private Solenoid rollerPiston;
 	
@@ -22,7 +22,7 @@ public class Pneumatics  {
 	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_READ_SWITCH_PORT);
 	
 	public Pneumatics(){
-		lifter = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
+		lifterPiston = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
 		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);
 		compressor = new Compressor();
 		rollerPiston = new Solenoid(RobotValues.ROLLER_PISTON_PORT);
@@ -98,14 +98,16 @@ public class Pneumatics  {
 		completed();
 	}
 	
-	//method to raise the lifter
+	//method to raise the lifter without any checks (override)
 	public void lift(){
-		lifter.set(true);
+		lifterPiston.set(true);
+		completed();
 	}
 	
-	//method to lower the lifter
+	//method to lower the lifter without any checks (override)
 	public void lower(){
-		lifter.set(false);
+		lifterPiston.set(false);
+		completed();
 	}
 	
 	//method that gets the current state of lock. true = locked false = unlocked
@@ -116,7 +118,7 @@ public class Pneumatics  {
 	//method to get the state of the lifter (note this returns true if the solenoid is on and false for off)
 	//it does not tell you if the lifter fully up or full down
 	public boolean getLifter(){
-	    return lifter.get();
+	    return lifterPiston.get();
 	}
 	
 	public void startLifterUp(){
@@ -127,32 +129,13 @@ public class Pneumatics  {
 	}	
 	
 	private void lifterUp(){
-		lifter.set(false);
+		lifterPiston.set(false);
 		if(closedReadSwitch.get()){
 			completed();
 		}
 	}
 		
-	
-	//method that will use the above methods to lift a tote and lock it and put the lifter down
-	private void stackOld(){
-		if(getLock()){
-			unlock();
-		}
-		
-		//lift up
-		lift();
-		
-		//lock when lifter is all the way up
-		Timer.delay(1); //replace with when the sensor says the lifter has reached its position
-		
-		//lock
-		lock();
-		Timer.delay(.25);//add a short delay
-		
-		//put the lift back down
-		lower();
-	}
+
 	
 	public void startLifterDown(){
 		if(Done()){
@@ -162,7 +145,7 @@ public class Pneumatics  {
 	}
 	
 	private void lifterDown(){
-		lifter.set(true);
+		lifterPiston.set(true);
 		if(openReadSwitch.get()){
 			completed();
 		}
@@ -194,4 +177,25 @@ public class Pneumatics  {
 		rollerPiston.set(false);
 		completed();
 	}
+	
+	
+	//method that will use the above methods to lift a tote and lock it and put the lifter down
+	//private void stackOld(){
+	//	if(getLock()){
+	//		unlock();
+	//	}
+		
+		//lift up
+	//	lift();
+		
+		//lock when lifter is all the way up
+	//	Timer.delay(1); //replace with when the sensor says the lifter has reached its position
+		
+		//lock
+	//	lock();
+	//	Timer.delay(.25);//add a short delay
+		
+		//put the lift back down
+	//	lower();
+	//}
 }

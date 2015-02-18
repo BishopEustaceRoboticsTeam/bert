@@ -2,7 +2,11 @@
 #include <Adafruit_NeoPixel.h>
 #include <avr/power.h>
 
+//LED pin
 #define PIN 6
+
+//I2C address of the arduino
+#define ADDR 4
 
 
 
@@ -19,8 +23,13 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(100, PIN, NEO_GRB + NEO_KHZ800);
 
 
 
-boolean animation_completed = true;
+boolean completed_auto = false;
 int current_led_mode = -1;
+
+// pins for the LEDs:
+const int redPin = 9;
+const int greenPin = 10;
+const int bluePin = 11;
 
 void setup()
 {
@@ -28,9 +37,16 @@ void setup()
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
   
-  Wire.begin(4);
+  
+  //make the arduino an i2c slave
+  Wire.begin(ADDR);
   Wire.onReceive(receiveEvent);
   Serial.begin(9600);
+  
+  // make the rbg led pins outputs:
+  pinMode(redPin, OUTPUT); 
+  pinMode(greenPin, OUTPUT); 
+  pinMode(bluePin, OUTPUT); 
 
 }
 
@@ -40,73 +56,142 @@ void loop()
 //  builder(10, strip.Color(255,0,0));  
 //  theaterChaseRainbow(50);
 
-  phaser2(20, strip.Color(177,0,0),strip.Color(0,0,177),strip.Color(0,255,0));
-
-  if(animation_completed){
+  if(!completed_auto){
     //notCompleted();
     switch(current_led_mode){
       case 0:
         colorWipe(strip.Color(0, 0, 255), 20); // Blue
+        
+        //make the led blue
+        analogWrite(redPin, 0);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 255);
+        
         break;
       case 1:
         colorWipe(strip.Color(247, 247, 20), 20); // Yellow
+        
+        //make the led yellow
+        analogWrite(redPin, 150);
+        analogWrite(greenPin, 255);
+        analogWrite(bluePin, 10);
+        
         break;
       case 2:
         colorWipe(strip.Color(0, 255, 0), 20); // Green
+        
+        //make the led green
+        analogWrite(redPin, 0);
+        analogWrite(greenPin, 255);
+        analogWrite(bluePin, 0);
+        
         break;
       case 3:
         colorWipe(strip.Color(255, 0, 255), 20); // PURPLE
+        
+        //make the led purple
+        analogWrite(redPin, 100);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 255);
+        
         break;
       case 4:
-        colorWipe(strip.Color(255, 0, 0), 20); // Blue
+        colorWipe(strip.Color(255, 0, 0), 20); // Red
+        
+        //make the led red
+        analogWrite(redPin, 255);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 0);
+        
         break;
       case 5:
-        colorFromCenter(20);
-        break;  
-      default:
-        completed();
+        //auto is over 
+        
+        //make the led white
+        analogWrite(redPin, 100);
+        analogWrite(greenPin, 255);
+        analogWrite(bluePin, 255);
+     
+        completed_auto = true;
+        
         break;
-      //Serial.print("E");
+      case 101:
+        //an error from the robot
+        
+        //make the led red
+        analogWrite(redPin, 255);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 0);
+        
+        blinkStrip(strip.Color(255, 0, 0), 250);  //blink red
+        
+         //turn the led off
+        analogWrite(redPin, 0);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 0);
+        
+        blinkStrip(strip.Color(255, 0, 0), 250);  //blink red
+        
+        break;
+      default:
+        //most likely -1
+        //error geting data from the robot
+        
+        //make the led yellow
+        analogWrite(redPin, 150);
+        analogWrite(greenPin, 255);
+        analogWrite(bluePin, 0);
+        
+        blinkStrip(strip.Color(247, 247, 20), 250);  //blink yellow
+        
+         //turn the led off
+        analogWrite(redPin, 0);
+        analogWrite(greenPin, 0);
+        analogWrite(bluePin, 0);
+        
+         blinkStrip(strip.Color(247, 247, 20), 250);  //blink yellow
+        
+       
+        break;
+
     }  
+  }
+  //auto is done start the light show
+  else{
+    
+    colorFromCenter(50);
+  
+    builder(10, strip.Color(0, 0, 127));
+
+    builder(10, strip.Color(0, 127, 0));  
+   
+    colorWipe(strip.Color(127, 0, 0), 50); // Red
+    colorWipe(strip.Color(0, 127, 0), 50); // Green
+    colorWipe(strip.Color(0, 0, 127), 50); // Blue
+
+    theaterChase(strip.Color(127, 127, 127), 50); // White
+    theaterChase(strip.Color(127,   0,   0), 50); // Red
+    theaterChase(strip.Color(  0,   0, 127), 50); // Blue
+
+    rainbow(20);
+    rainbowCycle(20);
+    theaterChaseRainbow(50);
+    
   }
 }
 
 //this function gets called when data comes in
 void receiveEvent(int howMany){
   int addr = Wire.read();
-  //Serial.println(addr);
-  //the robot wants to read
-  //if(addr == 0x20){
-    //if(animation_completed){
-    //  Wire.write(116);
-      //current_led_mode = 1;
-      
-    //}
-    //else{
-      //Wire.write('f');
-    //}
-  //}
   
-  //the robot wants to write
-  if(addr == 0x10){
-    //if(animation_completed){
+  //the robot wants to send some data
+  if(addr == 0x10){ 
       current_led_mode = Wire.read();
-    //}
-    //Wire.read();
   }
    else{
      current_led_mode = -1;
    } 
 }
-
-void completed(){
-   animation_completed = true;
-   current_led_mode = -1;
-}
-void notCompleted(){
-   animation_completed = false; 
-}
-
 
 
 // Fill the dots one after the other with a color
@@ -116,7 +201,22 @@ void colorWipe(uint32_t c, uint8_t wait) {
       strip.show();
       delay(wait);
   }
-  completed();
+}
+
+void blinkStrip(uint32_t c, uint8_t wait){
+  //on
+ for(uint16_t i=0; i<strip.numPixels(); i++) {
+      strip.setPixelColor(i, c);
+  }
+   strip.show();
+   delay(wait);
+   
+   //off
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+      strip.setPixelColor(i, 0);
+  }
+  strip.show();
+  delay(wait);
 }
 
 void reverseColorWipe(uint32_t c, uint8_t wait) {
@@ -125,7 +225,6 @@ void reverseColorWipe(uint32_t c, uint8_t wait) {
       strip.show();
       delay(wait);
   }
-  completed();
 }
 
 void rainbow(uint8_t wait) {
@@ -138,7 +237,6 @@ void rainbow(uint8_t wait) {
     strip.show();
     delay(wait);
   }
-  completed();
 }
 
 // Slightly different, this makes the rainbow equally distributed throughout
@@ -152,7 +250,6 @@ void rainbowCycle(uint8_t wait) {
     strip.show();
     delay(wait);
   }
-  completed();
 }
 
 //Theatre-style crawling lights.
@@ -171,7 +268,6 @@ void theaterChase(uint32_t c, uint8_t wait) {
       }
     }
   }
-  completed();
 }
 
 void skipColorWipe(uint32_t c, uint8_t wait) {
@@ -180,7 +276,6 @@ void skipColorWipe(uint32_t c, uint8_t wait) {
       strip.show();
       delay(wait);
   }
-  completed();
 }
 
 //Theatre-style crawling lights with rainbow effect
@@ -199,7 +294,6 @@ void theaterChaseRainbow(uint8_t wait) {
         }
     }
   }
-  completed();
 }
 
 void colorFromCenter(uint8_t wait){
@@ -215,7 +309,7 @@ void colorFromCenter(uint8_t wait){
     strip.show();
     delay(wait);
   }
-  completed();
+ 
 }
 
 void builder(uint8_t wait, uint32_t c){
@@ -231,8 +325,6 @@ void builder(uint8_t wait, uint32_t c){
       }
       strip.show();
       delay(wait);
-    
-    
     }
   }
   for(int i=0; i<=(strip.numPixels()-1)/2; i++){
@@ -241,7 +333,6 @@ void builder(uint8_t wait, uint32_t c){
     strip.show();
     delay(wait);
   }
-  completed();
 }
 
 void phaser(uint8_t wait, uint32_t c1, uint32_t c2, uint32_t c3){

@@ -1,20 +1,32 @@
 package robotCode;
 
-public class Actuators {
+
+//high level class that controls the steps for the lift and place actions
+//uses the pneumatics class to do so.
+public class Lifter {
 	
-	private States.Actuator currentActuatorState = States.Actuator.READY;
+	//states for this class:
+	private States.LifterStates currentLifterState = States.LifterStates.READY;
+	
+	//steps for stacking a tote or bin:
 	private States.Stack currentStackState = States.Stack.LOWER;
+	
+	//steps for placing a bin
 	private States.Place currentPlaceState = States.Place.LOWER;
+	
+	//var to keep track if the current task is completed or not
 	private boolean stateCompleted = true;
+	
+	//the pneumatics class
 	private Pneumatics pneu;
 	
-	public Actuators(Pneumatics _pneu){
+	public Lifter(Pneumatics _pneu){
 		pneu = _pneu;
 	}
 	
 	private void completed(){
 		stateCompleted = true;
-		currentActuatorState = States.Actuator.READY;
+		currentLifterState = States.LifterStates.READY;
 	}
 	
 	private void notCompleted(){
@@ -27,8 +39,11 @@ public class Actuators {
 	
 	
 	public void update(){
-		switch(currentActuatorState){
+		switch(currentLifterState){
 			case READY:
+				break;
+			case RESET:
+				reset();
 				break;
 			case STACK:
 				stack();
@@ -38,10 +53,22 @@ public class Actuators {
 				break;
 			}	
 		}
+	
+	
+	public void startReset(){
+		currentLifterState = States.LifterStates.STACK;
+		notCompleted();
+	}
+	
+	private void reset() {
+			pneu.lower();
+			completed();
 		
+	}
+
 	public void startStack(){
 		if(Done()){
-			currentActuatorState = States.Actuator.STACK;
+			currentLifterState = States.LifterStates.STACK;
 			notCompleted();
 		}
 	}
@@ -66,7 +93,7 @@ public class Actuators {
 	
 	public void startPlace(){
 		if(Done()){
-			currentActuatorState = States.Actuator.PLACE;
+			currentLifterState = States.LifterStates.PLACE;
 			notCompleted();
 		}
 	}
