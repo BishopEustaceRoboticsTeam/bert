@@ -69,6 +69,7 @@ public class Lifter {
 	public void startStack(){
 		if(Done()){
 			currentLifterState = States.LifterStates.STACK;
+			currentStackState = States.Stack.OPEN_ROLLERS;
 			notCompleted();
 		}
 	}
@@ -76,6 +77,10 @@ public class Lifter {
 	private void stack(){
 		if(pneu.Done()){
 			switch(currentStackState){
+				case OPEN_ROLLERS:
+					pneu.startRollerOut();
+					currentStackState = States.Stack.LIFT;
+					break;
 				case LIFT:
 					pneu.startLifterUp();
 					currentStackState = States.Stack.LOWER;
@@ -94,6 +99,7 @@ public class Lifter {
 	public void startPlace(){
 		if(Done()){
 			currentLifterState = States.LifterStates.PLACE;
+			currentPlaceState = States.Place.OPEN_ROLLERS;
 			notCompleted();
 		}
 	}
@@ -101,14 +107,21 @@ public class Lifter {
 	private void place(){
 		if(pneu.Done()){
 			switch(currentPlaceState){
+				case OPEN_ROLLERS:
+					pneu.startRollerOut();
+					currentPlaceState = States.Place.LIFT;
+					break;
 				case LIFT:
 					pneu.startLifterUp();
+					currentPlaceState = States.Place.UNLOCK;
 					break;
 				case UNLOCK:
 					pneu.startUnlock();
+					currentPlaceState = States.Place.LOWER;
 					break;
 				case LOWER:
 					pneu.startLifterDown();
+					currentPlaceState = States.Place.END;
 					break;
 				case END:
 					completed();
