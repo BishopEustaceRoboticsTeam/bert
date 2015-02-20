@@ -43,11 +43,11 @@ public class RobotValues {
 		public static final int RESET_LIFTER = 3;
 		
 		//the roller buttons
-		public static final int ROLLER_IN = 4;
-		public static final int ROLLER_OUT = 5;
+		public static final int ROLLER_IN_OUT = 4;
+		
 	
 		//the locking buttons
-		public static final int LOCK = 6;
-		public static final int UNLOCK = 7;
+		public static final int TOTE_LOCK = 5;
+		
 	
 }

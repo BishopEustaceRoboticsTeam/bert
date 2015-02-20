@@ -130,7 +130,7 @@ public class Pneumatics  {
 	
 	private void lifterUp(){
 		lifterPiston.set(false);
-		if(closedReadSwitch.get()){
+		if(!closedReadSwitch.get()){
 			completed();
 		}
 	}
@@ -146,7 +146,7 @@ public class Pneumatics  {
 	
 	private void lifterDown(){
 		lifterPiston.set(true);
-		if(openReadSwitch.get()){
+		if(!openReadSwitch.get()){
 			completed();
 		}
 	}

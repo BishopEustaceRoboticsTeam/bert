@@ -40,6 +40,9 @@ public class BERT extends IterativeRobot {
 	//Autonomous class
 	Autonomous auto;
 	
+	//teleop vars
+	private boolean rollerIn = false; 
+	private boolean lock = false;
 	//PDP object
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
@@ -148,28 +151,36 @@ public class BERT extends IterativeRobot {
     	
     	//the rollers
     	
-    	//roller in
-    	if(joy.getRawButton(RobotValues.ROLLER_IN)){
-    		pneu.startRollerIn();
+    	//roller piston
+    	if(joy.getRawButton(RobotValues.ROLLER_IN_OUT)){
+    		if(!rollerIn){
+    			pneu.startRollerIn();
+    			rollerIn = true;
+    		}
+    		else{
+    			pneu.startRollerOut();
+    			rollerIn = false;
+    		}
     	}
     	
-    	//roller out 
-    	if(joy.getRawButton(RobotValues.ROLLER_OUT)){
-    		pneu.startRollerOut();
-    	}
+    	
     	
     	//the locking mech
     	
     	
     	//lock
-    	if(joy.getRawButton(RobotValues.LOCK)){
-    		pneu.startLock();
+    	if(joy.getRawButton(RobotValues.TOTE_LOCK)){
+    		if(!lock){
+    			pneu.startLock();
+    			lock = true;
+    		}
+    		else{
+    			pneu.startUnlock();
+    			lock = false;
+    		}
     	}
     	
-    	//unlock
-    	if(joy.getRawButton(RobotValues.UNLOCK)){
-    		pneu.startUnlock();
-    	}
+    	
     }
     
     //****DISABLED****:
