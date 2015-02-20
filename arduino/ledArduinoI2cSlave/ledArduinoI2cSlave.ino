@@ -18,7 +18,7 @@
 //   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(100, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(64, PIN, NEO_GRB + NEO_KHZ800);
 
 
 
@@ -46,15 +46,32 @@ void setup()
   // make the rbg led pins outputs:
   pinMode(redPin, OUTPUT); 
   pinMode(greenPin, OUTPUT); 
-  pinMode(bluePin, OUTPUT); 
-
+  pinMode(bluePin, OUTPUT);
+  
+  Serial.print(strip.Color(254,0,0), HEX);
+  
+  Serial.println("Blue:");
+  Serial.println(getBlue(strip.Color(3,2,200)));
+  Serial.println(getBlue(strip.Color(31,21,200)));
+  Serial.println(getBlue(strip.Color(83,72,55)));
+  
+  Serial.println("Green:");
+  Serial.println(getGreen(strip.Color(3,200,1)));
+  Serial.println(getGreen(strip.Color(31,100,11)));
+  Serial.println(getGreen(strip.Color(83,72,56)));
+  
+  Serial.println("Red:");
+  Serial.println(getRed(strip.Color(3,2,1)));
+  Serial.println(getRed(strip.Color(31,21,11)));
+  Serial.println(getRed(strip.Color(83,72,56)));
+  
 }
 
 void loop()
 {
-    //colorFromCenter(50);
-//  builder(10, strip.Color(255,0,0));  
-//  theaterChaseRainbow(50);
+  
+  colorFromCenter(50);
+  builder(10, strip.Color(0,64,128));
 
   if(!completed_auto){
     //notCompleted();
@@ -185,7 +202,8 @@ void receiveEvent(int howMany){
   int addr = Wire.read();
   
   //the robot wants to send some data
-  if(addr == 0x10){ 
+  if(addr == 0x10){
+      completed_auto = false;
       current_led_mode = Wire.read();
   }
    else{
@@ -445,18 +463,45 @@ void phaser2(uint8_t wait, uint32_t c1, uint32_t c2, uint32_t c3){
 
 
 
+void shader(uint8_t waitTime, uint32_t initialColor, uint32_t finalColor) {
+  
+}
+
+
+uint8_t getBlue(uint32_t color) {
+  return color & 0x000000ff;
+}
+
+uint8_t getGreen(uint32_t color) {
+  return color & 0x0000ff00;
+}
+
+uint8_t getRed(uint32_t color) {
+  return color & 0x00ff0000;
+}
+
+uint8_t getLast(uint32_t color) {
+  return color & 0xff000000;
+}
+
+
+
+
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
 uint32_t Wheel(byte WheelPos) {
   WheelPos = 255 - WheelPos;
+  
   if(WheelPos < 85) {
    return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+   
   } else if(WheelPos < 170) {
     WheelPos -= 85;
-   return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+    return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+   
   } else {
-   WheelPos -= 170;
-   return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+    WheelPos -= 170;
+    return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
   }
 }
 
