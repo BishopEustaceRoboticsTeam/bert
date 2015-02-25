@@ -29,6 +29,8 @@ public class Autonomous {
 	Boolean currentActuatorState;
 	Boolean stateCompleted;
 	
+	//LED leds = new LED();
+	
 	public Autonomous(Drive _drive, Lifter _lifter, Pneumatics _pneumatics){
 		drive = _drive;
 		lifter = _lifter;

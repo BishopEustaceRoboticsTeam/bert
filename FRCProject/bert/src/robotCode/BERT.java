@@ -2,6 +2,7 @@
 package robotCode;
 
 import edu.wpi.first.wpilibj.Joystick;
+import robotCode.LED.*;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -90,6 +91,9 @@ public class BERT extends IterativeRobot {
     
    //this method is called once at the start of teleop
     public void teleopInit(){
+    	//start the led light show
+    	LED.setLEDs(LEDModes.RAINBOW);
+    	
     	//set the drive mode to controllerDrive
     	drive.startControllerDrive();
     	rollers.startRollerControl();
