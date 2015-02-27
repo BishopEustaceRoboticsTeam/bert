@@ -29,7 +29,7 @@ public class Autonomous {
 	Boolean currentActuatorState;
 	Boolean stateCompleted;
 	
-	//LED leds = new LED();
+	LED leds = new LED();
 	
 	public Autonomous(Drive _drive, Lifter _lifter, Pneumatics _pneumatics){
 		drive = _drive;
@@ -217,27 +217,27 @@ public class Autonomous {
 		switch(switchPos){
 			case 1:
 				//drive to zone
-				LED.setLEDs(LEDModes.BLUE);
+				leds.setLEDs(LEDModes.BLUE);
 				break;
 			case 2:
 				//tote to zone
-				LED.setLEDs(LEDModes.YELLOW);
+				leds.setLEDs(LEDModes.YELLOW);
 				break;
 			case 3:
 				//bin to zone
-				LED.setLEDs(LEDModes.GREEN);
+				leds.setLEDs(LEDModes.GREEN);
 				break;
 			case 4:
 				//TBD
-				LED.setLEDs(LEDModes.PURPLE);
+				leds.setLEDs(LEDModes.PURPLE);
 				break;
 			case 5:
 				//do nothing
-				LED.setLEDs(LEDModes.RED);
+				leds.setLEDs(LEDModes.RED);
 				break;
 			case 0:
 				//error still going to drive to zone
-				LED.setLEDs(LEDModes.ERROR);
+				leds.setLEDs(LEDModes.ERROR);
 				break;
 			
 				

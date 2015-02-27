@@ -22,12 +22,16 @@ public class BERT extends IterativeRobot {
 	//Controller Class:
 	F310 rc = new F310(RobotValues.F310_REMOTE_USB_PORT_ONE);
 	Joystick joy = new Joystick(RobotValues.JOYSTICK_USB_PORT);
+	
 	//Pneumatics Class:
 	Pneumatics pneu = new Pneumatics();
+	
 	//Roller Class:
 	Rollers rollers = new Rollers(joy);
+	
 	//Actuators Class:
 	Lifter lifter = new Lifter(pneu);
+	
 	//Robot input output
 	//RobotIO inputOutput = new RobotIO();
 	//Drive Class:
@@ -44,6 +48,7 @@ public class BERT extends IterativeRobot {
 	//teleop vars
 	private boolean rollerIn = false; 
 	private boolean lock = false;
+	private boolean rollerButtonPressed = false;
 	//PDP object
 	//PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
@@ -57,12 +62,10 @@ public class BERT extends IterativeRobot {
         //server.setQuality(CAMERA_QUALITY);
         //server.startAutomaticCapture("CAMERA_NAME");
     	 auto = new Autonomous(drive, lifter, pneu);
-   
     }
     
     
     //****AUTONOMOUS****:
-    
     //this method is called once at the start of autonomous
     
     public void autonomousInit(){
@@ -85,9 +88,8 @@ public class BERT extends IterativeRobot {
     	lifter.update();
  
     }
-
-  //****TELEOP****:
     
+    //****TELEOP****:
     
    //this method is called once at the start of teleop
     public void teleopInit(){
@@ -157,14 +159,25 @@ public class BERT extends IterativeRobot {
     	
     	//roller piston
     	if(joy.getRawButton(RobotValues.ROLLER_IN_OUT)){
-    		if(!rollerIn){
-    			pneu.startRollerIn();
-    			rollerIn = true;
+    		if (!rollerButtonPressed) {
+	    		if(!rollerIn){
+	    			pneu.startRollerIn();
+	    			rollerIn = true;
+
+		    		SmartDashboard.putString("Roller", "In");
+	    		
+	    		} else {
+	    			pneu.startRollerOut();
+	    			rollerIn = false;
+
+		    		SmartDashboard.putString("Roller", "Out");
+	    		}
     		}
-    		else{
-    			pneu.startRollerOut();
-    			rollerIn = false;
-    		}
+    		
+    		rollerButtonPressed = true;
+    		
+    	} else {
+    		rollerButtonPressed = false;
     	}
     	
     	
