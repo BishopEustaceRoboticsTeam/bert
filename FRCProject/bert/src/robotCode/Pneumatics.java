@@ -18,8 +18,8 @@ public class Pneumatics  {
 	private States.Pneumatics currentPneumaticState = States.Pneumatics.READY;
 	private States.Stack currentStackState = States.Stack.LOWER;
 	private States.Place currentPlaceState = States.Place.LOWER;
-	private DigitalInput closedReadSwitch = new DigitalInput(RobotValues.CLOSED_READ_SWITCH_PORT);
-	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_READ_SWITCH_PORT);
+	private DigitalInput closedReadSwitch = new DigitalInput(RobotValues.CLOSED_REED_SWITCH_PORT);
+	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_REED_SWITCH_PORT);
 	
 	public Pneumatics(){
 		lifterPiston = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
@@ -129,8 +129,9 @@ public class Pneumatics  {
 	}	
 	
 	private void lifterUp(){
-		lifterPiston.set(false);
-		if(!closedReadSwitch.get()){
+		lifterPiston.set(true);
+		if(!openReadSwitch.get()){
+			SmartDashboard.putString("Piston", "Up");
 			completed();
 		}
 	}
@@ -145,8 +146,9 @@ public class Pneumatics  {
 	}
 	
 	private void lifterDown(){
-		lifterPiston.set(true);
-		if(!openReadSwitch.get()){
+		lifterPiston.set(false);
+		if(!closedReadSwitch.get()){
+			SmartDashboard.putString("Piston", "Down");
 			completed();
 		}
 	}

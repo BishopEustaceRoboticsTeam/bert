@@ -1,5 +1,7 @@
 package robotCode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 //high level class that controls the steps for the lift and place actions
 //uses the pneumatics class to do so.
@@ -56,7 +58,7 @@ public class Lifter {
 	
 	
 	public void startReset(){
-		currentLifterState = States.LifterStates.STACK;
+		currentLifterState = States.LifterStates.RESET;
 		notCompleted();
 	}
 	
@@ -80,17 +82,21 @@ public class Lifter {
 				case OPEN_ROLLERS:
 					pneu.startRollerOut();
 					currentStackState = States.Stack.LIFT;
+					SmartDashboard.putString("Stack", "Open Rollers");
 					break;
 				case LIFT:
 					pneu.startLifterUp();
 					currentStackState = States.Stack.LOWER;
+					SmartDashboard.putString("Stack", "lift");
 					break;
 				case LOWER:
 					pneu.startLifterDown();
 					currentStackState = States.Stack.END;
+					SmartDashboard.putString("Stack", "Lower");
 					break;
 				case END:
 					completed();
+					SmartDashboard.putString("Stack", "end");
 					break;
 			}
 		}
@@ -110,21 +116,26 @@ public class Lifter {
 				case OPEN_ROLLERS:
 					pneu.startRollerOut();
 					currentPlaceState = States.Place.LIFT;
+					SmartDashboard.putString("Place", "OpenRollers");
 					break;
 				case LIFT:
 					pneu.startLifterUp();
 					currentPlaceState = States.Place.UNLOCK;
+					SmartDashboard.putString("Place", "Lift");
 					break;
 				case UNLOCK:
 					pneu.startUnlock();
 					currentPlaceState = States.Place.LOWER;
+					SmartDashboard.putString("Place", "Unlock");
 					break;
 				case LOWER:
 					pneu.startLifterDown();
 					currentPlaceState = States.Place.END;
+					SmartDashboard.putString("Place", "Lower");
 					break;
 				case END:
 					completed();
+					SmartDashboard.putString("Place", "End");
 					break;
 			}
 		}
