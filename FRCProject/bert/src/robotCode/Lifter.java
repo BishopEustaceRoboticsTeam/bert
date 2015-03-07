@@ -81,8 +81,13 @@ public class Lifter {
 			switch(currentStackState){
 				case OPEN_ROLLERS:
 					pneu.startRollerOut();
-					currentStackState = States.Stack.LIFT;
+					currentStackState = States.Stack.RESET;
 					SmartDashboard.putString("Stack", "Open Rollers");
+					break;
+				case RESET:
+					pneu.startLifterDown();
+					currentStackState = States.Stack.LIFT;
+					SmartDashboard.putString("Stack", "reset");
 					break;
 				case LIFT:
 					pneu.startLifterUp();
