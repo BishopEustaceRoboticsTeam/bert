@@ -6,10 +6,11 @@ import robotCode.LED.*;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.Solenoid;
+//import edu.wpi.first.wpilibj.Talon;
+//import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -50,8 +51,9 @@ public class BERT extends IterativeRobot {
 	private boolean rollerIn = false; 
 	private boolean lock = false;
 	private boolean rollerButtonPressed = false;
+	private boolean R3ButtonPressed = false;
 	//PDP object
-	//PowerDistributionPanel pdp = new PowerDistributionPanel();
+	PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -61,8 +63,10 @@ public class BERT extends IterativeRobot {
     	//set up the camera for viewing
         //server = CameraServer.getInstance();
         //server.setQuality(CAMERA_QUALITY);
-        //server.startAutomaticCapture("CAMERA_NAME");
+        //server.startAutomaticCapture(CAMERA_NAME);
     	 auto = new Autonomous(drive, lifter, pneu);
+    	 pdp.clearStickyFaults();
+    	 
     }
     
     
@@ -120,7 +124,15 @@ public class BERT extends IterativeRobot {
     	
     	//r3 sets fine control
     	if(rc.getR3Button()){
-    		drive.startFineControl();
+    		if(!R3ButtonPressed){
+    		    drive.startFineControl();
+    		    R3ButtonPressed = true;
+    		}
+    		else{
+    			drive.startControllerDrive();
+    			R3ButtonPressed = false;
+    		}
+    		
     	}
     	
     	//left 90 degree turn
@@ -133,7 +145,7 @@ public class BERT extends IterativeRobot {
     		drive.startRightAngleTurn(false);
     	}
     	
-    	//overide
+    	//override
     	if(rc.getYButton()){
     		drive.override();
     	}
@@ -278,6 +290,10 @@ public class BERT extends IterativeRobot {
     	
     	if(rc.getAButton()){
     		drive.startDistanceDrive(2);
+    	}
+    	
+    	if(rc.getL3Button()){
+    		drive.startBDistanceDrive(5);
     	}
     	
     	if(rc.getRBButton()){

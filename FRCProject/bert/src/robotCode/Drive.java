@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive {
@@ -30,7 +31,7 @@ public class Drive {
 	
 	private final double DISTANCE_PER_90 = 0.6; //0.47876; //in meters
 	
-	final int WHEEL_RADIUS = 3; //in inhes
+	final int WHEEL_RADIUS = 3; //in inches
 	final double pi = 3.1459;
 	F310 remote;
 	private Talon frMotor, flMotor, brMotor, blMotor; 
@@ -138,14 +139,13 @@ public class Drive {
 		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getLeftStickX());
 	}
 	
-	private void fineControl(){	
+	private void fineControl(){
 		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getLeftStickX()/2);
 	}
 	
 	
 	public void startFineControl(){
 		currentDriveState = States.Drive.FINE_CONTROL;
-		completed();
 	}
 
 	//allow the user to override all other states to get control of
