@@ -21,6 +21,13 @@ public class Pneumatics  {
 	private DigitalInput closedReadSwitch = new DigitalInput(RobotValues.CLOSED_REED_SWITCH_PORT);
 	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_REED_SWITCH_PORT);
 	
+	private Timer timer = new Timer();
+	private final double LIFT_UP_TIME = 3.5;
+	private final double LIFT_DOWN_TIME = 1.5;
+	private final double LOCK_TIME = .5;
+	private final double UNLOCK_TIME = .5;
+	private final double ROLLER_TIME = .25;
+	
 	public Pneumatics(){
 		lifterPiston = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
 		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);
@@ -32,23 +39,30 @@ public class Pneumatics  {
 	public void update(){
 		switch(currentPneumaticState){
 			case READY:
+				SmartDashboard.putString("Pneumatics:", "Ready");
 				break;
 			case UNLOCK:
+				SmartDashboard.putString("Pneumatics:", "Unlock");
 				unlock();
 				break;
 			case LOCK:
+				SmartDashboard.putString("Pneumatics:", "Lock");
 				lock();
 				break;
 			case LIFTER_UP:
+				SmartDashboard.putString("Pneumatics:", "Lifter up");
 				lifterUp();
 				break;
 			case LIFTER_DOWN:
+				SmartDashboard.putString("Pneumatics:", "Lifter down");
 				lifterDown();
 				break;
 			case ROLLER_IN:
+				SmartDashboard.putString("Pneumatics:", "Roller In");
 				rollerIn();
 				break;
 			case ROLLER_OUT:
+				SmartDashboard.putString("Pneumatics:", "Roller Out");
 				rollerOut();
 				break;
 				
@@ -72,6 +86,8 @@ public class Pneumatics  {
 	
 	public void startLock(){
 		if(Done()){
+			timer.reset();
+			timer.start();
 			currentPneumaticState = States.Pneumatics.LOCK;
 			notCompleted();
 		}
@@ -79,12 +95,17 @@ public class Pneumatics  {
 	
 	//method to engage the locking mech
 	private void lock(){
-		locker.set(true);
-		completed();
+		locker.set(false);
+		if(timer.get() >= LOCK_TIME){
+			timer.stop();
+			completed();
+		}
 	}
 	
 	public void startUnlock(){
 		if(Done()){
+			timer.reset();
+			timer.start();
 			currentPneumaticState = States.Pneumatics.UNLOCK;
 			notCompleted();
 		}
@@ -94,8 +115,11 @@ public class Pneumatics  {
 
 	//method to unlock the locking mech
 	private void unlock(){
-		locker.set(false);
-		completed();
+		locker.set(true);
+		if(timer.get() >= UNLOCK_TIME){
+			timer.stop();
+			completed();
+		}
 	}
 	
 	//method to raise the lifter without any checks (override)
@@ -123,6 +147,8 @@ public class Pneumatics  {
 	
 	public void startLifterUp(){
 		if(Done()){
+			timer.reset();
+			timer.start();
 			currentPneumaticState = States.Pneumatics.LIFTER_UP;
 			notCompleted();
 		}
@@ -130,16 +156,17 @@ public class Pneumatics  {
 	
 	private void lifterUp(){
 		lifterPiston.set(true);
-		if(!openReadSwitch.get()){
+		if(!openReadSwitch.get() || timer.get() >= LIFT_UP_TIME){
 			SmartDashboard.putString("Piston", "Up");
+			timer.stop();
 			completed();
 		}
 	}
 		
-
-	
 	public void startLifterDown(){
 		if(Done()){
+			timer.reset();
+			timer.start();
 			currentPneumaticState = States.Pneumatics.LIFTER_DOWN;
 			notCompleted();
 		}
@@ -147,14 +174,17 @@ public class Pneumatics  {
 	
 	private void lifterDown(){
 		lifterPiston.set(false);
-		if(!closedReadSwitch.get()){
+		if(!closedReadSwitch.get() || timer.get() >= LIFT_DOWN_TIME){
 			SmartDashboard.putString("Piston", "Down");
+			timer.stop();
 			completed();
 		}
 	}
 	
 	public void startRollerIn(){
 		if(Done()){
+			timer.reset();
+			timer.start();
 			SmartDashboard.putString("Roller", "start Roller in");
 			currentPneumaticState = States.Pneumatics.ROLLER_IN;
 			notCompleted();
@@ -163,12 +193,16 @@ public class Pneumatics  {
 	
 	private void rollerIn(){
 		SmartDashboard.putString("Roller", "Roller in");
-		rollerPiston.set(true);
-		completed();
+		rollerPiston.set(false);
+		if(timer.get() >= ROLLER_TIME){
+			completed();
+		}
 	}
 	
 	public void startRollerOut(){
 		if(Done()){
+			timer.reset();
+			timer.start();
 			SmartDashboard.putString("Roller", "start Roller out");
 			currentPneumaticState = States.Pneumatics.ROLLER_OUT;
 			notCompleted();
@@ -176,8 +210,10 @@ public class Pneumatics  {
 	}
 	private void rollerOut(){
 		SmartDashboard.putString("Roller", "start Roller out");
-		rollerPiston.set(false);
-		completed();
+		rollerPiston.set(true);
+		if(timer.get() >= ROLLER_TIME){
+			completed();
+		}
 	}
 	
 	

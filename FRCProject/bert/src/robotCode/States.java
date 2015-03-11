@@ -32,7 +32,7 @@ public class States {
 	}
 	
 	public enum Stack{
-		OPEN_ROLLERS, RESET, LIFT, LOWER, END;
+		LOCK, OPEN_ROLLERS, RESET, LIFT, LOWER, END;
 	}
 	
 	public enum Place{

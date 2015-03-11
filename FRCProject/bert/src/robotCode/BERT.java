@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 //import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Talon;
 //import edu.wpi.first.wpilibj.Timer;
@@ -43,6 +44,7 @@ public class BERT extends IterativeRobot {
 	final int CAMERA_QUALITY = 50;
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
 	CameraServer server;
+	//USBCamera camera = new USBCamera(CAMERA_NAME);
 	
 	//Autonomous class
 	Autonomous auto;
@@ -52,6 +54,7 @@ public class BERT extends IterativeRobot {
 	private boolean lock = false;
 	private boolean rollerButtonPressed = false;
 	private boolean R3ButtonPressed = false;
+	private boolean lockButtonPressed = false;
 	//PDP object
 	PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
@@ -61,11 +64,22 @@ public class BERT extends IterativeRobot {
 	
     public void robotInit() {
     	//set up the camera for viewing
-        //server = CameraServer.getInstance();
+    	//server = CameraServer.getInstance();
         //server.setQuality(CAMERA_QUALITY);
         //server.startAutomaticCapture(CAMERA_NAME);
-    	 auto = new Autonomous(drive, lifter, pneu);
-    	 pdp.clearStickyFaults();
+    	//if(camera != null){
+    	    //server = CameraServer.getInstance();
+            //server.setQuality(CAMERA_QUALITY);
+            
+            //server.startAutomaticCapture(camera);
+    	//}
+    	//else{
+    		//SmartDashboard.putString("Camera Status:", "Not Working");
+    	//}
+    	
+    	
+    	auto = new Autonomous(drive, lifter, pneu);
+    	pdp.clearStickyFaults();
     	 
     }
     
@@ -136,18 +150,23 @@ public class BERT extends IterativeRobot {
     	}
     	
     	//left 90 degree turn
-    	if(rc.getBButton()){
+    	if(rc.getXButton()){
     		drive.startRightAngleTurn(true);
     	}
     	
     	//right 90 degree turn
-    	if(rc.getXButton()){
+    	if(rc.getBButton()){
     		drive.startRightAngleTurn(false);
     	}
     	
     	//override
     	if(rc.getYButton()){
     		drive.override();
+    	}
+    	
+    	//test the backStraightDrive
+    	if(rc.getAButton()){
+    		drive.startBDistanceDrive(1);    		
     	}
     	//---Driver 2---
     	
@@ -192,15 +211,32 @@ public class BERT extends IterativeRobot {
     	
     	
     	//lock
-    	if(joy.getRawButton(RobotValues.TOTE_LOCK)){
-    		if(!lock){
-    			pneu.startLock();
-    			lock = true;
+    	if(joy.getRawButton(RobotValues.TOTE_LOCK_UNLOCK)){
+    		if(!lockButtonPressed){
+    			if(!lock){
+    				pneu.startLock();
+    				lock = true;
+    			}
+    			else{
+    				pneu.startUnlock();
+    				lock = false;
+    			}
+    			lockButtonPressed = true;
     		}
     		else{
-    			pneu.startUnlock();
-    			lock = false;
+    			lockButtonPressed = false;
+    			
     		}
+    	}
+    	
+    	//lifter dubug stuff
+    	
+    	if(joy.getRawButton(RobotValues.LIFTER_DOWN_BUTTON)){
+    		pneu.lift();
+    	}
+    	
+    	if(joy.getRawButton(RobotValues.LIFTER_UP_BUTTON)){
+    		pneu.lower();
     	}
     	
     	

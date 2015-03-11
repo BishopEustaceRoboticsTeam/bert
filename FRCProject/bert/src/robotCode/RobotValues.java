@@ -28,7 +28,7 @@ public class RobotValues {
 	public static final int CLOSED_REED_SWITCH_PORT = 4;
 	public static final int OPEN_REED_SWITCH_PORT = 5;
 	
-	public static final int AUTO_SWITCH_PORT_1 = 6;
+	public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
 	public static final int AUTO_SWITCH_PORT_2 = 7; 
 	public static final int AUTO_SWITCH_PORT_3 = 8;
 	
@@ -40,14 +40,18 @@ public class RobotValues {
 		//the lifter buttons
 		public static final int STACK = 1;
 		public static final int PLACE = 2;
-		public static final int RESET_LIFTER = 3;
+		public static final int RESET_LIFTER = 4;
 		
 		//the roller buttons
-		public static final int ROLLER_IN_OUT = 4;
+		public static final int ROLLER_IN_OUT = 3;
 		
 	
 		//the locking buttons
-		public static final int TOTE_LOCK = 5;
+		public static final int TOTE_LOCK_UNLOCK = 5;
+		
+		//debug buttons
+		public static final int LIFTER_UP_BUTTON = 6;
+		public static final int LIFTER_DOWN_BUTTON = 7;
 		
 	
 }

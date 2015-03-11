@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Rollers {
 
@@ -29,12 +30,15 @@ public class Rollers {
 		
 		switch(currentRollerState){
 			case CONTROLLED:
+				SmartDashboard.putString("Roller:", "Controlled");
 				rollerControl();
 				break;
 			case IN:
+				SmartDashboard.putBoolean("Roller:", true);
 				rollerIntake();
 				break;
 			case OUT:
+				SmartDashboard.putBoolean("Roller:", false);
 				rollerEject();
 				break;
 		}

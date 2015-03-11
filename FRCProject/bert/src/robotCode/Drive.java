@@ -29,7 +29,7 @@ public class Drive {
 	final int TICKS_PER_90_RIGHT = 384;
 	final int TICKS_PER_90_LEFT = 385;
 	
-	private final double DISTANCE_PER_90 = 0.6; //0.47876; //in meters
+	private final double DISTANCE_PER_90 = 0.47876; //0.6; //in meters
 	
 	final int WHEEL_RADIUS = 3; //in inches
 	final double pi = 3.1459;
@@ -106,21 +106,28 @@ public class Drive {
 		switch(currentDriveState){
 			case CONTROLLER_DRIVE:
 				controllerDrive();
+				SmartDashboard.putString("Drive:", "Controller Drive");
 				break;
 			case FINE_CONTROL:
 				fineControl();
+				SmartDashboard.putString("Drive:", "Fine Control");
 				break;
 			case DISTANCE_DRIVE:
 				distanceDrive();
+				SmartDashboard.putString("Drive:", "Distance Drive");
 				break;
 			case BACKWARD_DISTANCE_DRIVE:
 				backwardDistanceDrive();
+				SmartDashboard.putString("Drive:", "Backward Distance Drive");
+				break;
 			case RIGHT_ANGLE_TURN:
 				rightAngleTurn();
+				SmartDashboard.putString("Drive:", "Right Angle Turn");
 				break;
 			case OVERRIDE:
 				//override give the user control again
 				startControllerDrive();
+				SmartDashboard.putString("Drive:", "Override");
 				break;
 				
 		}
@@ -136,11 +143,11 @@ public class Drive {
 	//controlleDrive method that needs to be called in teleop periodic
 	//it will drive the robot using the f310 remote
 	private void controllerDrive(){	
-		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getLeftStickX());
+		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getRightStickX());
 	}
 	
 	private void fineControl(){
-		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getLeftStickX()/2);
+		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getRightStickX()/2);
 	}
 	
 	

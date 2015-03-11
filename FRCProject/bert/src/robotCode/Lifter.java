@@ -43,15 +43,19 @@ public class Lifter {
 	public void update(){
 		switch(currentLifterState){
 			case READY:
+				SmartDashboard.putString("Lifter:", "Ready");
 				break;
 			case RESET:
 				reset();
+				SmartDashboard.putString("Lifter:", "Reset");
 				break;
 			case STACK:
 				stack();
+				SmartDashboard.putString("Lifter:", "Stack");
 				break;
 			case PLACE:
 				place();
+				SmartDashboard.putString("Lifter:", "Place");
 				break;
 			}	
 		}
@@ -79,6 +83,11 @@ public class Lifter {
 	private void stack(){
 		if(pneu.Done()){
 			switch(currentStackState){
+				case LOCK:
+					pneu.startLock();
+					currentStackState = States.Stack.OPEN_ROLLERS;
+					SmartDashboard.putString("Stack", "lock");
+					break;
 				case OPEN_ROLLERS:
 					pneu.startRollerOut();
 					currentStackState = States.Stack.RESET;
