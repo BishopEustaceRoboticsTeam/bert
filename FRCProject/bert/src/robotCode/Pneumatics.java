@@ -22,7 +22,7 @@ public class Pneumatics  {
 	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_REED_SWITCH_PORT);
 	
 	private Timer timer = new Timer();
-	private final double LIFT_UP_TIME = 3.5;
+	private final double LIFT_UP_TIME = 4;
 	private final double LIFT_DOWN_TIME = 1.5;
 	private final double LOCK_TIME = .5;
 	private final double UNLOCK_TIME = .5;
@@ -193,7 +193,7 @@ public class Pneumatics  {
 	
 	private void rollerIn(){
 		SmartDashboard.putString("Roller", "Roller in");
-		rollerPiston.set(false);
+		rollerPiston.set(true);
 		if(timer.get() >= ROLLER_TIME){
 			completed();
 		}
@@ -210,7 +210,7 @@ public class Pneumatics  {
 	}
 	private void rollerOut(){
 		SmartDashboard.putString("Roller", "start Roller out");
-		rollerPiston.set(true);
+		rollerPiston.set(false);
 		if(timer.get() >= ROLLER_TIME){
 			completed();
 		}

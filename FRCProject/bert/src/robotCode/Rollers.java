@@ -34,11 +34,11 @@ public class Rollers {
 				rollerControl();
 				break;
 			case IN:
-				SmartDashboard.putBoolean("Roller:", true);
+				SmartDashboard.putBoolean("RollerB:", true);
 				rollerIntake();
 				break;
 			case OUT:
-				SmartDashboard.putBoolean("Roller:", false);
+				SmartDashboard.putBoolean("RollerB:", false);
 				rollerEject();
 				break;
 		}

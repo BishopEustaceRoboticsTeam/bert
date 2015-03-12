@@ -1,6 +1,9 @@
 
 package robotCode;
 
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.Image;
+
 import edu.wpi.first.wpilibj.Joystick;
 import robotCode.LED.*;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -44,7 +47,12 @@ public class BERT extends IterativeRobot {
 	final int CAMERA_QUALITY = 50;
 	final String CAMERA_NAME = "cam0"; //the camera name (ex "cam0") can be found through the roborio web interface
 	CameraServer server;
+	int session;
+	Image frame;
 	//USBCamera camera = new USBCamera(CAMERA_NAME);
+	
+	//Smart dashboard vars:
+	SmartDashboard dashboard = new SmartDashboard();
 	
 	//Autonomous class
 	Autonomous auto;
@@ -63,6 +71,19 @@ public class BERT extends IterativeRobot {
      */
 	
     public void robotInit() {
+    	
+    	   
+        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+
+        // the camera name (ex "cam0") can be found through the roborio web interface
+        session = NIVision.IMAQdxOpenCamera(CAMERA_NAME, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        NIVision.IMAQdxConfigureGrab(session);
+        
+        //NIVision.IMAQdxStartAcquisition(session);
+    	  
+    	 
+    	
+    	
     	//set up the camera for viewing
     	//server = CameraServer.getInstance();
         //server.setQuality(CAMERA_QUALITY);
@@ -78,7 +99,7 @@ public class BERT extends IterativeRobot {
     	//}
     	
     	
-    	auto = new Autonomous(drive, lifter, pneu);
+    	auto = new Autonomous(drive, lifter, pneu, rollers);
     	pdp.clearStickyFaults();
     	 
     }
@@ -105,6 +126,10 @@ public class BERT extends IterativeRobot {
     	rollers.update();
     	pneu.update();
     	lifter.update();
+    	
+    	//camera stuff:
+    	NIVision.IMAQdxGrab(session, frame, 1);
+        CameraServer.getInstance().setImage(frame);
  
     }
     
@@ -112,6 +137,9 @@ public class BERT extends IterativeRobot {
     
    //this method is called once at the start of teleop
     public void teleopInit(){
+    	//setup the camera
+    	//NIVision.IMAQdxStartAcquisition(session);
+    	
     	//start the led light show
     	LED.setLEDs(LEDModes.RAINBOW);
     	
@@ -125,6 +153,13 @@ public class BERT extends IterativeRobot {
      */
    
     public void teleopPeriodic() {
+    	//do some camera stuff
+    	NIVision.IMAQdxGrab(session, frame, 1);
+        CameraServer.getInstance().setImage(frame);
+
+    	
+    	
+    	
     	//update all the classes
     	drive.update();
     	rollers.update();
@@ -246,12 +281,18 @@ public class BERT extends IterativeRobot {
     
     //this runs once at the start of disable
     public void disabledInit(){
+    	//NIVision.IMAQdxStopAcquisition(session);
+    	NIVision.IMAQdxStartAcquisition(session);
     	drive.resetEncoders();
     	
     }
      
     //this runs periodically during disabled (loop)
     public void disabledPeriodic(){
+    	NIVision.IMAQdxGrab(session, frame, 1);
+        CameraServer.getInstance().setImage(frame);
+
+    	
     	auto.displayAutoMode();
     	
     	

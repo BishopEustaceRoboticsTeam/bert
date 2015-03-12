@@ -7,7 +7,7 @@ import robotCode.LED.*;
 public class Autonomous {
 	private final double DISTANCE_TO_AUTO_ZONE = 2.75;  //2.7178 is the exact value
 	private final double DISTANCE_FROM_WALL_TO_AUTO_ZONE = 4.1402;
-	private final double DISTANCE_TO_TOTE = 0.2; 
+	private final double DISTANCE_TO_TOTE = 0.1; 
 	private final double DISTANCE_TO_BIN = 0.25;
 
 	private Drive drive;
@@ -31,10 +31,11 @@ public class Autonomous {
 	
 	LED leds = new LED();
 	
-	public Autonomous(Drive _drive, Lifter _lifter, Pneumatics _pneumatics){
+	public Autonomous(Drive _drive, Lifter _lifter, Pneumatics _pneumatics, Rollers _rollers){
 		drive = _drive;
 		lifter = _lifter;
 		pneu = _pneumatics;
+		roller = _rollers; 
 	}
 	
 	public void update(){
@@ -83,50 +84,59 @@ public class Autonomous {
 	//tote to zoneC
 	public void toteToZone(){
 		
-		if(drive.Done() && lifter.Done()){
+		if(drive.Done() && lifter.Done() && pneu.Done()){
 			switch(currentAutoToteState){
 				case DRIVE_TO_TOTE:
 					//drive to the tote
 					drive.startDistanceDrive(DISTANCE_TO_TOTE);
 					//set the state to the next state
 					currentAutoToteState = States.AutoTote.INTAKE;
+					SmartDashboard.putString("AutoTote", "Drive to tote");
 					break;
 				case INTAKE:
 					roller.startRollerIntake();
 					currentAutoToteState = States.AutoTote.LIFT;
+					SmartDashboard.putString("AutoTote", "INTAKE");
+					break;
 				case LIFT:
 					roller.startRollerIntake();
 					//start the lift
 					lifter.startStack();
 					//set the next state
 					currentAutoToteState = States.AutoTote.TURN_90;
+					SmartDashboard.putString("AutoTote", "Drive to tote");
 					break;
 				case TURN_90:
 					//start the 90 degree turn
 					drive.startRightAngleTurn(!left);
 					//change the state to the next state
 					currentAutoToteState = States.AutoTote.DRIVE_TO_AUTO_ZONE;
+					SmartDashboard.putString("AutoTote", "Turn 90");
 					break;
 				case DRIVE_TO_AUTO_ZONE:
 					//start the drive to the auto zone
 					drive.startDistanceDrive(DISTANCE_TO_AUTO_ZONE);
 					//change the state to the next state
 					currentAutoToteState = States.AutoTote.DROP_STACK;
+					SmartDashboard.putString("AutoTote", "Drive to zone");
 					break;
 				case DROP_STACK:
 					//start the drop stack
 					lifter.startPlace();
 					//change to the next state
 					currentAutoToteState = States.AutoTote.BACKUP;
+					SmartDashboard.putString("AutoTote", "DropStack");
 					break;
 				case BACKUP:
 					//start the distance drive backwards
-					drive.startBDistanceDrive(1);
+					drive.startBDistanceDrive(0.5);
 					//change to end because we're done
 					currentAutoToteState = States.AutoTote.END;
+					SmartDashboard.putString("AutoTote", "Backup");
 					break;
 				case END:
 					//were done this mode of autonomous!
+					SmartDashboard.putString("AutoTote", "End");
 					SmartDashboard.putString("Auto", "Finished AutoTote");
 					completed();
 					break;
@@ -148,7 +158,7 @@ public class Autonomous {
 	    //drive.startRightAngleTurn(left);
 	    //drive.startDistanceDrive(DISTANCE_TO_AUTO_ZONE);
 	    //lifter.lower();
-		if(drive.Done() && pneu.Done()){
+		if(drive.Done() && pneu.Done() && pneu.Done()){
 			switch(currentAutoBinState){
 				case DRIVE_TO_BIN:
 					//drive to the bin
