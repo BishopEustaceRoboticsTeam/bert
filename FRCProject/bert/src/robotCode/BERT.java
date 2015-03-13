@@ -3,6 +3,7 @@ package robotCode;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
+import com.ni.vision.VisionException;
 
 import edu.wpi.first.wpilibj.Joystick;
 import robotCode.LED.*;
@@ -75,12 +76,18 @@ public class BERT extends IterativeRobot {
     	   
         frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
+        try{
         // the camera name (ex "cam0") can be found through the roborio web interface
         session = NIVision.IMAQdxOpenCamera(CAMERA_NAME, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxConfigureGrab(session);
         
+        NIVision.IMAQdxConfigureGrab(session);
+        }
+        catch(VisionException e){
+        	SmartDashboard.putString("Camera", "VisionException");
+        	
+        }
         //NIVision.IMAQdxStartAcquisition(session);
-    	  
+    	LED.setLEDs(LEDModes.GREEN);
     	 
     	
     	
@@ -128,8 +135,15 @@ public class BERT extends IterativeRobot {
     	lifter.update();
     	
     	//camera stuff:
-    	NIVision.IMAQdxGrab(session, frame, 1);
-        CameraServer.getInstance().setImage(frame);
+        try{
+        	NIVision.IMAQdxGrab(session, frame, 1);
+        	CameraServer.getInstance().setImage(frame);
+        }
+        catch(VisionException e){
+        	SmartDashboard.putString("Camera", "VisionException Auto");
+        	
+        }
+    	
  
     }
     
@@ -154,8 +168,15 @@ public class BERT extends IterativeRobot {
    
     public void teleopPeriodic() {
     	//do some camera stuff
-    	NIVision.IMAQdxGrab(session, frame, 1);
-        CameraServer.getInstance().setImage(frame);
+    	try{
+    		NIVision.IMAQdxGrab(session, frame, 1);
+            CameraServer.getInstance().setImage(frame);
+        }
+        catch(VisionException e){
+        	SmartDashboard.putString("Camera", "VisionException tele");
+        	
+        }
+    	
 
     	
     	
@@ -289,9 +310,14 @@ public class BERT extends IterativeRobot {
      
     //this runs periodically during disabled (loop)
     public void disabledPeriodic(){
-    	NIVision.IMAQdxGrab(session, frame, 1);
-        CameraServer.getInstance().setImage(frame);
-
+    	try{
+    		NIVision.IMAQdxGrab(session, frame, 1);
+            CameraServer.getInstance().setImage(frame);
+        }
+        catch(VisionException e){
+        	SmartDashboard.putString("Camera", "VisionException Disabled");
+        	
+        }
     	
     	auto.displayAutoMode();
     	

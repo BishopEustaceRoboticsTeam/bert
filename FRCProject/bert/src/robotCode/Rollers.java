@@ -13,8 +13,8 @@ public class Rollers {
 	private RobotDrive roller_controller;
 	private boolean stateCompleted = true;
 	private Timer timer_ = new Timer();
-	private final double ROLLER_IN_TIME = 5;
-	private final double ROLLER_OUT_TIME = 5;
+	private final double ROLLER_IN_TIME = 2;
+	private final double ROLLER_OUT_TIME = 2;
 	
 	private States.Rollers currentRollerState = States.Rollers.CONTROLLED;
 

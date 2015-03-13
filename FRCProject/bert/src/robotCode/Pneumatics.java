@@ -8,25 +8,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Pneumatics  {
+	//create all the solenoids that are used on the robot
 	private Solenoid lifterPiston;
 	private Solenoid locker;
 	private Solenoid rollerPiston;
 	
+	//the compressor object
 	private Compressor compressor;
-	private boolean taskCompleted = true;
-	private boolean stateCompleted = true;
+
+	//Create all the state variables 
 	private States.Pneumatics currentPneumaticState = States.Pneumatics.READY;
 	private States.Stack currentStackState = States.Stack.LOWER;
 	private States.Place currentPlaceState = States.Place.LOWER;
-	private DigitalInput closedReadSwitch = new DigitalInput(RobotValues.CLOSED_REED_SWITCH_PORT);
-	private DigitalInput openReadSwitch = new DigitalInput(RobotValues.OPEN_REED_SWITCH_PORT);
 	
+	//create the digital inputs for the reed swtiches
+	private DigitalInput closedReedSwitch = new DigitalInput(RobotValues.CLOSED_REED_SWITCH_PORT);
+	private DigitalInput openReedSwitch = new DigitalInput(RobotValues.OPEN_REED_SWITCH_PORT);
+	
+	//the variables to keep track if a task or state is completed
+	private boolean taskCompleted = true;
+	private boolean stateCompleted = true;
+	
+	//the timer variables
 	private Timer timer = new Timer();
 	private final double LIFT_UP_TIME = 4;
 	private final double LIFT_DOWN_TIME = 1.5;
-	private final double LOCK_TIME = .5;
-	private final double UNLOCK_TIME = .5;
-	private final double ROLLER_TIME = .25;
+	private final double LOCK_TIME = .1;
+	private final double UNLOCK_TIME = .1;
+	private final double ROLLER_TIME = .1;
 	
 	
 	
@@ -35,6 +44,7 @@ public class Pneumatics  {
 		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);
 		compressor = new Compressor();
 		rollerPiston = new Solenoid(RobotValues.ROLLER_PISTON_PORT);
+		compressor.clearAllPCMStickyFaults();
 	}
 	
 	//this is the update method
@@ -158,7 +168,7 @@ public class Pneumatics  {
 	
 	private void lifterUp(){
 		lifterPiston.set(true);
-		if(!openReadSwitch.get() || timer.get() >= LIFT_UP_TIME){
+		if(!openReedSwitch.get() || timer.get() >= LIFT_UP_TIME){
 			SmartDashboard.putString("Piston", "Up");
 			timer.stop();
 			completed();
@@ -176,7 +186,7 @@ public class Pneumatics  {
 	
 	private void lifterDown(){
 		lifterPiston.set(false);
-		if(!closedReadSwitch.get() || timer.get() >= LIFT_DOWN_TIME){
+		if(!closedReedSwitch.get() || timer.get() >= LIFT_DOWN_TIME){
 			SmartDashboard.putString("Piston", "Down");
 			timer.stop();
 			completed();

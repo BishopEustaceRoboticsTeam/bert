@@ -147,7 +147,7 @@ public class Drive {
 	}
 	
 	private void fineControl(){
-		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getRightStickX()/2);
+		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getRightStickX()/1.5);
 	}
 	
 	
