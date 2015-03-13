@@ -75,7 +75,7 @@ public class Lifter {
 	public void startStack(){
 		if(Done()){
 			currentLifterState = States.LifterStates.STACK;
-			currentStackState = States.Stack.OPEN_ROLLERS;
+			currentStackState = States.Stack.LOCK;
 			notCompleted();
 		}
 	}

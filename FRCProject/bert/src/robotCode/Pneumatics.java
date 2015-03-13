@@ -28,6 +28,8 @@ public class Pneumatics  {
 	private final double UNLOCK_TIME = .5;
 	private final double ROLLER_TIME = .25;
 	
+	
+	
 	public Pneumatics(){
 		lifterPiston = new Solenoid(RobotValues.LIFTER_SOLENOID_PORT);
 		locker = new Solenoid(RobotValues.LOCK_SOLENOID_PORT);

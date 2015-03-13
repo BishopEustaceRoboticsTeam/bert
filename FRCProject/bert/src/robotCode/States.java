@@ -16,7 +16,7 @@ public class States {
 	}
     
 	public enum Autonomous {
-		READY, DRIVE_TO_ZONE, TOTE_TO_ZONE, BIN_TO_ZONE, TO_BE_DETERMINED, DO_NOTHING, END;
+		READY, DRIVE_TO_ZONE, TOTE_TO_ZONE, BIN_TO_ZONE, SHORT_DRIVE_TO_ZONE, DO_NOTHING, END;
 	}
 	
 	public enum AutoTote {

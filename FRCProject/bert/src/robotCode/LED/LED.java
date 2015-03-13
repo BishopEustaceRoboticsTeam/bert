@@ -46,10 +46,25 @@ public class LED {
 				case RAINBOW:
 					arduino.write(WRITE_ADDRESS, 5);
 					break;
+				case ROLLER_IN:
+					arduino.write(WRITE_ADDRESS, 6);
+					break;
+				case ROLLER_OUT:
+					arduino.write(WRITE_ADDRESS, 7);
+					break;
+				case LOCK:
+					arduino.write(WRITE_ADDRESS, 8);
+					break;
+				case UNLOCK:
+					arduino.write(WRITE_ADDRESS, 9);
+					break;
 				//in the event of an error with the auto mode display the error lights
 				case ERROR:
 					arduino.write(WRITE_ADDRESS, 101); //ascii for 'e'
 					break;
+				
+					
+					
 			}
 	}	
 		

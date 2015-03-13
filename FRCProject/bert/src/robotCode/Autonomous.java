@@ -7,6 +7,7 @@ import robotCode.LED.*;
 public class Autonomous {
 	private final double DISTANCE_TO_AUTO_ZONE = 2.75;  //2.7178 is the exact value
 	private final double DISTANCE_FROM_WALL_TO_AUTO_ZONE = 4.1402;
+	private final double SHORT_DISTANCE_TO_AUTO_ZONE = .5;
 	private final double DISTANCE_TO_TOTE = 0.1; 
 	private final double DISTANCE_TO_BIN = 0.25;
 
@@ -52,8 +53,8 @@ public class Autonomous {
 		case BIN_TO_ZONE:
 			binToZone();
 			break;
-		case TO_BE_DETERMINED:
-			driveToZone();
+		case SHORT_DRIVE_TO_ZONE:
+			shortDriveToZone();
 			break;
 		case DO_NOTHING:
 			currentAutonomousState = States.Autonomous.END;
@@ -215,6 +216,11 @@ public class Autonomous {
 		SmartDashboard.putString("Auto", "Finished DriveToZone");
 		completed();
 	}
+	public void shortDriveToZone(){
+		drive.startDistanceDrive(SHORT_DISTANCE_TO_AUTO_ZONE);
+		SmartDashboard.putString("Auto", "Finished DriveToZone");
+		completed();
+	}
 	
 	//method that will display the auto mode in the smartdashboad 
 	//it will also display the mode using the the leds
@@ -274,7 +280,7 @@ public class Autonomous {
 				break;
 			
 			case 4:
-				currentAutonomousState = States.Autonomous.TO_BE_DETERMINED;
+				currentAutonomousState = States.Autonomous.SHORT_DRIVE_TO_ZONE;
 				break;
 			
 			case 5:

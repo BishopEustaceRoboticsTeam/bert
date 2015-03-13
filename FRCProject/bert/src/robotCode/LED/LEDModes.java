@@ -1,5 +1,7 @@
-package robotCode.LED;
+
+ package robotCode.LED;
 
 public enum LEDModes {
-	BLUE, YELLOW, GREEN, PURPLE, RED, RAINBOW, ERROR;
+	BLUE, YELLOW, GREEN, PURPLE, RED, RAINBOW, ERROR, ROLLER_IN, ROLLER_OUT, LOCK, UNLOCK;
 }
+ 
