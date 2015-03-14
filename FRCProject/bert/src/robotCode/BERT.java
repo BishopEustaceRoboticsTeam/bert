@@ -207,12 +207,12 @@ public class BERT extends IterativeRobot {
     	
     	//left 90 degree turn
     	if(rc.getXButton()){
-    		drive.startRightAngleTurn(true);
+    		drive.startNonlinearDrive();
     	}
     	
     	//right 90 degree turn
     	if(rc.getBButton()){
-    		drive.startRightAngleTurn(false);
+    		drive.startReverseDrive();
     	}
     	
     	//override

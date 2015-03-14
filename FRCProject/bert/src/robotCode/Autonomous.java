@@ -7,7 +7,7 @@ import robotCode.LED.*;
 public class Autonomous {
 	private final double DISTANCE_TO_AUTO_ZONE = 2.75;  //2.7178 is the exact value
 	private final double DISTANCE_FROM_WALL_TO_AUTO_ZONE = 4.1402;
-	private final double SHORT_DISTANCE_TO_AUTO_ZONE = .5;
+	private final double SHORT_DISTANCE_TO_AUTO_ZONE =  1.5;
 	private final double DISTANCE_TO_TOTE = 0.1; 
 	private final double DISTANCE_TO_BIN = 0.25;
 
@@ -100,7 +100,7 @@ public class Autonomous {
 					SmartDashboard.putString("AutoTote", "INTAKE");
 					break;
 				case LIFT:
-					roller.startRollerIntake();
+				//roller.startRollerIntake();
 					//start the lift
 					lifter.startStack();
 					//set the next state

@@ -18,6 +18,7 @@ public class Drive {
 	final double DIST_PER_TICK_LEFT = 0.0013245033;  //0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
 	final double DIST_PER_TICK_RIGHT = 0.0013831258; //0.0012692034;
 	//883 ticks for 90 degree turn with just one motor
+	final double RIGHT_ANGLE_TURN_SPEED = 0.6;
 	
 	//create the sensor vars
 	Encoder leftEncoder = new Encoder(RobotValues.LEFT_ENCODER_A,  RobotValues.LEFT_ENCODER_B, RobotValues.REVERSE_LEFT_ENCODER_DIRECTION, EncodingType.k2X);
@@ -124,6 +125,12 @@ public class Drive {
 				rightAngleTurn();
 				SmartDashboard.putString("Drive:", "Right Angle Turn");
 				break;
+			case NONLINEAR_DRIVE:
+				nonlinearDrive();
+				break;
+			case REVERSE_DRIVE:
+				reverseDrive();
+				break;
 			case OVERRIDE:
 				//override give the user control again
 				startControllerDrive();
@@ -133,7 +140,62 @@ public class Drive {
 		}
 		
 	}
+	public void startNonlinearDrive(){
+		currentDriveState = States.Drive.NONLINEAR_DRIVE;
+		
+	}
 	
+	public void startReverseDrive(){
+		currentDriveState = States.Drive.REVERSE_DRIVE;
+		
+	}
+	
+	private void nonlinearDrive() {
+		double forwardBack;
+		double leftRight;
+		
+		if(-remote.getLeftStickY() < 0){
+			forwardBack = -(remote.getLeftStickY()*remote.getLeftStickY());
+		}
+		else{
+			forwardBack = (remote.getLeftStickY()*remote.getLeftStickY());
+		}
+		
+		if(-remote.getLeftStickX() < 0){
+			leftRight = -(remote.getLeftStickX()*remote.getLeftStickX());
+		}
+		else{
+			leftRight = (remote.getLeftStickX()*remote.getLeftStickX());
+		}
+		
+		driver.arcadeDrive(forwardBack , leftRight);
+		
+	}
+	private void reverseDrive() {
+		double forwardBack;
+		double leftRight;
+		
+		//backward
+		if(-remote.getLeftStickY() < 0){
+			forwardBack = -(remote.getLeftStickY()*remote.getLeftStickY());
+		}
+		//forward
+		else{
+			forwardBack = (remote.getLeftStickY()*remote.getLeftStickY());
+		}
+		
+		//left
+		if(-remote.getLeftStickX() < 0){
+			leftRight = -(remote.getLeftStickX()*remote.getLeftStickX());
+		}
+		//right
+		else{
+			leftRight = (remote.getLeftStickX()*remote.getLeftStickX());
+		}
+		
+		driver.arcadeDrive(-forwardBack , leftRight);
+		
+	}
 	public void startControllerDrive(){
 		currentDriveState = States.Drive.CONTROLLER_DRIVE;
 		//set the stateCompleted variable to true to allow for a new state.
@@ -306,7 +368,7 @@ public class Drive {
 		//leftTurn
 		if (isLeft){
 			if(getLeftEncoderDistance() > -DISTANCE_PER_90 && getRightEncoderDistance() < DISTANCE_PER_90){
-				driver.arcadeDrive(0, .4);
+				driver.arcadeDrive(0, RIGHT_ANGLE_TURN_SPEED);
 				printEncoderValues();
 			}
 			else{
@@ -319,7 +381,7 @@ public class Drive {
 		else{
 			
 			if(getLeftEncoderDistance() < DISTANCE_PER_90 && getRightEncoderDistance() > -DISTANCE_PER_90){
-				driver.arcadeDrive(0, -.4);
+				driver.arcadeDrive(0, -RIGHT_ANGLE_TURN_SPEED);
 				printEncoderValues();
 			}
 			else{

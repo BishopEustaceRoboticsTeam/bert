@@ -13,8 +13,9 @@ public class Rollers {
 	private RobotDrive roller_controller;
 	private boolean stateCompleted = true;
 	private Timer timer_ = new Timer();
-	private final double ROLLER_IN_TIME = 2;
-	private final double ROLLER_OUT_TIME = 2;
+	private final double ROLLER_IN_TIME = 0;
+	private final double ROLLER_OUT_TIME = 0;
+	private final double ROLLER_SPEED = 0.75;
 	
 	private States.Rollers currentRollerState = States.Rollers.CONTROLLED;
 
@@ -79,8 +80,8 @@ public class Rollers {
 	
 	private void rollerIntake(){
 		if(timer_.get() <= ROLLER_IN_TIME){
-			left_roller.set(0.75);
-			right_roller.set(-0.75);
+			left_roller.set(-ROLLER_SPEED);
+			right_roller.set(ROLLER_SPEED);
 		}
 		
 		else{
@@ -99,8 +100,8 @@ public class Rollers {
 	
 	private void rollerEject(){
 		if(timer_.get() <= ROLLER_OUT_TIME){
-			left_roller.set(-0.75);
-			right_roller.set(0.75);
+			left_roller.set(ROLLER_SPEED);
+			right_roller.set(-ROLLER_SPEED);
 		}
 		else{
 			completed();

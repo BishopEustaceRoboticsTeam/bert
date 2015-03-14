@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class F310 {
 
     private Joystick f310;
-    private double deadZone = 0.05;
+    private double deadZone = 0.00;
     
     //array to keep track of the previous state of each button
     private boolean[] previousButtonStates = new boolean[7];
