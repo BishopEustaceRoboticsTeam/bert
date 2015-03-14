@@ -18,7 +18,7 @@
 //   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(64, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(119, PIN, NEO_GRB + NEO_KHZ800);
 
 
 
@@ -47,37 +47,17 @@ void setup()
   pinMode(redPin, OUTPUT); 
   pinMode(greenPin, OUTPUT); 
   pinMode(bluePin, OUTPUT);
-  
-  Serial.print(strip.Color(254,0,0), HEX);
-  
-  Serial.println("Blue:");
-  Serial.println(getBlue(strip.Color(3,2,200)));
-  Serial.println(getBlue(strip.Color(31,21,200)));
-  Serial.println(getBlue(strip.Color(83,72,55)));
-  
-  Serial.println("Green:");
-  Serial.println(getGreen(strip.Color(3,200,1)));
-  Serial.println(getGreen(strip.Color(31,100,11)));
-  Serial.println(getGreen(strip.Color(83,72,56)));
-  
-  Serial.println("Red:");
-  Serial.println(getRed(strip.Color(3,2,1)));
-  Serial.println(getRed(strip.Color(31,21,11)));
-  Serial.println(getRed(strip.Color(83,72,56)));
-  
 }
 
 void loop()
 {
   
-  colorFromCenter(50);
-  builder(10, strip.Color(0,64,128));
 
   if(!completed_auto){
     //notCompleted();
     switch(current_led_mode){
       case 0:
-        colorWipe(strip.Color(0, 0, 255), 20); // Blue
+        colorWipe(strip.Color(0, 0, 255), 0); // Blue
         
         //make the led blue
         analogWrite(redPin, 0);
@@ -86,7 +66,7 @@ void loop()
         
         break;
       case 1:
-        colorWipe(strip.Color(247, 247, 20), 20); // Yellow
+        colorWipe(strip.Color(247, 247, 20), 0); // Yellow
         
         //make the led yellow
         analogWrite(redPin, 150);
@@ -95,7 +75,7 @@ void loop()
         
         break;
       case 2:
-        colorWipe(strip.Color(0, 255, 0), 20); // Green
+        colorWipe(strip.Color(0, 255, 0), 0); // Green
         
         //make the led green
         analogWrite(redPin, 0);
@@ -104,7 +84,7 @@ void loop()
         
         break;
       case 3:
-        colorWipe(strip.Color(255, 0, 255), 20); // PURPLE
+        colorWipe(strip.Color(255, 0, 255), 0); // PURPLE
         
         //make the led purple
         analogWrite(redPin, 100);
@@ -113,7 +93,7 @@ void loop()
         
         break;
       case 4:
-        colorWipe(strip.Color(255, 0, 0), 20); // Red
+        colorWipe(strip.Color(255, 0, 0), 0); // Red
         
         //make the led red
         analogWrite(redPin, 255);
@@ -128,7 +108,7 @@ void loop()
         analogWrite(redPin, 100);
         analogWrite(greenPin, 255);
         analogWrite(bluePin, 255);
-     
+        
         completed_auto = true;
         
         break;
@@ -176,23 +156,28 @@ void loop()
   //auto is done start the light show
   else{
     
+    
+    pingPong(0, strip.Color(255, 0, 0), 12, 4);
+    colorFromCenter(10);
+    builder(0, strip.Color(0,64,128));
+    
     colorFromCenter(50);
   
-    builder(10, strip.Color(0, 0, 127));
+    builder(0, strip.Color(0, 0, 127));
 
-    builder(10, strip.Color(0, 127, 0));  
+    builder(0, strip.Color(0, 127, 0));  
    
-    colorWipe(strip.Color(127, 0, 0), 50); // Red
-    colorWipe(strip.Color(0, 127, 0), 50); // Green
-    colorWipe(strip.Color(0, 0, 127), 50); // Blue
+    colorWipe(strip.Color(127, 0, 0), 10); // Red
+    colorWipe(strip.Color(0, 127, 0), 10); // Green
+    colorWipe(strip.Color(0, 0, 127), 10); // Blue
 
-    theaterChase(strip.Color(127, 127, 127), 50); // White
-    theaterChase(strip.Color(127,   0,   0), 50); // Red
-    theaterChase(strip.Color(  0,   0, 127), 50); // Blue
+    theaterChase(strip.Color(127, 127, 127), 10); // White
+    theaterChase(strip.Color(127,   0,   0), 10); // Red
+    theaterChase(strip.Color(  0,   0, 127), 10); // Blue
 
-    rainbow(20);
-    rainbowCycle(20);
-    theaterChaseRainbow(50);
+    rainbow(10);
+    rainbowCycle(10);
+    theaterChaseRainbow(10);
     
   }
 }
@@ -473,16 +458,65 @@ uint8_t getBlue(uint32_t color) {
 }
 
 uint8_t getGreen(uint32_t color) {
-  return color & 0x0000ff00;
+  return (color & 0x0000ff00) / 256;
 }
 
 uint8_t getRed(uint32_t color) {
-  return color & 0x00ff0000;
+  return (color & 0x00ff0000) / 65536;
 }
 
 uint8_t getLast(uint32_t color) {
-  return color & 0xff000000;
+  return (color & 0xff000000) / 16777216;
 }
+
+uint32_t weightedAverage(uint32_t color1, double weight1, uint32_t color2, double weight2) {
+  uint8_t red = (uint8_t) ((getRed(color1) * weight1 + getRed(color2) * weight2) / (weight1 + weight2));
+  uint8_t green = (uint8_t) ((getGreen(color1) * weight1 + getGreen(color2) * weight2) / (weight1 + weight2));
+  uint8_t blue = (uint8_t) ((getBlue(color1) * weight1 + getBlue(color2) * weight2) / (weight1 + weight2));
+  
+  return strip.Color(red, green, blue);
+}
+
+void clearAll() {
+  for (int i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, 0);
+  }
+}
+
+void pingPong(uint8_t wait, uint32_t color, uint8_t width, uint8_t numTimes) {
+  boolean right = true;
+  for (int n = 0; n < numTimes; n++) {
+    right = !right;
+    
+    if (right) {
+      for (int i = 0; i < strip.numPixels(); i++) {
+        for (int j = 0; j < width; j++) {
+          strip.setPixelColor(i + j, weightedAverage(color, width - j, 0, j * j));
+          strip.setPixelColor(i - j, weightedAverage(color, width - j, 0, j * j));
+        }
+        strip.show();
+        
+        delay(wait);
+        clearAll();
+      }
+      
+    } else {
+      for (int i = strip.numPixels() - 1; i >= 0; i--) {
+        for (int j = 0; j < width; j++) {
+          strip.setPixelColor(i + j, weightedAverage(color, width - j, 0, j * j));
+          strip.setPixelColor(i - j, weightedAverage(color, width - j, 0, j * j));
+        }
+        strip.show();
+        
+        delay(wait);
+        clearAll();
+      }
+    }
+    
+  }
+}
+
+  
 
 
 
