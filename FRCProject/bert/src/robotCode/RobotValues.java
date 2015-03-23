@@ -41,22 +41,10 @@ public class RobotValues {
 	public static final boolean REVERSE_LEFT_ENCODER_DIRECTION = true;
 	public static final boolean REVERSE_RIGHT_ENCODER_DIRECTION = false;
 	
-	//Buttons for the second driver
-		//the lifter buttons
-		public static final int STACK = 1;
-		public static final int PLACE = 2;
-		public static final int RESET_LIFTER = 4;
+	//Buttons for the driver
+	public static final int FINE_CONTROL_BUTTON = 2;
+	public static final int OVERRIDE_BUTTON = 3;
 		
-		//the roller buttons
-		public static final int ROLLER_IN_OUT = 3;
-		
-	
-		//the locking buttons
-		public static final int TOTE_LOCK_UNLOCK = 5;
-		
-		//debug buttons
-		public static final int LIFTER_UP_BUTTON = 6;
-		public static final int LIFTER_DOWN_BUTTON = 7;
 		
 	
 }

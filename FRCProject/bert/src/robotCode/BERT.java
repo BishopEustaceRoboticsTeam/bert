@@ -31,6 +31,7 @@ public class BERT extends IterativeRobot {
 	F310 rc = new F310(RobotValues.F310_REMOTE_USB_PORT_ONE);
 	Joystick joy_left = new Joystick(RobotValues.JOYSTICK_1_USB_PORT);
 	Joystick joy_right = new Joystick(RobotValues.JOYSTICK_2_USB_PORT);
+	
 	//Pneumatics Class:
 	Pneumatics pneu = new Pneumatics();
 	
@@ -67,7 +68,7 @@ public class BERT extends IterativeRobot {
 	private boolean rollerIn = false; 
 	private boolean lock = false;
 	private boolean rollerButtonPressed = false;
-	private boolean R3ButtonPressed = false;
+	private boolean fineButtonPressed = false;
 	private boolean lockButtonPressed = false;
 	//PDP object
 	PowerDistributionPanel pdp = new PowerDistributionPanel();
@@ -78,7 +79,7 @@ public class BERT extends IterativeRobot {
 	
     public void robotInit() {
     	
-    	   
+    	
         frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
 
         try{
@@ -198,76 +199,56 @@ public class BERT extends IterativeRobot {
     	//---Driver 1---
     	
     	//r3 sets fine control
-    	if(rc.getR3Button()){
-    		if(!R3ButtonPressed){
+    	if(joy_left.getRawButton(RobotValues.FINE_CONTROL_BUTTON) || joy_right.getRawButton(RobotValues.FINE_CONTROL_BUTTON)){
+    		if(!fineButtonPressed){
     		    drive.startFineControl();
-    		    R3ButtonPressed = true;
+    		    fineButtonPressed = true;
     		}
     		else{
     			drive.startControllerDrive();
-    			R3ButtonPressed = false;
+    			fineButtonPressed = false;
     		}
     		
     	}
     	
-    	//left 90 degree turn
-    	if(rc.getXButton()){
-    		drive.startNonlinearDrive();
-    	}
-    	
-    	//right 90 degree turn
-    	if(rc.getBButton()){
-    		drive.startReverseDrive();
-    	}
-    	
     	//override
-    	if(rc.getYButton()){
+    	if(joy_left.getRawButton(RobotValues.OVERRIDE_BUTTON) || joy_right.getRawButton(RobotValues.OVERRIDE_BUTTON)){
     		drive.override();
     	}
     	
-    	//test the backStraightDrive
-    	if(rc.getAButton()){
-    		drive.startBDistanceDrive(1);    		
-    	}
     	//---Driver 2---
     	
     	//the lifter
     	
     	//stack
-    	//if(joy.getRawButton(RobotValues.STACK)){
-    		//lifter.startStack();
-    	//}
+    	if(rc.getYButton()){
+    		lifter.startStack();
+    	}
     	
     	//place
-    	//need to set to remote button
-    	//if(joy.getRawButton(RobotValues.PLACE)){
-    		//lifter.startPlace();
-    	//}
+    	if(rc.getAButton()){
+    		lifter.startPlace();
+    	}
     	
     	//reset the lifter
-    	//need to set to remote button
-    	//if(joy.getRawButton(RobotValues.RESET_LIFTER)){
-    		//lifter.startReset();
-    	//}
+    	if(rc.getStartButton()){
+    		lifter.startReset();
+    	}
     	
     	//the rollers
     	
     	//roller piston
     	// need to switch to remote button
-    	//if(joy.getRawButton(RobotValues.ROLLER_IN_OUT)){
-    		//if (!rollerButtonPressed) {
-	    		//if(!rollerIn){
-	    			//pneu.startRollerIn();
-	    			//rollerIn = true;
-	    		//} else {
-	    			//pneu.startRollerOut();
-	    			//rollerIn = false;
-	    		//}
-    		//}
-    		//rollerButtonPressed = true;
-    	//} else {
-    		//rollerButtonPressed = false;
-    	//}
+    	if(rc.getL3Button()){
+	    		if(!rollerIn){
+	    			pneu.startRollerIn();
+	    			rollerIn = true;
+	    		} else {
+	    			pneu.startRollerOut();
+	    			rollerIn = false;
+	    		}
+    		}
+    		
     	
     	
     	
@@ -275,36 +256,25 @@ public class BERT extends IterativeRobot {
     	
     	
     	//lock
-    	//need to switch to remote button
-    	//if(joy.getRawButton(RobotValues.TOTE_LOCK_UNLOCK)){
-    		//if(!lockButtonPressed){
-    			//if(!lock){
-    				//pneu.startLock();
-    				//lock = true;
-    			//}
-    			//else{
-    				//pneu.startUnlock();
-    				//lock = false;
-    			//}
-    			//lockButtonPressed = true;
-    		//}
-    		//else{
-    			//lockButtonPressed = false;
-    			
-    		//}
-    	//}
+    	if(rc.getXButton()){
+   			pneu.startLock();
+    	}
+    	
+    	if(rc.getBButton()){
+    		pneu.startUnlock();
+    	}
+    
     	
     	//lifter dubug stuff
     	
     	//need to switch to remote button
-    	//if(joy.getRawButton(RobotValues.LIFTER_DOWN_BUTTON)){
-    		//pneu.lift();
-    	//}
+    	if(rc.getLBButton()){
+    		pneu.lift();
+    	}
     	
-    	//need to switch to remote button
-    	//if(joy.getRawButton(RobotValues.LIFTER_UP_BUTTON)){
-    		//pneu.lower();
-    	//}
+    	if(rc.getRBButton()){
+    		pneu.lower();
+    	}
     	
     	
     }
