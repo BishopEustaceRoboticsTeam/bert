@@ -10,6 +10,7 @@ import robotCode.LED.*;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 //import edu.wpi.first.wpilibj.Solenoid;
@@ -28,21 +29,25 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 public class BERT extends IterativeRobot {
 	//Controller Class:
 	F310 rc = new F310(RobotValues.F310_REMOTE_USB_PORT_ONE);
-	Joystick joy = new Joystick(RobotValues.JOYSTICK_USB_PORT);
-	
+	Joystick joy_left = new Joystick(RobotValues.JOYSTICK_1_USB_PORT);
+	Joystick joy_right = new Joystick(RobotValues.JOYSTICK_2_USB_PORT);
 	//Pneumatics Class:
 	Pneumatics pneu = new Pneumatics();
 	
 	//Roller Class:
-	Rollers rollers = new Rollers(joy);
+	Rollers rollers = new Rollers(rc);
 	
 	//Actuators Class:
 	Lifter lifter = new Lifter(pneu);
 	
+	//Servos
+	Servo servo_1 = new Servo(RobotValues.SERVO_1_PORT);
+	Servo servo_2 = new Servo(RobotValues.SERVO_2_PORT);
+	
 	//Robot input output
 	//RobotIO inputOutput = new RobotIO();
 	//Drive Class:
-	Drive drive = new Drive(rc);
+	Drive drive = new Drive(joy_left, joy_right);
 
 	//Camera Vars:
 	final int CAMERA_QUALITY = 50;
@@ -229,37 +234,40 @@ public class BERT extends IterativeRobot {
     	//the lifter
     	
     	//stack
-    	if(joy.getRawButton(RobotValues.STACK)){
-    		lifter.startStack();
-    	}
+    	//if(joy.getRawButton(RobotValues.STACK)){
+    		//lifter.startStack();
+    	//}
     	
     	//place
-    	if(joy.getRawButton(RobotValues.PLACE)){
-    		lifter.startPlace();
-    	}
+    	//need to set to remote button
+    	//if(joy.getRawButton(RobotValues.PLACE)){
+    		//lifter.startPlace();
+    	//}
     	
     	//reset the lifter
-    	if(joy.getRawButton(RobotValues.RESET_LIFTER)){
-    		lifter.startReset();
-    	}
+    	//need to set to remote button
+    	//if(joy.getRawButton(RobotValues.RESET_LIFTER)){
+    		//lifter.startReset();
+    	//}
     	
     	//the rollers
     	
     	//roller piston
-    	if(joy.getRawButton(RobotValues.ROLLER_IN_OUT)){
-    		if (!rollerButtonPressed) {
-	    		if(!rollerIn){
-	    			pneu.startRollerIn();
-	    			rollerIn = true;
-	    		} else {
-	    			pneu.startRollerOut();
-	    			rollerIn = false;
-	    		}
-    		}
-    		rollerButtonPressed = true;
-    	} else {
-    		rollerButtonPressed = false;
-    	}
+    	// need to switch to remote button
+    	//if(joy.getRawButton(RobotValues.ROLLER_IN_OUT)){
+    		//if (!rollerButtonPressed) {
+	    		//if(!rollerIn){
+	    			//pneu.startRollerIn();
+	    			//rollerIn = true;
+	    		//} else {
+	    			//pneu.startRollerOut();
+	    			//rollerIn = false;
+	    		//}
+    		//}
+    		//rollerButtonPressed = true;
+    	//} else {
+    		//rollerButtonPressed = false;
+    	//}
     	
     	
     	
@@ -267,33 +275,36 @@ public class BERT extends IterativeRobot {
     	
     	
     	//lock
-    	if(joy.getRawButton(RobotValues.TOTE_LOCK_UNLOCK)){
-    		if(!lockButtonPressed){
-    			if(!lock){
-    				pneu.startLock();
-    				lock = true;
-    			}
-    			else{
-    				pneu.startUnlock();
-    				lock = false;
-    			}
-    			lockButtonPressed = true;
-    		}
-    		else{
-    			lockButtonPressed = false;
+    	//need to switch to remote button
+    	//if(joy.getRawButton(RobotValues.TOTE_LOCK_UNLOCK)){
+    		//if(!lockButtonPressed){
+    			//if(!lock){
+    				//pneu.startLock();
+    				//lock = true;
+    			//}
+    			//else{
+    				//pneu.startUnlock();
+    				//lock = false;
+    			//}
+    			//lockButtonPressed = true;
+    		//}
+    		//else{
+    			//lockButtonPressed = false;
     			
-    		}
-    	}
+    		//}
+    	//}
     	
     	//lifter dubug stuff
     	
-    	if(joy.getRawButton(RobotValues.LIFTER_DOWN_BUTTON)){
-    		pneu.lift();
-    	}
+    	//need to switch to remote button
+    	//if(joy.getRawButton(RobotValues.LIFTER_DOWN_BUTTON)){
+    		//pneu.lift();
+    	//}
     	
-    	if(joy.getRawButton(RobotValues.LIFTER_UP_BUTTON)){
-    		pneu.lower();
-    	}
+    	//need to switch to remote button
+    	//if(joy.getRawButton(RobotValues.LIFTER_UP_BUTTON)){
+    		//pneu.lower();
+    	//}
     	
     	
     }
@@ -342,9 +353,23 @@ public class BERT extends IterativeRobot {
     	pneu.update();
     	lifter.update();
     	
-    	
+    if(rc.getAButton()){
+    	servo_1.set(0.5);
+    	servo_2.set(0.5);
+    }
+    
+    if(rc.getBButton()){
+    	servo_1.set(1);
+    	servo_2.set(1);
+    }
+    
+    if(rc.getXButton()){
+    	servo_1.set(0);
+    	servo_2.set(0);
+    }
+    /**	
      	if(rc.getR3Button()){
-    		drive.startFineControl();
+     		drive.startFineControl();
     	}
     	
     	if(joy.getRawButton(2)){
@@ -360,7 +385,7 @@ public class BERT extends IterativeRobot {
     	}
     	
     	if(joy.getRawButton(5)){
-    		pneu.lift();
+		
     	}
     	
     	if(joy.getRawButton(6)){
@@ -402,7 +427,8 @@ public class BERT extends IterativeRobot {
     	if(rc.getRBButton()){
     		auto.resetStates();
     	}
-    
+    	
+    */
     }
     
 }

@@ -3,6 +3,7 @@ package robotCode;
 
 //imports
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
@@ -34,7 +35,9 @@ public class Drive {
 	
 	final int WHEEL_RADIUS = 3; //in inches
 	final double pi = 3.1459;
-	F310 remote;
+	//F310 remote;
+	Joystick joy_left;
+	Joystick joy_right;
 	private Talon frMotor, flMotor, brMotor, blMotor; 
 	
 	
@@ -71,13 +74,15 @@ public class Drive {
 	
 	private RobotDrive driver;
 	
-	public Drive(F310 _rc){
+	public Drive(Joystick joy_1, Joystick joy_2){
 		//constructor
 		frMotor = new Talon(RobotValues.FRONT_RIGHT_MOTOR);
 		flMotor = new Talon(RobotValues.FRONT_LEFT_MOTOR);
 		brMotor = new Talon(RobotValues.BACK_RIGHT_MOTOR);
 		blMotor = new Talon(RobotValues.BACK_LEFT_MOTOR);
-		remote = _rc;
+		//remote = _rc;
+		joy_left = joy_1;
+		joy_right = joy_2;
 		driver = new RobotDrive(flMotor, blMotor, frMotor, brMotor);
 		driver.setSafetyEnabled(false);
 		leftEncoder.setDistancePerPulse(DIST_PER_TICK_LEFT);
@@ -154,46 +159,46 @@ public class Drive {
 		double forwardBack;
 		double leftRight;
 		
-		if(-remote.getLeftStickY() < 0){
-			forwardBack = -(remote.getLeftStickY()*remote.getLeftStickY());
-		}
-		else{
-			forwardBack = (remote.getLeftStickY()*remote.getLeftStickY());
-		}
+		//if(-remote.getLeftStickY() < 0){
+			//forwardBack = -(remote.getLeftStickY()*remote.getLeftStickY());
+		//}
+		//else{
+			//forwardBack = (remote.getLeftStickY()*remote.getLeftStickY());
+		//}
 		
-		if(-remote.getLeftStickX() < 0){
-			leftRight = -(remote.getLeftStickX()*remote.getLeftStickX());
-		}
-		else{
-			leftRight = (remote.getLeftStickX()*remote.getLeftStickX());
-		}
+		//if(-remote.getLeftStickX() < 0){
+			//leftRight = -(remote.getLeftStickX()*remote.getLeftStickX());
+		//}
+		//else{
+			//leftRight = (remote.getLeftStickX()*remote.getLeftStickX());
+		//}
 		
-		driver.arcadeDrive(forwardBack , leftRight);
-		
+		//driver.arcadeDrive(forwardBack , leftRight);
+	
 	}
 	private void reverseDrive() {
 		double forwardBack;
 		double leftRight;
 		
 		//backward
-		if(-remote.getLeftStickY() < 0){
-			forwardBack = -(remote.getLeftStickY()*remote.getLeftStickY());
-		}
+		//if(-remote.getLeftStickY() < 0){
+			//forwardBack = -(remote.getLeftStickY()*remote.getLeftStickY());
+		//}
 		//forward
-		else{
-			forwardBack = (remote.getLeftStickY()*remote.getLeftStickY());
-		}
+		//else{
+			//forwardBack = (remote.getLeftStickY()*remote.getLeftStickY());
+		//}
 		
 		//left
-		if(-remote.getLeftStickX() < 0){
-			leftRight = -(remote.getLeftStickX()*remote.getLeftStickX());
-		}
+		//if(-remote.getLeftStickX() < 0){
+			//leftRight = -(remote.getLeftStickX()*remote.getLeftStickX());
+		//}
 		//right
-		else{
-			leftRight = (remote.getLeftStickX()*remote.getLeftStickX());
-		}
+		//else{
+			//leftRight = (remote.getLeftStickX()*remote.getLeftStickX());
+		//}
 		
-		driver.arcadeDrive(-forwardBack , leftRight);
+		//driver.arcadeDrive(-forwardBack , leftRight);
 		
 	}
 	public void startControllerDrive(){
@@ -205,11 +210,11 @@ public class Drive {
 	//controlleDrive method that needs to be called in teleop periodic
 	//it will drive the robot using the f310 remote
 	private void controllerDrive(){	
-		driver.arcadeDrive(-remote.getLeftStickY(), -remote.getRightStickX());
+		driver.tankDrive(-joy_left.getRawAxis(1), -joy_right.getRawAxis(1));;
 	}
 	
 	private void fineControl(){
-		driver.arcadeDrive(-remote.getLeftStickY()/2, -remote.getRightStickX()/1.5);
+		driver.tankDrive(-joy_left.getRawAxis(1)/2, -joy_right.getRawAxis(1)/2);
 	}
 	
 	

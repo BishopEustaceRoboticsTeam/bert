@@ -17,7 +17,8 @@ public class RobotValues {
 	
 	//controller vars
 	final static int F310_REMOTE_USB_PORT_ONE = 0;
-	final static int JOYSTICK_USB_PORT = 1;
+	final static int JOYSTICK_1_USB_PORT = 1;
+	final static int JOYSTICK_2_USB_PORT = 2;
 
 	//Digital sensor ports:
 	public static final int LEFT_ENCODER_A = 0;
@@ -31,6 +32,10 @@ public class RobotValues {
 	public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
 	public static final int AUTO_SWITCH_PORT_2 = 7; 
 	public static final int AUTO_SWITCH_PORT_3 = 8;
+	
+	//Servo ports
+	public static final int SERVO_1_PORT = 1;
+	public static final int SERVO_2_PORT = 0;
 	
 	//Digital sensor values:
 	public static final boolean REVERSE_LEFT_ENCODER_DIRECTION = true;

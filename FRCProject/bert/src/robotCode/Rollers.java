@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Rollers {
 
 	private Victor left_roller, right_roller;
-	private Joystick joy;	
+	private F310 remote;	
 	private RobotDrive roller_controller;
 	private boolean stateCompleted = true;
 	private Timer timer_ = new Timer();
@@ -19,11 +19,11 @@ public class Rollers {
 	
 	private States.Rollers currentRollerState = States.Rollers.CONTROLLED;
 
-	public Rollers(Joystick _joy){
+	public Rollers(F310 _remote){
 		left_roller = new Victor(RobotValues.LEFT_ROLLER_PORT);
 		right_roller = new Victor(RobotValues.RIGHT_ROLLER_PORT);
 		roller_controller = new RobotDrive(left_roller, right_roller);
-		joy = _joy;
+		remote = _remote;
 	
 	}
 
@@ -66,7 +66,7 @@ public class Rollers {
 	}
 	
 	public void rollerControl(){
-		roller_controller.arcadeDrive(-joy.getRawAxis(1), joy.getRawAxis(0));
+		roller_controller.arcadeDrive(-remote.getLeftStickY(), remote.getLeftStickX());
 	}
 	
 	public void startRollerIntake(){
