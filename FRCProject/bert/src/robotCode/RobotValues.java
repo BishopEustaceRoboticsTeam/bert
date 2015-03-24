@@ -35,11 +35,6 @@ public class RobotValues {
 	
 	public static final int TOTE_SENSOR_PORT = 9;
 	
-	
-	//Servo ports
-	public static final int SERVO_1_PORT = 6;
-	public static final int SERVO_2_PORT = 7;
-	
 	//Digital sensor values:
 	public static final boolean REVERSE_LEFT_ENCODER_DIRECTION = true;
 	public static final boolean REVERSE_RIGHT_ENCODER_DIRECTION = false;

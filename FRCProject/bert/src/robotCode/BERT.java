@@ -42,10 +42,6 @@ public class BERT extends IterativeRobot {
 	//Actuators Class:
 	Lifter lifter = new Lifter(pneu);
 	
-	//Servos
-	Servo servo_1 = new Servo(RobotValues.SERVO_1_PORT);
-	Servo servo_2 = new Servo(RobotValues.SERVO_2_PORT);
-	
 	//Robot input output
 	//RobotIO inputOutput = new RobotIO();
 	//Drive Class:
@@ -69,7 +65,6 @@ public class BERT extends IterativeRobot {
 	private boolean rollerIn = false; 
 	private boolean lock = false;
 	private boolean rollerButtonPressed = false;
-	private boolean fineButtonPressed = false;
 	private boolean lockButtonPressed = false;
 	
 	DigitalInput toteSensor = new DigitalInput(RobotValues.TOTE_SENSOR_PORT);
@@ -203,15 +198,7 @@ public class BERT extends IterativeRobot {
     	
     	//r3 sets fine control
     	if(joy_left.getRawButton(RobotValues.FINE_CONTROL_BUTTON) || joy_right.getRawButton(RobotValues.FINE_CONTROL_BUTTON)){
-    		if(!fineButtonPressed){
-    		    drive.startFineControl();
-    		    fineButtonPressed = true;
-    		}
-    		else{
-    			drive.startControllerDrive();
-    			fineButtonPressed = false;
-    		}
-    		
+    		drive.startFineControl();
     	}
     	
     	//override
@@ -328,88 +315,7 @@ public class BERT extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	//update all the classes
-    	drive.update();
-    	rollers.update();
-    	pneu.update();
-    	lifter.update();
-    	
-    if(rc.getAButton()){
-    	servo_1.set(0.5);
-    	servo_2.set(0.5);
-    }
-    
-    if(rc.getBButton()){
-    	servo_1.set(1);
-    	servo_2.set(1);
-    }
-    
-    if(rc.getXButton()){
-    	servo_1.set(0);
-    	servo_2.set(0);
-    }
-    /**	
-     	if(rc.getR3Button()){
-     		drive.startFineControl();
-    	}
-    	
-    	if(joy.getRawButton(2)){
-    		rollers.startRollerIntake();
-    	}
-    	
-    	if(joy.getRawButton(3)){
-    		rollers.startRollerEject();
-    	}
-    	
-    	if(joy.getRawButton(4)){
-    		pneu.lower();
-    	}
-    	
-    	if(joy.getRawButton(5)){
-		
-    	}
-    	
-    	if(joy.getRawButton(6)){
-    		pneu.startLock();
-    	}
-    	
-    	if(joy.getRawButton(7)){
-    		pneu.startUnlock();
-    	}
-    	
-    	if(joy.getRawButton(8)){
-    		pneu.startRollerIn();
-    	}
-    	
-    	if(joy.getRawButton(9)){
-    		pneu.startRollerOut();
-    	}
-    	
-    	if(rc.getYButton()){
-    		drive.override();
-    	}
-    	
-    	if(rc.getBButton()){
-    		drive.startRightAngleTurn(true);
-    	}
-    	
-    	if(rc.getXButton()){
-    		drive.startRightAngleTurn(false);
-    	}
-    	
-    	if(rc.getAButton()){
-    		drive.startDistanceDrive(2);
-    	}
-    	
-    	if(rc.getL3Button()){
-    		drive.startBDistanceDrive(5);
-    	}
-    	
-    	if(rc.getRBButton()){
-    		auto.resetStates();
-    	}
-    	
-    */
+ 
     }
     
 }
