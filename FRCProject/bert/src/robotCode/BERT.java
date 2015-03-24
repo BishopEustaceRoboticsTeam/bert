@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.USBCamera;
+import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Talon;
 //import edu.wpi.first.wpilibj.Timer;
@@ -29,8 +30,8 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 public class BERT extends IterativeRobot {
 	//Controller Class:
 	F310 rc = new F310(RobotValues.F310_REMOTE_USB_PORT_ONE);
-	Joystick joy_left = new Joystick(RobotValues.JOYSTICK_1_USB_PORT);
-	Joystick joy_right = new Joystick(RobotValues.JOYSTICK_2_USB_PORT);
+	Joystick joy_left = new Joystick(RobotValues.JOYSTICK_LEFT_USB_PORT);
+	Joystick joy_right = new Joystick(RobotValues.JOYSTICK_RIGHT_USB_PORT);
 	
 	//Pneumatics Class:
 	Pneumatics pneu = new Pneumatics();
@@ -70,6 +71,8 @@ public class BERT extends IterativeRobot {
 	private boolean rollerButtonPressed = false;
 	private boolean fineButtonPressed = false;
 	private boolean lockButtonPressed = false;
+	
+	DigitalInput toteSensor = new DigitalInput(RobotValues.TOTE_SENSOR_PORT);
 	//PDP object
 	PowerDistributionPanel pdp = new PowerDistributionPanel();
     /**
@@ -183,7 +186,7 @@ public class BERT extends IterativeRobot {
         	
         }
     	
-
+    	SmartDashboard.putBoolean("Tote position: ",toteSensor.get());
     	
     	
     	
@@ -284,7 +287,15 @@ public class BERT extends IterativeRobot {
     //this runs once at the start of disable
     public void disabledInit(){
     	//NIVision.IMAQdxStopAcquisition(session);
+    	
+    	try{
     	NIVision.IMAQdxStartAcquisition(session);
+    	}
+    	catch(VisionException e)
+    	{
+    		SmartDashboard.putString("Camera", "VisionException Disabled");
+    		
+    	}
     	drive.resetEncoders();
     	
     }
