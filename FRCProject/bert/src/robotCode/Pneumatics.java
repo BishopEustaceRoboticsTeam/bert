@@ -34,7 +34,7 @@ public class Pneumatics  {
 	private final double LIFT_UP_TIME = 4;
 	private final double LIFT_DOWN_TIME = 1.5;
 	private final double LOCK_TIME = .1;
-	private final double UNLOCK_TIME = .1;
+	private final double UNLOCK_TIME = .3;
 	private final double ROLLER_TIME = .1;
 	
 	
