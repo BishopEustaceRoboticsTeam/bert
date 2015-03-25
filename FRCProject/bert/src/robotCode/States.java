@@ -38,7 +38,7 @@ public class States {
 	
 	//the sequence for stacking a tote
 	public enum Stack{
-		OPEN_ROLLERS, RESET, UNLOCK, LIFT, LOCK, LOWER, END;
+		OPEN_ROLLERS, UNLOCK, LIFT, LOCK, LOWER, END;
 	}
 	
 	//the sequence for placing a stack of totes
