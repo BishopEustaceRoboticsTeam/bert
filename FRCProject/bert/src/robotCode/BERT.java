@@ -63,9 +63,6 @@ public class BERT extends IterativeRobot {
 	
 	//teleop vars
 	private boolean rollerIn = false; 
-	private boolean lock = false;
-	private boolean rollerButtonPressed = false;
-	private boolean lockButtonPressed = false;
 	
 	DigitalInput toteSensor = new DigitalInput(RobotValues.TOTE_SENSOR_PORT);
 	//PDP object
