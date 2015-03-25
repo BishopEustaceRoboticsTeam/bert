@@ -71,10 +71,12 @@ public class Pneumatics  {
 				break;
 			case ROLLER_IN:
 				SmartDashboard.putString("Pneumatics:", "Roller In");
+				SmartDashboard.putBoolean("Roller In/out", false);
 				rollerIn();
 				break;
 			case ROLLER_OUT:
 				SmartDashboard.putString("Pneumatics:", "Roller Out");
+				SmartDashboard.putBoolean("Roller In/out", true);
 				rollerOut();
 				break;
 				
