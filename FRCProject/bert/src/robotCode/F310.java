@@ -8,7 +8,7 @@ public class F310 {
     private double deadZone = 0.00;
     
     //array to keep track of the previous state of each button
-    private boolean[] previousButtonStates = new boolean[7];
+    private boolean[] previousButtonStates = new boolean[11];
 
     public F310(int joystickPort) {
         f310 = new Joystick(joystickPort);
@@ -59,22 +59,22 @@ public class F310 {
     }
 
     public boolean getBackButton() {
-        return f310.getRawButton(7);
+        return isButtonJustPressed(7);
 
     }
 
     public boolean getStartButton() {
-        return f310.getRawButton(8);
+        return isButtonJustPressed(8);
 
     }
 
     public boolean getL3Button() {
-        return f310.getRawButton(9);
+        return isButtonJustPressed(9);
 
     }
 
     public boolean getR3Button() {
-        return f310.getRawButton(10);
+        return isButtonJustPressed(10);
 
     }
 
