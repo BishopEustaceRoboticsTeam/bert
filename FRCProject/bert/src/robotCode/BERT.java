@@ -89,23 +89,6 @@ public class BERT extends IterativeRobot {
         }
         //NIVision.IMAQdxStartAcquisition(session);
     	LED.setLEDs(LEDModes.GREEN);
-    	 
-    	
-    	
-    	//set up the camera for viewing
-    	//server = CameraServer.getInstance();
-        //server.setQuality(CAMERA_QUALITY);
-        //server.startAutomaticCapture(CAMERA_NAME);
-    	//if(camera != null){
-    	    //server = CameraServer.getInstance();
-            //server.setQuality(CAMERA_QUALITY);
-            
-            //server.startAutomaticCapture(camera);
-    	//}
-    	//else{
-    		//SmartDashboard.putString("Camera Status:", "Not Working");
-    	//}
-    	
     	
     	auto = new Autonomous(drive, lifter, pneu, rollers);
     	pdp.clearStickyFaults();
@@ -152,8 +135,6 @@ public class BERT extends IterativeRobot {
     
    //this method is called once at the start of teleop
     public void teleopInit(){
-    	//setup the camera
-    	//NIVision.IMAQdxStartAcquisition(session);
     	
     	//start the led light show
     	LED.setLEDs(LEDModes.RAINBOW);
@@ -178,7 +159,7 @@ public class BERT extends IterativeRobot {
         	
         }
     	
-    	SmartDashboard.putBoolean("Tote position: ",toteSensor.get());
+    	SmartDashboard.putBoolean("Tote position: ", toteSensor.get());
     	
     	
     	
@@ -226,6 +207,7 @@ public class BERT extends IterativeRobot {
     	
     	//roller piston
     	// need to switch to remote button
+    	
     	if(rc.getL3Button()){
 	    		if(!rollerIn){
 	    			pneu.startRollerIn();
@@ -234,10 +216,8 @@ public class BERT extends IterativeRobot {
 	    			pneu.startRollerOut();
 	    			rollerIn = false;
 	    		}
-    		}
+    	}
     		
-    	
-    	
     	
     	//the locking mech
     	
@@ -270,7 +250,6 @@ public class BERT extends IterativeRobot {
     
     //this runs once at the start of disable
     public void disabledInit(){
-    	//NIVision.IMAQdxStopAcquisition(session);
     	
     	try{
     	NIVision.IMAQdxStartAcquisition(session);
