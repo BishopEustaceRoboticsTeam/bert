@@ -118,22 +118,8 @@ public class Autonomous {
 					//start the drive to the auto zone
 					drive.startDistanceDrive(DISTANCE_TO_AUTO_ZONE);
 					//change the state to the next state
-					currentAutoToteState = States.AutoTote.DROP_STACK;
-					SmartDashboard.putString("AutoTote", "Drive to zone");
-					break;
-				case DROP_STACK:
-					//start the drop stack
-					lifter.startPlace();
-					//change to the next state
-					currentAutoToteState = States.AutoTote.BACKUP;
-					SmartDashboard.putString("AutoTote", "DropStack");
-					break;
-				case BACKUP:
-					//start the distance drive backwards
-					drive.startBDistanceDrive(0.5);
-					//change to end because we're done
 					currentAutoToteState = States.AutoTote.END;
-					SmartDashboard.putString("AutoTote", "Backup");
+					SmartDashboard.putString("AutoTote", "Drive to zone");
 					break;
 				case END:
 					//were done this mode of autonomous!

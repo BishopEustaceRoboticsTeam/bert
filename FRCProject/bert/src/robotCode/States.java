@@ -23,7 +23,7 @@ public class States {
 	
 	//sequence for the autonomous tote mode
 	public enum AutoTote {
-		DRIVE_TO_TOTE, INTAKE, LIFT, TURN_90, DRIVE_TO_AUTO_ZONE, DROP_STACK, BACKUP, END;
+		DRIVE_TO_TOTE, INTAKE, LIFT, TURN_90, DRIVE_TO_AUTO_ZONE, END;
 	}
 	
 	//sequence for the autonomous bin mode
