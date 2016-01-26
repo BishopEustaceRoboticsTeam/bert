@@ -34,7 +34,7 @@ public class Drive {
 	private final double DISTANCE_PER_90 = 0.47876; //0.6; //in meters
 	
 	final int WHEEL_RADIUS = 3; //in inches
-	final double pi = 3.1459;
+	final double pi = 3.14159;
 	//F310 remote;
 	Joystick joy_left;
 	Joystick joy_right;
@@ -87,8 +87,7 @@ public class Drive {
 		driver.setSafetyEnabled(false);
 		leftEncoder.setDistancePerPulse(DIST_PER_TICK_LEFT);
 		rightEncoder.setDistancePerPulse(DIST_PER_TICK_RIGHT);
-		SmartDashboard.putNumber("P:", Pc);
-		
+		SmartDashboard.putNumber("P:", Pc);		
 	}
 	public void setsafety(boolean enable){
 		driver.setSafetyEnabled(enable);

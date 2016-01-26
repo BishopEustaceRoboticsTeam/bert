@@ -159,7 +159,7 @@ public class BERT extends IterativeRobot {
         	
         }
     	
-    	SmartDashboard.putBoolean("Tote position: ", toteSensor.get());
+    	SmartDashboard.putBoolean("Tote position: ", !toteSensor.get());
     	
     	
     	
@@ -275,7 +275,8 @@ public class BERT extends IterativeRobot {
         }
     	
     	auto.displayAutoMode();
-    	
+
+	SmartDashboard.putBoolean("Tote position: ", !toteSensor.get());
     	
     }
     
