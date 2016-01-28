@@ -1,0 +1,43 @@
+package robotcode;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Victor;
+
+public class Robot extends IterativeRobot {
+	
+	private final static int LEFT_ROLLER_PORT = 4;
+	private final static int RIGHT_ROLLER_PORT = 5;
+	private final static int F310_USB_PORT = 0;
+	
+	Joystick rc = new Joystick(F310_USB_PORT);
+	boolean lastXButtonState=false;
+	
+	Victor leftRoller = new Victor(LEFT_ROLLER_PORT);
+	Victor rightRoller = new Victor(RIGHT_ROLLER_PORT);
+	private RobotDrive robotController = new RobotDrive(leftRoller, rightRoller);
+	
+	public void robotInit() {
+    
+	}
+	
+    public void autonomousPeriodic() {
+
+    }
+    
+    public void teleopInit(){
+    	
+    }
+    
+    public void teleopPeriodic() {
+        
+    }
+    
+    private boolean getXButton(){
+    	if(rc.getRawButton(3) && !lastXButtonState){
+    		lastXButtonState = true;
+    	}
+    }
+    
+}
