@@ -521,3 +521,18 @@ org.osgi.framework.BundleException: Unable to acquire the state change lock for 
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
+
+!ENTRY WPILib_Java_Robot_Development 1 0 2016-01-28 16:22:24.724
+!MESSAGE Running ant file: /home/bert3/bert/bert4/PracticeProjects/PnumaticLifterTest/build.xml
+
+!ENTRY WPILib_Java_Robot_Development 1 0 2016-01-28 16:22:24.746
+!MESSAGE Targets: deploy, Mode: run
+
+!ENTRY WPILib_Java_Robot_Development 1 0 2016-01-28 16:25:42.414
+!MESSAGE Running ant file: /home/bert3/bert/bert4/PracticeProjects/PnumaticLifterTest/build.xml
+
+!ENTRY WPILib_Java_Robot_Development 1 0 2016-01-28 16:25:42.415
+!MESSAGE Targets: deploy, Mode: run
+
+!ENTRY WPILib_Java_Robot_Development 1 0 2016-01-29 15:13:45.609
+!MESSAGE Project: RollerShooterTest2 Package: org.usfirst.frc.team4750.robot Project Type: edu.wpi.first.wpilib.plugins.java.wizards.newproject.JavaProjectType$2@16f56349
