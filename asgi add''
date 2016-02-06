@@ -1,0 +1,240 @@
+[33mcommit b87fb06b9bac6b013c99f8d64530c5152fc20b24[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Sat Feb 6 09:34:03 2016 -0500
+
+    Remove Command Based Robot Test
+
+[33mcommit 802c9ed958d9ed27fbf8f1483fc73900a17a5669[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Fri Feb 5 17:08:07 2016 -0500
+
+    Add Command Based Robot test template to PracticeProjects
+
+[33mcommit de9c644784c6266aeee8beb34090c02c281495b3[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Fri Feb 5 16:54:44 2016 -0500
+
+    Make Command Based Robot test template.
+
+[33mcommit 814832e591273559428481b6a5255720df62e71f[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Fri Jan 29 16:04:37 2016 -0500
+
+    fixed roller shooter test project
+
+[33mcommit a1b007334e029f27af1e4696ba72984de7c5b3bf[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Thu Jan 28 16:20:43 2016 -0500
+
+    Change ports for rollers and make them spin in the same direction for the roller shooter test (JM).
+
+[33mcommit b35d73caba9e929630bfcbf1f3001b918faad620[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Thu Jan 28 15:20:17 2016 -0500
+
+    Create test project for roller shooter prototype.
+
+[33mcommit 9a88b166cfa09e70e2d5f125c8fd18a65c28bd5d[m
+Author: John Michael Figueroa <John Michael Figueroa>
+Date:   Tue Jan 26 20:07:57 2016 +0000
+
+    Fix README.md
+
+[33mcommit fac145f2eb68b074be45c5dbc15e84381dad81b2[m
+Author: John Michael Figueroa <John Michael Figueroa>
+Date:   Tue Jan 26 20:00:57 2016 +0000
+
+    Changed tote sensor to make green=tote is ready. (JM) [Most recent commit in old repo; for some reason it didn't get carried over to the new one with git clone.]
+
+[33mcommit 028370c06ec4b7ed171fe87afb65c4a744292fc4[m
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Fri Jan 22 16:27:18 2016 -0500
+
+    Remove extra README file (JM)
+
+[33mcommit eae09c8536c9f538ce29ae8a19dd4c7cbe0d650f[m
+Merge: fb4feb6 82c5b09
+Author: bert 3 <figueroa.johnm@gmail.com>
+Date:   Fri Jan 22 16:21:30 2016 -0500
+
+    Merge branch 'master' of https://github.com/BishopEustaceRoboticsTeam/bert
+
+[33mcommit 82c5b09fd6f5f75074a42afdba80b063aabf0586[m
+Author: BishopEustaceRoboticsTeam <figueroa.johnm@gmail.com>
+Date:   Fri Jan 22 15:54:33 2016 -0500
+
+    Update README
+
+[33mcommit 3275dbaa5597deacd0fd95b764af196d0ef9114a[m
+Author: BishopEustaceRoboticsTeam <figueroa.johnm@gmail.com>
+Date:   Fri Jan 22 15:53:20 2016 -0500
+
+    Initial commit
+
+[33mcommit fb4feb698131602e969a599d84a2ca7411a38b5e[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 20:34:32 2015 -0400
+
+    Took out the end part of autonomous so the tote stays lifted at the end.
+    This allows for faster coopertion. This is not tested (JM).
+
+[33mcommit 62543e7a9f47b8dae72daa9d151e869131e2d040[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 19:58:33 2015 -0400
+
+    Removed reset step to make stack method faster. (JM)
+
+[33mcommit a28d61a0a4772fb276df46c0330b873ed105c313[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 19:41:09 2015 -0400
+
+    Added SmartDashboard boolean for rollers.
+
+[33mcommit 09d3a7950f44f41765c65564bd0cc80ccd47ec31[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 19:22:16 2015 -0400
+
+    Added SmartDashboard boolean for roller state.
+
+[33mcommit 4d2411756e6473f17d3e74b6e31254d0976aec05[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 19:12:37 2015 -0400
+
+    Fixed rollers--they no longer toggle when the L3 button is held down.
+
+[33mcommit 3f60f8250b5680be5643df3b751034f2fd07f1f8[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 15:39:32 2015 -0400
+
+    Cleaned up some comments getting ready to merge with the master.
+
+[33mcommit dbe095cc242c64461bac45becbf8a9e5b5cb623c[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 25 15:35:09 2015 -0400
+
+    Took out some unused vars and rebased with master.
+
+[33mcommit 9c3560dfe4cceeb75355b82b410d2dc261b6e706[m
+Author: bert5 <bert5@bert5>
+Date:   Tue Mar 24 16:22:58 2015 -0400
+
+    changed stack code for dual acting pistons (J)
+
+[33mcommit be9eb9cecced7ddd137cc4e34c21eb40d80439d3[m
+Author: bert5 <bert5@bert5>
+Date:   Tue Mar 24 20:30:42 2015 -0400
+
+    changes in the build files net to save before branch(Reno)
+
+[33mcommit ebbe56863be07e944863611f1cb7f9fa14027dc8[m
+Author: bert5 <bert5@bert5>
+Date:   Tue Mar 24 20:28:44 2015 -0400
+
+    Made the time longer for unlocking
+
+[33mcommit 16c1574c3014ef34c601591c0df047c52d9ef2f2[m
+Author: bert5 <bert5@bert5>
+Date:   Tue Mar 24 19:08:04 2015 -0400
+
+    Fixed fine control button (now press two for fine control and 3 for
+    normal control). Also took out old servo code (Reno)
+
+[33mcommit 94da8813751300b82e308c8327facd90aa36b150[m
+Author: bert5 <bert5@bert5>
+Date:   Tue Mar 24 18:56:14 2015 -0400
+
+    Added sensor code for tote (JM). Tested Drive code with second robot(J).
+    Have not yet tested anything buttons from the f310. Fixed a camera bug
+    and now the vision exception is handeld. (NF)
+
+[33mcommit 3e44584fa37830679558d07cbe330396e4089bb9[m
+Author: bert5 <bert5@bert5>
+Date:   Mon Mar 23 18:01:00 2015 -0400
+
+    finished drive code changes, but needs testing (J)
+
+[33mcommit acf2fa3d6b5eafb0bcaa49920078e5ee2e892041[m
+Author: bert5 <bert5@bert5>
+Date:   Mon Mar 23 17:16:21 2015 -0400
+
+    Changed the drive code (J)
+
+[33mcommit dabda4fcb1b16d85a770e7daf0b4baf105bdac31[m
+Author: bert5 <bert5@bert5.(none)>
+Date:   Sat Mar 14 00:56:37 2015 -0400
+
+    Added the correct led amount need to add more colors
+
+[33mcommit 8cd71197e27bf8e7f48d267cb2b02ea7f10ee705[m
+Author: bert5 <bert5@bert5>
+Date:   Sat Mar 14 00:54:24 2015 -0400
+
+    added new non linear mapping for driving (x^2) in order to make it
+    easier to drive. Added a back drive so that the front of the robot can
+    pretty much change sides (good for breaking up the landfill). Fixed the
+    rollers in auto. Took the dead zone out of f310 in order to make it a
+    little easier move. Fixed the auto short drive code. (Reno)
+
+[33mcommit 95fe263a3a012c862780312aa79256f1e01aa439[m
+Author: bert5 <bert5@bert5>
+Date:   Fri Mar 13 12:31:28 2015 -0400
+
+    competition code. reduced time for pneumatics.
+
+[33mcommit fde44cee3dc6ab5e6bd4564c48f9601a87399593[m
+Author: bert5 <bert5@bert5>
+Date:   Thu Mar 12 22:21:38 2015 -0400
+
+    The stack bug is fixed. Added some more led modes that we can potentialy
+    use. Also changed the TBD auto mode to short drive to auto zone it is
+    the color purple.
+
+[33mcommit 64d9b0e178c19b414d7812898c32bd874ea1f090[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 11 20:42:59 2015 -0400
+
+    Started Auto Testing but did not get it completely tested. Fixed main
+    bug with the auto class. Need to get lock working in the lifter stack
+    function because it doesn't work. Got the camera feeding to the smart
+    dashboard. This is the code that is on the robot before the first
+    competition this year.
+
+[33mcommit e797001c04ccb6b67ed2b755c6acf2d3678b6032[m
+Author: bert5 <bert5@bert5>
+Date:   Tue Mar 10 20:47:30 2015 -0400
+
+    wrote timeout code in pneumatics, fixed stack, place, lock, and rollers.
+    still need to get camera working
+
+[33mcommit 9990d84d259b76431e8afa3cd2ce01af3fe9d28e[m
+Author: bert5 <bert5@bert5>
+Date:   Mon Mar 9 17:37:36 2015 -0400
+
+    Fixed the Fine Control Mode and made it work with a toggle switch(JM).
+
+[33mcommit ebaff7621d5b3934fb42fb081da58f41a3234fa7[m
+Author: bert5 <bert5@bert5.(none)>
+Date:   Sat Mar 7 11:04:18 2015 -0500
+
+    added camera info and new standard desktop background for all robotics team computers
+
+[33mcommit ae22585564d3b041b25c84c7dfd55d88cb1f9ac6[m
+Author: bert5 <bert5@bert5.(none)>
+Date:   Sat Mar 7 09:54:05 2015 -0500
+
+    modified stack function
+
+[33mcommit d5d32437c0dd35e86016d88658fde5b26fc4f64b[m
+Author: bert5 <bert5@bert5>
+Date:   Wed Mar 4 17:48:48 2015 -0500
+
+    Fixed stack and place code by changeing the pneumatics class also added
+    print out to the smartdashboard and tested it. Got the reset working and
+    tested for the lifter (Reno). corrected the spelling in the robotValues
+    class for reed switch.
+
+[33mcommit 86fcbebb5f8f81a64d43a595746e989682147e6a[m
+Author: bert5 <bert5@bert5>
+Date:   Fri Feb 27 17:00:21 2015 -0500
+
+    Changed the f310 class to no longer use
