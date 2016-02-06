@@ -9,11 +9,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Servo;
 
 public class Robot extends IterativeRobot {
     
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
+	
+	Servo servo1 = new Servo(8);
 	
 	Talon shooterJoint = new Talon(0);
 	Talon leftRoller = new Talon(1);
