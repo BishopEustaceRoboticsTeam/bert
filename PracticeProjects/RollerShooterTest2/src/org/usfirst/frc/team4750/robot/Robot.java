@@ -16,20 +16,22 @@ public class Robot extends IterativeRobot {
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
 	
-	Servo servo1 = new Servo(8);
+	Servo servo1 = new Servo(7);
 	
-	Talon shooterJoint = new Talon(0);
-	Talon leftRoller = new Talon(1);
-	Talon rightRoller = new Talon(2);
+	Talon shooterJoint = new Talon(6);
+	Talon leftRoller = new Talon(5);
+	Talon rightRoller = new Talon(4);
 	
-	Talon manipulator1 = new Talon(3);
-	Talon manipulator2 = new Talon(4);
-	Talon manipulatorRoller = new Talon(5);
+	//Talon manipulator1 = new Talon(3);
+	//Talon manipulator2 = new Talon(4);
+	//Talon manipulatorRoller = new Talon(5);
 	
-	Talon leftDrive = new Talon(6);
-	Talon rightDrive = new Talon(7);
+	Talon frontLeftDrive = new Talon(0);
+	Talon frontRightDrive = new Talon(2);
+	Victor backLeftDrive = new Victor(3);
+	Victor backRightDrive = new Victor(1);
     
-	RobotDrive driveTrain = new RobotDrive(leftDrive, rightDrive);
+	RobotDrive driveTrain = new RobotDrive(frontLeftDrive, backLeftDrive, frontRightDrive, backRightDrive);
 	RobotDrive roller = new RobotDrive(leftRoller, rightRoller);
 	
 	public void robotInit() {
@@ -48,13 +50,20 @@ public class Robot extends IterativeRobot {
 
     
     public void teleopPeriodic() {
-        driveTrain.tankDrive(leftStick.getRawAxis(0), rightStick.getRawAxis(0));
+        
+    	driveTrain.tankDrive(-leftStick.getRawAxis(1), -rightStick.getRawAxis(1));
         roller.arcadeDrive(leftStick.getRawAxis(3), 0);
         shooterJoint.set(rightStick.getRawAxis(3));
         
+        if(rightStick.getTrigger()){
+        	servo1.set(1);
+        }
         
+        else{
+        	servo1.set(0);
+        }
+               
     }
-    
     
     public void testPeriodic() {
     
