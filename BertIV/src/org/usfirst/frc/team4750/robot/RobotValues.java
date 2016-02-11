@@ -12,8 +12,13 @@ public class RobotValues {
 		public static final int FRONT_LEFT_MOTOR = 0;
 		public static final int BACK_RIGHT_MOTOR = 1;
 		public static final int BACK_LEFT_MOTOR = 3;
-		public static final int LEFT_ROLLER_PORT = 4;
-		public static final int RIGHT_ROLLER_PORT = 5;
+		public static final int LEFT_SHOOTER_MOTOR_PORT = 4;
+		public static final int RIGHT_SHOOTER_MOTOR_PORT = 5;
+		public static final int SHOOTER_AIMER_MOTOR_PORT = 6;
+		public static final int SHOOTER_SERVO_PORT = 7;
+		
+		public static final double SERVO_SHOOT_POS = 1;
+		public static final double SERVO_DEFAULT_POS = 0;
 		
 		//Digital sensor ports:
 		public static final int LEFT_ENCODER_A = 0;
