@@ -18,9 +18,9 @@ public class Robot extends IterativeRobot {
 	
 	Servo servo1 = new Servo(7);
 	
-	Talon shooterJoint = new Talon(6);
-	Talon leftRoller = new Talon(5);
-	Talon rightRoller = new Talon(4);
+	Talon shooterJointMotor = new Talon(6);
+	Talon leftRollerMotor = new Talon(5);
+	Talon rightRollerMotor = new Talon(4);
 	
 	//Talon manipulator1 = new Talon(3);
 	//Talon manipulator2 = new Talon(4);
@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 	Victor backRightDrive = new Victor(1);
     
 	RobotDrive driveTrain = new RobotDrive(frontLeftDrive, backLeftDrive, frontRightDrive, backRightDrive);
-	RobotDrive roller = new RobotDrive(leftRoller, rightRoller);
+	RobotDrive roller = new RobotDrive(leftRollerMotor, rightRollerMotor);
 	
 	public void robotInit() {
         
@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
         
     	driveTrain.tankDrive(-leftStick.getRawAxis(1), -rightStick.getRawAxis(1));
         roller.arcadeDrive(leftStick.getRawAxis(3), 0);
-        shooterJoint.set(rightStick.getRawAxis(3));
+        shooterJointMotor.set(rightStick.getRawAxis(3));
         
         if(rightStick.getTrigger()){
         	servo1.set(1);
