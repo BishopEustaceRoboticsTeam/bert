@@ -2,8 +2,10 @@
 package org.usfirst.frc.team4750.robot.subsystems;
 
 import org.usfirst.frc.team4750.robot.RobotValues;
+import org.usfirst.frc.team4750.robot.commands.JoystickDrive;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -23,9 +25,18 @@ public class DriveTrain extends Subsystem {
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+	public void controllerDrive(Joystick left, Joystick right){
+		driver.tankDrive(left, right);
+	}
+	
+	public void stop(){
+		driver.drive(0,0);
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new JoystickDrive());
+    	
     }
 }
 
