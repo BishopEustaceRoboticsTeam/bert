@@ -60,7 +60,9 @@ public class Robot extends IterativeRobot {
 
     
     public void autonomousPeriodic() {
-    
+    	driveTrain.tankDrive(0.5, 0.5);
+    	Timer.delay(8);
+    	driveTrain.tankDrive(0, 0);
     }
 
     
