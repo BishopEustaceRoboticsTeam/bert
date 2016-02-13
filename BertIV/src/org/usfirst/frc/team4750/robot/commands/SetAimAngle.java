@@ -8,11 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SetAimAngle extends Command{
 	
-	double angle;
-	
-	public SetAimAngle(double angle) {
+	public SetAimAngle() {
 		// TODO Auto-generated constructor stub
-		this.angle=angle;
 	}
 
 	@Override
@@ -24,13 +21,13 @@ public class SetAimAngle extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.shooter.setShooterAimerMotorSpeed(0.5);
+		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightTwist());
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override

@@ -16,11 +16,7 @@ public class Robot extends IterativeRobot {
     
 	Joystick leftStick = new Joystick(0);
 	Joystick rightStick = new Joystick(1);
-	
-	
-	
-	
-	
+
 	//Talon manipulator1 = new Talon(3);
 	//Talon manipulator2 = new Talon(4);
 	//Talon manipulatorRoller = new Talon(5);
@@ -44,19 +40,15 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		 CameraServer server;
 
-		   
-		        server = CameraServer.getInstance();
-		        server.setQuality(50);
-		        //the camera name (ex "cam0") can be found through the roborio web interface
-		        server.startAutomaticCapture("cam0");
-		    
-
-		    /**
-		     * start up automatic capture you should see the video stream from the
-		     * webcam in your FRC PC Dashboard.
-		     */
-		    		          
-		        }
+		 server = CameraServer.getInstance();
+		 server.setQuality(50);
+		 //the camera name (ex "cam0") can be found through the roborio web interface
+		 server.startAutomaticCapture("cam0");
+		 /**
+		  * start up automatic capture you should see the video stream from the
+		  * webcam in your FRC PC Dashboard.
+		  */	    		          
+	}
 		    
 
     

@@ -4,14 +4,11 @@ import org.usfirst.frc.team4750.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetShooter extends Command {
+public class SetShooterSpeed extends Command {
 	
-	double speed;
-	
-	public SetShooter(double speed) {
+	public SetShooterSpeed() {
 		// TODO Auto-generated constructor stub
-		this.speed=speed;
-		
+		requires(Robot.shooter);
 	}
 
 	@Override
@@ -23,15 +20,14 @@ public class SetShooter extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.shooter.setLeftShooterMotorSpeed(speed);
-		Robot.shooter.setRightShooterMotorSpeed(speed);
-		
+		Robot.shooter.setLeftShooterMotorSpeed(Robot.oi.getLeftTwist());
+		Robot.shooter.setRightShooterMotorSpeed(Robot.oi.getLeftTwist());
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
@@ -43,7 +39,7 @@ public class SetShooter extends Command {
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		end();
 	}
 
 }

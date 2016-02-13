@@ -3,8 +3,7 @@ package org.usfirst.frc.team4750.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
-import org.usfirst.frc.team4750.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,10 +20,18 @@ public class OI {
 	Joystick rightStick = new Joystick(RobotValues.RIGHT_JOYSTICK_USB_PORT);
     
 	Button leftTrigger = new JoystickButton(leftStick, 1);
-	Button rightTrigger = new JoystickButton(rightStick, 2);
+	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
 	public OI(){
-		
+		rightTrigger.whileHeld(new SetShooterServo(true));
+	}
+	
+	public double getRightTwist(){
+		return leftStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
+	}
+	
+	public double getLeftTwist(){
+		return rightStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
 	}
 	
     // There are a few additional built in buttons you can use. Additionally,

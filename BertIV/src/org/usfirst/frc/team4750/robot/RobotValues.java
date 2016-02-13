@@ -21,6 +21,13 @@ public class RobotValues {
 		public static final int LEFT_JOYSTICK_USB_PORT = 0;
 		public static final int RIGHT_JOYSTICK_USB_PORT = 1;
 		
+		//Axes
+		public static final int JOYSTICK_X_AXIS = 0;
+		public static final int JOYSTICK_Y_AXIS = 1;
+		public static final int JOYSTICK_Z_AXIS = 2;
+		public static final int JOYSTICK_TWIST_AXIS = 3;
+		
+		//Other
 		public static final double SERVO_SHOOT_POS = 1;
 		public static final double SERVO_DEFAULT_POS = 0;
 		
