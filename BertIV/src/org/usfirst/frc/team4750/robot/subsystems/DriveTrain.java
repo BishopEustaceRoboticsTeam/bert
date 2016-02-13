@@ -129,6 +129,32 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 	
+	private void rightTurn(){
+		//rightTurn
+		if(getLeftEncoderDistance() < DISTANCE_PER_90 && getRightEncoderDistance() > -DISTANCE_PER_90){
+			driver.arcadeDrive(0, -RIGHT_ANGLE_TURN_SPEED);
+			printEncoderValues();
+		}
+		
+		else{
+			//where done turning
+			stop();
+		}
+	}
+		
+	private void leftTurn(){
+		//leftTurn
+		if(getLeftEncoderDistance() > -DISTANCE_PER_90 && getRightEncoderDistance() < DISTANCE_PER_90){
+			driver.arcadeDrive(0, RIGHT_ANGLE_TURN_SPEED);
+			printEncoderValues();
+		}
+		else{
+			//where done turning
+			stop();
+		}
+	}
+	
+	
 	public void stop(){
 		driver.drive(0,0);
 	}
@@ -136,10 +162,6 @@ public class DriveTrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         setDefaultCommand(new JoystickDrive());
-    	
     }
-
-	
-    
 }
 
