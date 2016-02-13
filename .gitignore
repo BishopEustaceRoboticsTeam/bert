@@ -3,3 +3,7 @@
 # ignore all the build folders
 build/
 nbproject/
+.metadata/
+.metadata/*
+*/.metadata
+*/.metadata/*

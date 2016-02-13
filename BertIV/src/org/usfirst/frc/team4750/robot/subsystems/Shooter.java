@@ -39,16 +39,12 @@ public class Shooter extends Subsystem{
 	}
 	
 	public void setShooterServo(boolean position){
-		if(position){
-			shooterServo.set(RobotValues.SERVO_SHOOT_POS);
-		}
-		else{
-			shooterServo.set(RobotValues.SERVO_DEFAULT_POS);
-		}
+		//This is just an abbreviated if statement. The format is ((condition) ? (value if true) : (value if false))
+		shooterServo.set(position ? RobotValues.SERVO_SHOOT_POS : RobotValues.SERVO_DEFAULT_POS);
 	}
 	
 	
-	//Future self, do these:
+	//Future self, implement these three:
 	public int getLeftMotorEncoder(){
 		return -1;
 	}

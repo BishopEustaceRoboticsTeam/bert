@@ -17,11 +17,15 @@ public class OI {
     // number it is.
     // Joystick stick = new Joystick(port);
     // Button button = new JoystickButton(stick, buttonNumber);
-	Joystick leftStick = new Joystick(0);
-	Joystick rightStick = new Joystick(1);
+	Joystick leftStick = new Joystick(RobotValues.LEFT_JOYSTICK_USB_PORT);
+	Joystick rightStick = new Joystick(RobotValues.RIGHT_JOYSTICK_USB_PORT);
     
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 2);
+	
+	public OI(){
+		
+	}
 	
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
@@ -43,4 +47,3 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 }
-

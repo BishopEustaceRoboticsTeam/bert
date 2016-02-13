@@ -4,9 +4,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class Shoot extends CommandGroup {
 
-	public Shoot() {
+	public Shoot(double angle, double shooterSpeed, boolean servoPosition) {
 		// TODO Auto-generated constructor stub
-		//addSequential(new )
+		addSequential(new SetAimAngle(angle));
+		addSequential(new SetShooter(shooterSpeed));
+		addSequential(new SetShooterServo(servoPosition));
 	}
 
-}
+}	

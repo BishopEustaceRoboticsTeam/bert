@@ -17,6 +17,10 @@ public class RobotValues {
 		public static final int SHOOTER_AIMER_MOTOR_PORT = 6;
 		public static final int SHOOTER_SERVO_PORT = 7;
 		
+		//Joystick USB ports
+		public static final int LEFT_JOYSTICK_USB_PORT = 0;
+		public static final int RIGHT_JOYSTICK_USB_PORT = 1;
+		
 		public static final double SERVO_SHOOT_POS = 1;
 		public static final double SERVO_DEFAULT_POS = 0;
 		
