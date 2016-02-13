@@ -21,12 +21,13 @@ public class SetShooterSpeed extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		Robot.shooter.setLeftShooterMotorSpeed(Robot.oi.getLeftTwist());
-		Robot.shooter.setRightShooterMotorSpeed(Robot.oi.getLeftTwist());
+		Robot.shooter.setRightShooterMotorSpeed(-Robot.oi.getLeftTwist());
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
+		//return Robot.oi.getLeftTwist()==0;
 		return false;
 	}
 

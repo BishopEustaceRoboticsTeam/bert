@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 
 
+
 import org.usfirst.frc.team4750.robot.commands.DriveStraight;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
-
+import org.usfirst.frc.team4750.robot.commands.Shoot;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
 
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
     
     //Subsystems:
     public static Shooter shooter;
+    public static Shoot shoot;
 
     /**
      * This function is run when the robot is first started up and should be

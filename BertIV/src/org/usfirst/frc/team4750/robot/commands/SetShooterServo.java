@@ -23,13 +23,13 @@ public class SetShooterServo extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.shooter.setShooterServo(true);
+		Robot.shooter.setShooterServo(0);
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class SetShooterServo extends Command{
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		Robot.shooter.setShooterServo(1);
 	}
 
 }

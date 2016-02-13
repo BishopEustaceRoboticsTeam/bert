@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 	
 	Talon rightRollerMotor = new Talon(RobotValues.RIGHT_ROLLER_MOTOR_PORT);
 	Talon leftRollerMotor = new Talon(RobotValues.LEFT_ROLLOR_MOTOR_PORT);
-	Talon shooterJointMotor = new Talon(RobotValues.SHOOTER_JOINT_MOTOR_PORT);
+	Victor shooterJointMotor = new Victor(RobotValues.SHOOTER_JOINT_MOTOR_PORT);
 	Victor manipulatorMotor = new Victor(RobotValues.MANIPULATOR_MOTOR_PORT);
 	
 	Servo servo1 = new Servo(RobotValues.SHOOTER_SERVO_PORT);
@@ -72,14 +72,17 @@ public class Robot extends IterativeRobot {
         roller.arcadeDrive(leftStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS), 0);
         shooterJointMotor.set(rightStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS));
         
-        if(rightStick.getRawButton(RobotValues.MANIPULATOR_BUTTON)){
-        	manipulatorMotor.set(RobotValues.MANIPULATOR_SPEED);
+        if(rightStick.getRawButton(3)){
+        	manipulatorMotor.set(1);
         }
-        else if(leftStick.getRawButton(RobotValues.MANIPULATOR_BUTTON)){
-        	manipulatorMotor.set(-RobotValues.MANIPULATOR_SPEED);
-        } else{
+        
+        else if(leftStick.getRawButton(3)){
+        	manipulatorMotor.set(-1);
+        }
+        else{
         	manipulatorMotor.set(0);
         }
+        
         
         if(rightStick.getTrigger()){
         	servo1.set(0);

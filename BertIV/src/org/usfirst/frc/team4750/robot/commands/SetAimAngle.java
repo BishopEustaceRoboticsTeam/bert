@@ -27,6 +27,7 @@ public class SetAimAngle extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
+		//return Robot.oi.getRightTwist()==0;
 		return false;
 	}
 
@@ -39,7 +40,7 @@ public class SetAimAngle extends Command{
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		end();	
 	}
 	
 	

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4750.robot.subsystems;
 
+import org.usfirst.frc.team4750.robot.Robot;
 import org.usfirst.frc.team4750.robot.RobotValues;
+import org.usfirst.frc.team4750.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
@@ -22,7 +24,7 @@ public class Shooter extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new Shoot());
 	}
 
 	
@@ -38,10 +40,11 @@ public class Shooter extends Subsystem{
 		shooterAimerMotor.set(speed);
 	}
 	
-	public void setShooterServo(boolean position){
+	public void setShooterServo(double position){
 		//This is just an abbreviated if statement. The format is ((condition) ? (value if true) : (value if false))
-		shooterServo.set(position ? RobotValues.SERVO_SHOOT_POS : RobotValues.SERVO_DEFAULT_POS);
+		shooterServo.set(position);
 	}
+	
 	
 	
 	//Future self, implement these three:

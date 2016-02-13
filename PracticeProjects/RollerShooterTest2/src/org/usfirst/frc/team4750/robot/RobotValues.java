@@ -18,7 +18,7 @@ public class RobotValues {
 	public static int SHOOTER_SERVO_PORT = 7;
 	
 	//Other motor ports
-	public static int MANIPULATOR_MOTOR_PORT = 8;
+	public static int MANIPULATOR_MOTOR_PORT = 9;
 	
 	//Joystick Axes
 	public static int JOYSTICK_X_AXIS = 0;

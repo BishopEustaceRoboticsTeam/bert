@@ -81,7 +81,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void controllerDrive(Joystick left, Joystick right){
-		driver.tankDrive(left, right);
+		driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
 	}
 	
 	public void straightDrive(double driveDistance){

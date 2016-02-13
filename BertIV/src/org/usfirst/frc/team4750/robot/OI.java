@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 
-/**
+/**w
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
@@ -32,11 +32,11 @@ public class OI {
 	}
 	
 	public double getRightTwist(){
-		return leftStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
+		return rightStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
 	}
 	
 	public double getLeftTwist(){
-		return rightStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
+		return leftStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
 	}
 	
 	
