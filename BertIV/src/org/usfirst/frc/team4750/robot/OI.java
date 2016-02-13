@@ -16,8 +16,13 @@ public class OI {
     // number it is.
     // Joystick stick = new Joystick(port);
     // Button button = new JoystickButton(stick, buttonNumber);
+
 	Joystick leftStick = new Joystick(RobotValues.LEFT_JOYSTICK_USB_PORT);
 	Joystick rightStick = new Joystick(RobotValues.RIGHT_JOYSTICK_USB_PORT);
+
+
+
+
     
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
@@ -34,6 +39,14 @@ public class OI {
 		return rightStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
 	}
 	
+	
+	public Joystick getLeftStick(){
+		return leftStick;
+	}
+	
+	public Joystick getRightStick(){
+		return rightStick;
+	}
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.

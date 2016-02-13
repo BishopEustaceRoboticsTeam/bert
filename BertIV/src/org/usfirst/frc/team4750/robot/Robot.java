@@ -6,6 +6,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+
+
+import org.usfirst.frc.team4750.robot.commands.DriveStraight;
+import org.usfirst.frc.team4750.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
+
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
 
@@ -18,7 +24,7 @@ import org.usfirst.frc.team4750.robot.subsystems.Shooter;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain exampleSubsystem = new DriveTrain();
+	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 
     Command autonomousCommand;
@@ -33,6 +39,10 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         // instantiate the command used for the autonomous period
+
+
+        autonomousCommand = new DriveStraight(1);
+
         
         //Initialize subsystems:
         shooter = new Shooter();
