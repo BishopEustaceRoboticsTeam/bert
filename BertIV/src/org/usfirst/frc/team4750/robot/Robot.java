@@ -25,14 +25,14 @@ import org.usfirst.frc.team4750.robot.subsystems.Shooter;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 
     Command autonomousCommand;
     
     //Subsystems:
-    public static Shooter shooter;
-    
+
+    public static Shooter shooter = new Shooter();
+    public static final DriveTrain driveTrain = new DriveTrain();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -43,11 +43,10 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
 
 
-        autonomousCommand = new DriveStraight(1);
+        //autonomousCommand = new DriveStraight(1);
 
         
-        //Initialize subsystems:
-        shooter = new Shooter();
+        
     }
 	
 	public void disabledPeriodic() {
