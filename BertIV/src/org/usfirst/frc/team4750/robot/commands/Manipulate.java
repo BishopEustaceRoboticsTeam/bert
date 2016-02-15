@@ -3,6 +3,7 @@ package org.usfirst.frc.team4750.robot.commands;
 import org.usfirst.frc.team4750.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Manipulate extends Command {
     public Manipulate(boolean direction) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.manipulator);
     	this.direction = direction;
     }
 
@@ -23,6 +25,8 @@ public class Manipulate extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	SmartDashboard.putBoolean("Is Manipulate executing?", true);
+    	
     	if(direction){
     		Robot.manipulator.manipulatorUp();
     	}else{
@@ -37,10 +41,12 @@ public class Manipulate extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	SmartDashboard.putBoolean("Is Manipulate executing?", false);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

@@ -23,7 +23,7 @@ public class Manipulator extends Subsystem {
     }
     
     public void manipulatorUp(){
-    	manipulatorMotor.set(RobotValues.DEFAULT_MANIPULATOR_MOTOR_SPEED );
+    	manipulatorMotor.set(RobotValues.DEFAULT_MANIPULATOR_MOTOR_SPEED);
     }
     
     public void manipulatorDown(){

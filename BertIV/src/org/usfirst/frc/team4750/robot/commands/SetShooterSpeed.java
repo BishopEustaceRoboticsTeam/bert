@@ -3,6 +3,7 @@ package org.usfirst.frc.team4750.robot.commands;
 import org.usfirst.frc.team4750.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetShooterSpeed extends Command {
 	
@@ -20,6 +21,7 @@ public class SetShooterSpeed extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
+		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", true);
 		Robot.shooter.setLeftShooterMotorSpeed(Robot.oi.getLeftTwist());
 		Robot.shooter.setRightShooterMotorSpeed(-Robot.oi.getLeftTwist());
 	}
@@ -34,7 +36,7 @@ public class SetShooterSpeed extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", false);
 	}
 
 	@Override

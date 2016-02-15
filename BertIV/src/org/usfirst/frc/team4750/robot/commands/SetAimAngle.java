@@ -1,15 +1,16 @@
 package org.usfirst.frc.team4750.robot.commands;
 
 import org.usfirst.frc.team4750.robot.Robot;
-
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetAimAngle extends Command{
 	
 	public SetAimAngle() {
 		// TODO Auto-generated constructor stub
+		requires(Robot.shooter);
 	}
 
 	@Override
@@ -21,6 +22,7 @@ public class SetAimAngle extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
+		SmartDashboard.putBoolean("Is SetAimAngle executing?", true);
 		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightTwist());
 	}
 
@@ -34,7 +36,7 @@ public class SetAimAngle extends Command{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		SmartDashboard.putBoolean("Is SetShooter executing?", false);
 	}
 
 	@Override

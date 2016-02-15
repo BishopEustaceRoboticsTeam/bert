@@ -3,6 +3,7 @@ package org.usfirst.frc.team4750.robot.commands;
 import org.usfirst.frc.team4750.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetShooterServo extends Command{
 	
@@ -23,6 +24,7 @@ public class SetShooterServo extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
+		SmartDashboard.putBoolean("Is SetShooter executing?", true);
 		Robot.shooter.setShooterServo(0);
 	}
 
@@ -35,13 +37,14 @@ public class SetShooterServo extends Command{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		SmartDashboard.putBoolean("Is SetShooter executing?", false);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
 		Robot.shooter.setShooterServo(1);
+		end();
 	}
 
 }
