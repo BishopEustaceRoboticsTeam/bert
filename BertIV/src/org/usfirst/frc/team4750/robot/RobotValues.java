@@ -28,9 +28,13 @@ public class RobotValues {
 		public static final int JOYSTICK_Z_AXIS = 2;
 		public static final int JOYSTICK_TWIST_AXIS = 3;
 		
+		//Joystick buttons:
+		public static final int MANIPULATOR_BUTTON = 2;
+		
 		//Other
 		public static final double SERVO_SHOOT_POS = 1;
 		public static final double SERVO_DEFAULT_POS = 0;
+		public static final double DEFAULT_MANIPULATOR_MOTOR_SPEED = 0.25;
 		
 		//Digital sensor ports:
 		public static final int LEFT_ENCODER_A = 0;
