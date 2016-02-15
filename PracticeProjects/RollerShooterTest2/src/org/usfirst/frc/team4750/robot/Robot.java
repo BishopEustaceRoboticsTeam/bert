@@ -34,16 +34,16 @@ public class Robot extends IterativeRobot {
 	Servo servo1 = new Servo(RobotValues.SHOOTER_SERVO_PORT);
 
 	
-	RobotDrive driveTrain = new RobotDrive(frontLeftDrive, backLeftDrive, frontRightDrive, backRightDrive);
+	RobotDrive driveTrain = new RobotDrive(frontLeftDrive, frontRightDrive);
 	RobotDrive roller = new RobotDrive(leftRollerMotor, rightRollerMotor);
 	
 	public void robotInit() {
-		 CameraServer server;
+		 //CameraServer server;
 
-		 server = CameraServer.getInstance();
-		 server.setQuality(50);
+		 //server = CameraServer.getInstance();
+		 //server.setQuality(50);
 		 //the camera name (ex "cam0") can be found through the roborio web interface
-		 server.startAutomaticCapture("cam0");
+		 //server.startAutomaticCapture("cam0");
 		 /**
 		  * start up automatic capture you should see the video stream from the
 		  * webcam in your FRC PC Dashboard.
@@ -69,30 +69,30 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         
     	driveTrain.tankDrive(-leftStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS), -rightStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS));
-        roller.arcadeDrive(leftStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS), 0);
-        shooterJointMotor.set(rightStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS));
+        //roller.arcadeDrive(leftStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS), 0);
+        //shooterJointMotor.set(rightStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS));
         
-        if(rightStick.getRawButton(3)){
+        //if(rightStick.getRawButton(3)){
         	manipulatorMotor.set(1);
-        }
+        //}
         
-        else if(leftStick.getRawButton(3)){
-        	manipulatorMotor.set(-1);
-        }
-        else{
-        	manipulatorMotor.set(0);
-        }
+        //else if(leftStick.getRawButton(3)){
+        	//manipulatorMotor.set(-1);
+        //}
+        //else{
+        	//manipulatorMotor.set(0);
+        //}
         
         
-        if(rightStick.getTrigger()){
-        	servo1.set(0);
-        }
+        //if(rightStick.getTrigger()){
+        	//servo1.set(0);
+        //}
         
-        else{
-        	servo1.set(1);
-        }
+        //else{
+        	//servo1.set(1);
+        //}
         
-        Timer.delay(0.005);		// wait for a motor update time
+        //Timer.delay(0.005);		// wait for a motor update time
                
     }
     
