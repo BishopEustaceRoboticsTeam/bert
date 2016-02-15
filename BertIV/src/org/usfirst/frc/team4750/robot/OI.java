@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 
 /**w
@@ -29,13 +28,8 @@ public class OI {
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
-	Button manipulatorUp = new JoystickButton(rightStick, RobotValues.MANIPULATOR_BUTTON);
-	Button manipulatorDown = new JoystickButton(leftStick, RobotValues.MANIPULATOR_BUTTON);
-	
 	public OI(){
 		rightTrigger.whileHeld(new SetShooterServo(true));
-		manipulatorUp.whileHeld(new Manipulate(true));
-		manipulatorDown.whileHeld(new Manipulate(false));
 	}
 	
 	public double getRightTwist(){
