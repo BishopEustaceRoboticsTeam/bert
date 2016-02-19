@@ -1,7 +1,9 @@
 package org.usfirst.frc.team4750.robot.commands;
 
 import org.usfirst.frc.team4750.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class JoystickDrive extends Command{
 	public JoystickDrive(){
@@ -15,6 +17,7 @@ public class JoystickDrive extends Command{
 
 	@Override
 	protected void execute() {
+		SmartDashboard.putBoolean("Is JoystickDrive executing?",true);
 		Robot.driveTrain.controllerDrive(Robot.oi.getLeftStick(), Robot.oi.getRightStick());
 	}
 
@@ -28,6 +31,7 @@ public class JoystickDrive extends Command{
 	protected void end() {
 		// TODO Auto-generated method stub
 		Robot.driveTrain.stop();
+		SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
 	}
 
 	@Override

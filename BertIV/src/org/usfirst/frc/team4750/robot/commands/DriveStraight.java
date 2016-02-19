@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4750.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4750.robot.Robot;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
@@ -23,7 +24,7 @@ public class DriveStraight extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		
+		//SmartDashboard.putBoolean("Is DriveStraight executing?", true);
 	}
 
 	@Override
@@ -35,13 +36,13 @@ public class DriveStraight extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+		//SmartDashboard.putBoolean("Is DriveStraight executing?", true);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		end();
 	}
 
 }
