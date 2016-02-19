@@ -14,6 +14,8 @@ import org.usfirst.frc.team4750.robot.commands.DriveStraight;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.commands.Shoot;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4750.robot.subsystems.Lifter;
+import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
 
 /**
@@ -32,6 +34,8 @@ public class Robot extends IterativeRobot {
     //Subsystems:
 
     public static Shooter shooter = new Shooter();
+    public static Lifter lifter = new Lifter();
+    public static Manipulator manipulator = new Manipulator();
     public static final DriveTrain driveTrain = new DriveTrain();
 
     /**
