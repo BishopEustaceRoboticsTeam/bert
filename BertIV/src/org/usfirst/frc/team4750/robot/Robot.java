@@ -35,9 +35,10 @@ public class Robot extends IterativeRobot {
     
     //Subsystems:
 
-    public static Shooter shooter = new Shooter();
-    public static Lifter lifter = new Lifter();
-    public static Manipulator manipulator = new Manipulator();
+
+    public static final Lifter lifter = new Lifter();
+    public static final Manipulator manipulator = new Manipulator();
+    public static final Shooter shooter = new Shooter();
     public static final DriveTrain driveTrain = new DriveTrain();
 
     /**
