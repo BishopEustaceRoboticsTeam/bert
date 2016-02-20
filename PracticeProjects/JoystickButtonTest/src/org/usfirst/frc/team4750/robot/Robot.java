@@ -21,7 +21,7 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     
     
-	Joystick joystick = new Joystick(0);
+	Joystick joystick = new Joystick(1);
 	int button;
 	
     /**
@@ -35,8 +35,6 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putData("Auto choices", chooser);
         
         
-    	SmartDashboard.putNumber("Number of buttons:", joystick.getButtonCount());
-    	SmartDashboard.putNumber("Number of pov's:", joystick.getPOVCount());
     }
     
 	/**
@@ -73,13 +71,17 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	
-    	button=(int) SmartDashboard.getNumber("Joystick POV button");
+    	SmartDashboard.putNumber("Number of buttons:", joystick.getButtonCount());
+    	SmartDashboard.putNumber("Number of pov's:", joystick.getPOVCount());
+
+    	SmartDashboard.putNumber("Joystick POV Button",1);
+    	button=1;
+//    	button=(int) SmartDashboard.getNumber("Joystick POV button");
     	
     	SmartDashboard.putNumber("POV value", joystick.getPOV());
-    	
+//    	
     	SmartDashboard.putNumber("POV value at button X", joystick.getPOV(button));
-    	
+//    	
     	
     }
     
