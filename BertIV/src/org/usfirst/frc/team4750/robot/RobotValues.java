@@ -25,6 +25,7 @@ public class RobotValues {
 		public static final int RIGHT_JOYSTICK_USB_PORT = 1;
 		
 		//Motor Speeds 
+		public static final double SHOOTER_SPEED = 1;
 		
 		//Axes
 		public static final int JOYSTICK_X_AXIS = 0;
