@@ -25,8 +25,8 @@ public class Shooter extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		//setDefaultCommand(new ManualAim());
-		setDefaultCommand(new SetAimAngle());
+		setDefaultCommand(new ManualAim());
+		//setDefaultCommand(new SetAimAngle());
 	}
 
 	
