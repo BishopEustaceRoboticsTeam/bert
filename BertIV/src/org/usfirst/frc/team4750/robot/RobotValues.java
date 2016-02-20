@@ -11,11 +11,11 @@ import com.ni.vision.NIVision;
 public class RobotValues {
 	
 	    //Motor Controller PWM ports
-		public static final int RIGHT_MOTOR_PORT = 2;
+		public static final int RIGHT_MOTOR_PORT = 1;
 		public static final int LEFT_MOTOR_PORT = 0;
-		public static final int LEFT_SHOOTER_MOTOR_PORT = 5;
+		public static final int LEFT_SHOOTER_MOTOR_PORT = 3;
 		public static final int RIGHT_SHOOTER_MOTOR_PORT = 4;
-		public static final int SHOOTER_AIMER_MOTOR_PORT = 9;
+		public static final int SHOOTER_AIMER_MOTOR_PORT = 2;
 		public static final int SHOOTER_SERVO_PORT = 7;
 		public static final int LIFTER_MOTOR = 6;
 		public static final int MANIPULATOR_MOTOR = 8;
