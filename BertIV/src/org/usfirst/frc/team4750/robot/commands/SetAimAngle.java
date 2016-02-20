@@ -31,7 +31,7 @@ public class SetAimAngle extends Command{
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Has SetAimAngle.isFinished() run?", true);
-		return Robot.oi.getYAxis()==0;
+		return false;
 	}
 
 	@Override
