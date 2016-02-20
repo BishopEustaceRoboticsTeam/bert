@@ -1,19 +1,20 @@
 package org.usfirst.frc.team4750.robot.commands;
 
 import org.usfirst.frc.team4750.robot.Robot;
+import org.usfirst.frc.team4750.robot.RobotValues;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Manipulate extends Command {
-	boolean l;
+	
 	//NOT DONE YET!!!!!
 	//0,45,90,135,180,225,270,315
 	
-    public Manipulate(boolean l) {
+    public Manipulate() {
 		// TODO Auto-generated method stub
         requires(Robot.manipulator);
-        this.l=l;
+        
     }
 
     @Override
@@ -26,15 +27,18 @@ public class Manipulate extends Command {
     protected void execute() {
 		// TODO Auto-generated method stub
     	SmartDashboard.putBoolean("Is Manipulator executing?", true);
-		if (Robot.oi.getRightStickPOV() == 0){
-			Robot.manipulator.setManipulatorMotorSpeed(0.5);
-			System.out.println("UP");
-			System.out.print(Robot.oi.getRightStickPOV());
+    	SmartDashboard.putNumber("POV value:", Robot.oi.getRightStickPOV());
+    	
+		if (Robot.oi.getRightStickPOV() == 315 || Robot.oi.getRightStickPOV() == 0 || Robot.oi.getRightStickPOV() == 45){
+			Robot.manipulator.setManipulatorMotorSpeed(RobotValues.MANIPULATOR_SPEED);
+			SmartDashboard.putString("Manipulator Direction", "UP");
 		}
-		else if(Robot.oi.getRightStickPOV() == 180){
-			Robot.manipulator.setManipulatorMotorSpeed(-0.5);
-			System.out.println("DOWN");
-			System.out.print(Robot.oi.getRightStickPOV());
+		else if(Robot.oi.getRightStickPOV() == 135 || Robot.oi.getRightStickPOV() == 180 || Robot.oi.getRightStickPOV() == 225){
+			Robot.manipulator.setManipulatorMotorSpeed(-RobotValues.MANIPULATOR_SPEED);
+			SmartDashboard.putString("Manipulator Direction", "DOWN");
+		}
+		else{
+			Robot.manipulator.setManipulatorMotorSpeed(0);
 		}
     }
 

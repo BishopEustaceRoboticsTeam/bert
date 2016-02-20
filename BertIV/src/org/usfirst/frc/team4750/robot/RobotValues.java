@@ -26,6 +26,7 @@ public class RobotValues {
 		
 		//Motor Speeds 
 		public static final double SHOOTER_SPEED = 1;
+		public static final double MANIPULATOR_SPEED = 0.5;
 		
 		//Axes
 		public static final int JOYSTICK_X_AXIS = 0;

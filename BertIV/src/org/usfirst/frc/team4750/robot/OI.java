@@ -25,23 +25,18 @@ public class OI {
 	Joystick rightStick = new Joystick(RobotValues.RIGHT_JOYSTICK_USB_PORT);
 
 	Button shooterSpeedButton = new JoystickButton(rightStick, 2);
-	Button liftButton = new JoystickButton(rightStick, 2);
-	Button unliftButton = new JoystickButton(leftStick, 2);
-	Button raiseLiftButton= new JoystickButton(rightStick, 7);
+	Button liftButton = new JoystickButton(rightStick, 7);
+	Button unliftButton = new JoystickButton(leftStick, 7);
+	//Button raiseLiftButton= new JoystickButton(rightStick, 7);
     
-	Button manipulateButton = new JoystickButton(rightStick, rightStick.getPOV());
-	Button unmanipulateButton = new JoystickButton(rightStick, rightStick.getPOV());
-	
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
 	
 	public OI(){
-		rightTrigger.whileHeld(new SetShooterServo(true));
+		rightTrigger.whileHeld(new SetShooterServo());
 		liftButton.whenPressed(new Lift(true));
 		unliftButton.whenPressed(new Lift(false));
-		manipulateButton.whileHeld(new Manipulate(true));
-		unmanipulateButton.whileHeld(new Manipulate(false));
 		shooterSpeedButton.whileHeld(new SetShooterSpeed());
 	}
 	
