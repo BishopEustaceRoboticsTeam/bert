@@ -1,8 +1,6 @@
 package org.usfirst.frc.team4750.robot.commands;
 
 import org.usfirst.frc.team4750.robot.Robot;
-import org.usfirst.frc.team4750.robot.subsystems.Shooter;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -34,7 +32,7 @@ public class SetAimAngle extends Command{
 		//return Robot.oi.getRightTwist()==0;
 		SmartDashboard.putBoolean("Has SetAimAngle.isFinished() run?", true);
 		//SmartDashboard.putBoolean("Is SetAimAngle.isFinished() running?", true);
-		return false;
+		return Robot.oi.getRightTwist()==0;
 	}
 
 	@Override
