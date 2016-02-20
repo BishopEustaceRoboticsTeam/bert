@@ -38,8 +38,8 @@ public class RobotValues {
 		//Other
 		public static final double SERVO_SHOOT_POS = 1;
 		public static final double SERVO_DEFAULT_POS = 0;
-		public static final int DIGITAL_INPUT_CHANNEL_U = 0;
-		public static final int DIGITAL_INPUT_CHANNEL_D = 1;
+		public static final int DIGITAL_INPUT_CHANNEL_U = 2;
+		public static final int DIGITAL_INPUT_CHANNEL_D = 3;
 		
 		//Digital sensor ports:
 		public static final int LEFT_ENCODER_A = 0;

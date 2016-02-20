@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.buttons.Button;
 import org.usfirst.frc.team4750.robot.OI;
 import org.usfirst.frc.team4750.robot.RobotValues;
+import org.usfirst.frc.team4750.robot.commands.Manipulate;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Manipulator extends Subsystem{
@@ -20,6 +22,7 @@ public class Manipulator extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		setDefaultCommand(new Manipulate());
 	}
 
 	public void setManipulatorMotorSpeed(double speed){

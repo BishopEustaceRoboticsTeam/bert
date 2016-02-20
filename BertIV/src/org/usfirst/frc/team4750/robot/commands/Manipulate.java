@@ -6,15 +6,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Manipulate extends Command {
-	
+	boolean l;
 	//NOT DONE YET!!!!!
+	//0,45,90,135,180,225,270,315
 	
-	boolean direction;
-	
-    public Manipulate(boolean direction) {
+    public Manipulate(boolean l) {
 		// TODO Auto-generated method stub
         requires(Robot.manipulator);
-        this.direction=direction;
+        this.l=l;
     }
 
     @Override
@@ -27,11 +26,15 @@ public class Manipulate extends Command {
     protected void execute() {
 		// TODO Auto-generated method stub
     	SmartDashboard.putBoolean("Is Manipulator executing?", true);
-		if (direction){
+		if (Robot.oi.getRightStickPOV() == 0){
 			Robot.manipulator.setManipulatorMotorSpeed(0.5);
+			System.out.println("UP");
+			System.out.print(Robot.oi.getRightStickPOV());
 		}
-		else{
+		else if(Robot.oi.getRightStickPOV() == 180){
 			Robot.manipulator.setManipulatorMotorSpeed(-0.5);
+			System.out.println("DOWN");
+			System.out.print(Robot.oi.getRightStickPOV());
 		}
     }
 

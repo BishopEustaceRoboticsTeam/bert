@@ -23,22 +23,24 @@ public class SetShooterSpeed extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", true);
+
 		Robot.shooter.setLeftShooterMotorSpeed(RobotValues.SHOOTER_SPEED);
-		Robot.shooter.setRightShooterMotorSpeed(RobotValues.SHOOTER_SPEED);
+		Robot.shooter.setRightShooterMotorSpeed(-RobotValues.SHOOTER_SPEED);
+
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		//return Robot.oi.getLeftTwist()==0;
-		return Robot.oi.getLeftTwist()==0;
+		return false;
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", false);
-		
+		Robot.shooter.setLeftShooterMotorSpeed(0);
+		Robot.shooter.setRightShooterMotorSpeed(0);
 	}
 
 	@Override
