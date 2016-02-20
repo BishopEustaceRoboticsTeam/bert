@@ -11,6 +11,7 @@ public class SetShooterServo extends Command{
 	
 	public SetShooterServo(boolean position) {
 		// TODO Auto-generated constructor stub
+		//requires(Robot.shooter);
 		this.position=position;
 	}
 	
@@ -24,7 +25,7 @@ public class SetShooterServo extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Is SetShooter executing?", true);
+		SmartDashboard.putBoolean("Is SetShooterServo executing?", true);
 		Robot.shooter.setShooterServo(0);
 	}
 
@@ -32,12 +33,12 @@ public class SetShooterServo extends Command{
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	}  	
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Is SetShooter executing?", false);
+		SmartDashboard.putBoolean("Is SetShooterServo executing?", false);
 	}
 
 	@Override
