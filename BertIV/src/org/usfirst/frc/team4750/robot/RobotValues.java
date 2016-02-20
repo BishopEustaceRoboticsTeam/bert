@@ -1,4 +1,7 @@
 package org.usfirst.frc.team4750.robot;
+
+import com.ni.vision.NIVision;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -39,14 +42,19 @@ public class RobotValues {
 		public static final int RIGHT_ENCODER_A = 2;
 		public static final int RIGHT_ENCODER_B = 3;
 		
-		public static final int CLOSED_REED_SWITCH_PORT = 4;
-		public static final int OPEN_REED_SWITCH_PORT = 5;
+		//Color ranges
+		public static final NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(0,180);
+		public static final NIVision.Range TARGET_SATURATION_RANGE = new NIVision.Range(0,66);
+		public static final NIVision.Range TARGET_VALUE_RANGE = new NIVision.Range(133,255);
 		
-		public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
-		public static final int AUTO_SWITCH_PORT_2 = 7; 
-		public static final int AUTO_SWITCH_PORT_3 = 8;
+//		public static final int CLOSED_REED_SWITCH_PORT = 4;
+//		public static final int OPEN_REED_SWITCH_PORT = 5;
 		
-		public static final int TOTE_SENSOR_PORT = 9;
+//		public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
+//		public static final int AUTO_SWITCH_PORT_2 = 7; 
+//		public static final int AUTO_SWITCH_PORT_3 = 8;
+		
+//		public static final int TOTE_SENSOR_PORT = 9;
 		
 		//Digital sensor values:
 		public static final boolean REVERSE_LEFT_ENCODER_DIRECTION = true;
