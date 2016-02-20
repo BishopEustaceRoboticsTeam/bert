@@ -3,6 +3,7 @@ package org.usfirst.frc.team4750.robot.commands;
 import org.usfirst.frc.team4750.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManualAim extends Command {
 
@@ -20,9 +21,13 @@ public class ManualAim extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightTwist());
+		
 		Robot.shooter.setLeftShooterMotorSpeed(Robot.oi.getLeftTwist());
-		Robot.shooter.setRightShooterMotorSpeed(-Robot.oi.getLeftTwist());
+		Robot.shooter.setRightShooterMotorSpeed(-(Robot.oi.getLeftTwist()));
+		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightTwist());
+		SmartDashboard.putBoolean("Is ManualAim executing?", true);
+		SmartDashboard.putNumber("Right Twist:", Robot.oi.getRightTwist());
+		SmartDashboard.putNumber("Left Twist:", Robot.oi.getLeftTwist());
 	}
 
 	@Override
@@ -37,12 +42,13 @@ public class ManualAim extends Command {
 		Robot.shooter.setShooterAimerMotorSpeed(0);
 		Robot.shooter.setLeftShooterMotorSpeed(0);
 		Robot.shooter.setRightShooterMotorSpeed(0);
+		SmartDashboard.putBoolean("Is ManualAim executing?", false);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+		SmartDashboard.putBoolean("Is ManualAim executing?", false);
 	}
 
 }

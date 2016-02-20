@@ -6,14 +6,14 @@ import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem{
 
-	Talon leftShooterMotor = new Talon(RobotValues.LEFT_SHOOTER_MOTOR_PORT);
-	Talon rightShooterMotor = new Talon(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
-	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
+	Victor leftShooterMotor = new Victor(RobotValues.LEFT_SHOOTER_MOTOR_PORT);
+	Victor rightShooterMotor = new Victor(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
+	Victor shooterAimerMotor = new Victor(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
 	
 	Servo shooterServo = new Servo(RobotValues.SHOOTER_SERVO_PORT);
 	
@@ -26,7 +26,7 @@ public class Shooter extends Subsystem{
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 		//setDefaultCommand(new ManualAim());
-		setDefaultCommand(new SetAimAngle());
+		setDefaultCommand(new ManualAim());
 	}
 
 	

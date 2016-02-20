@@ -8,14 +8,14 @@ package org.usfirst.frc.team4750.robot;
 public class RobotValues {
 	
 	    //Motor Controller PWM ports
-		public static final int FRONT_RIGHT_MOTOR = 2;
+		public static final int FRONT_RIGHT_MOTOR = 1;
 		public static final int FRONT_LEFT_MOTOR = 0;
-		public static final int BACK_RIGHT_MOTOR = 1;
-		public static final int BACK_LEFT_MOTOR = 3;
-		public static final int LEFT_SHOOTER_MOTOR_PORT = 5;
+		//public static final int BACK_RIGHT_MOTOR = 1;
+		//public static final int BACK_LEFT_MOTOR = 3;
+		public static final int LEFT_SHOOTER_MOTOR_PORT = 3;
 		public static final int RIGHT_SHOOTER_MOTOR_PORT = 4;
-		public static final int SHOOTER_AIMER_MOTOR_PORT = 9;
-		public static final int SHOOTER_SERVO_PORT = 7;
+		public static final int SHOOTER_AIMER_MOTOR_PORT = 2;
+		public static final int SHOOTER_SERVO_PORT = 8;
 		
 		//Joystick USB ports
 		public static final int LEFT_JOYSTICK_USB_PORT = 0;

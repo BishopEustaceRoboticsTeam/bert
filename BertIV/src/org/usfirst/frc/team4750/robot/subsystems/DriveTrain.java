@@ -56,8 +56,8 @@ public class DriveTrain extends Subsystem {
 	//the value between -.25 and .25 that is added to the motors
 	private double motorDifferential;
 	
-	Victor rightMotor = new Victor(RobotValues.FRONT_RIGHT_MOTOR);
-	Victor leftMotor = new Victor(RobotValues.FRONT_LEFT_MOTOR);
+	Talon rightMotor = new Talon(RobotValues.FRONT_RIGHT_MOTOR);
+	Talon leftMotor = new Talon(RobotValues.FRONT_LEFT_MOTOR);
 	
 	
 	private RobotDrive driver = new RobotDrive(leftMotor, rightMotor);
@@ -81,7 +81,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void controllerDrive(Joystick left, Joystick right){
 		//driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
-		driver.arcadeDrive(-left.getRawAxis(1), -left.getRawAxis(0));
+		driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
 	}
 	
 	public void straightDrive(double driveDistance){
