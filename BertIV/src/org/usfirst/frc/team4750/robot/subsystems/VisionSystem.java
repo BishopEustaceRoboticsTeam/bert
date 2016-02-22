@@ -3,8 +3,6 @@ package org.usfirst.frc.team4750.robot.subsystems;
 import java.util.Comparator;
 
 import org.usfirst.frc.team4750.robot.RobotValues;
-import org.usfirst.frc.team4750.robot.Robot.ParticleReport;
-import org.usfirst.frc.team4750.robot.Robot.Scores;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.CannyOptions;

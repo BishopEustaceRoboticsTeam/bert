@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4750.robot.commands.DriveStraight;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
-import org.usfirst.frc.team4750.robot.commands.Shoot;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4750.robot.subsystems.Lifter;
 import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
 
@@ -34,9 +32,6 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     
     //Subsystems:
-
-
-    public static final Lifter lifter = new Lifter();
     public static final Manipulator manipulator = new Manipulator();
     public static final Shooter shooter = new Shooter();
     public static final DriveTrain driveTrain = new DriveTrain();

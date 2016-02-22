@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team4750.robot.commands.Lift;
 import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
@@ -35,8 +34,6 @@ public class OI {
 	
 	public OI(){
 		rightTrigger.whileHeld(new SetShooterServo());
-		liftButton.whenPressed(new Lift(true));
-		unliftButton.whenPressed(new Lift(false));
 		shooterSpeedButton.whileHeld(new SetShooterSpeed());
 	}
 	

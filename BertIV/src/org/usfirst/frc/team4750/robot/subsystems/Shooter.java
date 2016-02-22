@@ -1,9 +1,7 @@
 package org.usfirst.frc.team4750.robot.subsystems;
 
 import org.usfirst.frc.team4750.robot.RobotValues;
-import org.usfirst.frc.team4750.robot.commands.ManualAim;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
-import org.usfirst.frc.team4750.robot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
