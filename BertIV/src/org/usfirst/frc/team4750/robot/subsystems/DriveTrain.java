@@ -56,8 +56,8 @@ public class DriveTrain extends Subsystem {
 	//the value between -.25 and .25 that is added to the motors
 	private double motorDifferential;
 	
-	Talon rightMotor = new Talon(RobotValues.FRONT_RIGHT_MOTOR);
-	Talon leftMotor = new Talon(RobotValues.FRONT_LEFT_MOTOR);
+	Victor rightMotor = new Victor(RobotValues.FRONT_RIGHT_MOTOR);
+	Victor leftMotor = new Victor(RobotValues.FRONT_LEFT_MOTOR);
 	
 	
 	private RobotDrive driver = new RobotDrive(leftMotor, rightMotor);
