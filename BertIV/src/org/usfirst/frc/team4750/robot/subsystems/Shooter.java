@@ -43,9 +43,10 @@ public class Shooter extends Subsystem{
 		shooterAimerMotor.set(speed);
 	}
 	
-	public void setShooterServo(double position){
-		//This is just an abbreviated if statement. The format is ((condition) ? (value if true) : (value if false))
-		shooterServo.set(position);
+	public void setShooterServo(boolean position){
+		//This is just an abbreviated if-statement. The format is: (condition) ? (value if true) : (value if false)
+		//0 is the extended position on the servo; 1 is fully retracted.
+		shooterServo.set(position ? 0 : 1);
 	}
 	
 	
