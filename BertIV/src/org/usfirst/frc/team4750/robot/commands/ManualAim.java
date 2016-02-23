@@ -21,23 +21,20 @@ public class ManualAim extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.shooter.setShooterAimerMotorSpeed(-Robot.oi.getRightY() / 2);
-		SmartDashboard.putBoolean("Is ManualAim executing?", true);
-		SmartDashboard.putNumber("Right Twist:", Robot.oi.getRightTwist());
-		SmartDashboard.putNumber("Left Twist:", Robot.oi.getLeftTwist());
+		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightY());
+		SmartDashboard.putBoolean("Is ManualAim executing?", true);		
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.oi.getLeftY()==0;
+		return  false; //Robot.oi.getRightY()==0;
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
 		Robot.shooter.setShooterAimerMotorSpeed(0);
-		
 		SmartDashboard.putBoolean("Is ManualAim executing?", false);
 	}
 
@@ -45,6 +42,7 @@ public class ManualAim extends Command {
 	protected void interrupted() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is ManualAim executing?", false);
+		end();
 	}
 
 }
