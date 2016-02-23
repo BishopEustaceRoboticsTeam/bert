@@ -21,23 +21,30 @@ public class ManualAim extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		if (Robot.oi.getRightY() > 0){
-			Robot.shooter.setShooterAimerMotorSpeed(0.5);
-			SmartDashboard.putString("Motor Direction?", "forward");
-		}
+			//if (Robot.oi.getRightY() > 0){
+				//Robot.shooter.setShooterAimerMotorSpeed(-0.3);
+				//SmartDashboard.putString("Motor Direction?", "reverse");
+			//}
 		
-		else if (Robot.oi.getRightY() < 0){
-			Robot.shooter.setShooterAimerMotorSpeed(-0.5);
-			SmartDashboard.putString("Motor Direction?", "reverse");
-		}
+			//else if (Robot.oi.getRightY() < 0){
+				//Robot.shooter.setShooterAimerMotorSpeed(0.3);
+				//SmartDashboard.putString("Motor Direction?", "forward");
+			//}
 		
-		else{
-			Robot.shooter.setShooterAimerMotorSpeed(0);
-			SmartDashboard.putString("Motor Direction?", "stopped");
-		}
+			//else{
+				//Robot.shooter.setShooterAimerMotorSpeed(0);
+				//SmartDashboard.putString("Motor Direction?", "stopped");
+			//}
 		
-		SmartDashboard.putBoolean("Is ManualAim executing?", true);		
+			//SmartDashboard.putBoolean("Is ManualAim executing?", true);
+		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightY());
+		SmartDashboard.putNumber("Joystick Value", Robot.oi.getRightY());
 	}
+		
+
+		
+
+	
 
 	@Override
 	protected boolean isFinished() {
