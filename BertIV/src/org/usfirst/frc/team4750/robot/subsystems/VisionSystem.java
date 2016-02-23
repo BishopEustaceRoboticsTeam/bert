@@ -65,9 +65,9 @@ public class VisionSystem extends Subsystem {
 	int imaqError;
 	
 	//Constants
-	NIVision.Range HUE_RANGE = new NIVision.Range(0,63);	//Hue range for the tape 
-	NIVision.Range SAT_RANGE = new NIVision.Range(3,89);	//Saturation range for the tape
-	NIVision.Range VAL_RANGE = new NIVision.Range(90,213);	//Value (luminosity) range for the tape
+	NIVision.Range HUE_RANGE = new NIVision.Range(81,96);	//Hue range for the tape 
+	NIVision.Range SAT_RANGE = new NIVision.Range(102,255);	//Saturation range for the tape
+	NIVision.Range VAL_RANGE = new NIVision.Range(25,255);	//Value (luminosity) range for the tape
 	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 10/7; //A bounding retangle of the U-shaped target tape would have a length of 20 in. and a heigh of 14.
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
@@ -86,10 +86,10 @@ public class VisionSystem extends Subsystem {
 				AREA_MINIMUM, 100.0, 0, 0);
 		
 		//The camera name ("cam0") was found through the roborio web interface
-		session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxConfigureGrab(session);
-        
-		NIVision.IMAQdxStartAcquisition(session);
+//		session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+//        NIVision.IMAQdxConfigureGrab(session);
+//        
+//		NIVision.IMAQdxStartAcquisition(session);
 	}
 	
     public void initDefaultCommand() {
@@ -98,8 +98,9 @@ public class VisionSystem extends Subsystem {
     }
     
     public void detectTarget(){
-		NIVision.IMAQdxGrab(session, inputFrame, 1);
-
+//		NIVision.IMAQdxGrab(session, inputFrame, 1);
+		NIVision.imaqReadFile(inputFrame, "/home/lvuser/SampleImages/image.jpg");
+		
 		NIVision.imaqColorThreshold(processedFrame, inputFrame, 255, NIVision.ColorMode.HSV, HUE_RANGE, SAT_RANGE, VAL_RANGE);
 		
 		int numParticles = NIVision.imaqCountParticles(processedFrame, 1);
@@ -142,8 +143,28 @@ public class VisionSystem extends Subsystem {
 		}
     }
     
-    private double areaScore(){
+    
+    private double ratioToScore(double ratio){
+    	/* This function is zero outside the interval [0,2]. Inside said interval, it maps the 
+    	 * interval [0,1] to [0,100] linearly and the interval [1,2] to [0,100] linearly. 
+    	 * It is equivalent to the following piecewise function:
+    	 *
+    	 * 		{0 			if x<0
+    	 * f(x)={100x 		if 0<=x<=1
+    	 *		{-100x+200  if 1<=x<=2  	
+    	 * 		{0			if 2<x
+    	 */
     	
+    	return Math.max(0, -100*Math.abs(ratio-1)+100); 
+    }
+    
+    private double areaScore(ParticleReport report){
+    	double boundingArea = (report.boundingRectRight - report.boundingRectLeft)*(report.boundingRectTop - report.boundingRectBottom);
+    	return ratioToScore((240/80)*report.area/boundingArea);
+    }
+    
+    private double aspectScore(ParticleReport report){
+    	return ratioToScore((12/20)*((report.boundingRectRight - report.boundingRectLeft)/(report.boundingRectTop - report.boundingRectBottom)));
     }
     
 }

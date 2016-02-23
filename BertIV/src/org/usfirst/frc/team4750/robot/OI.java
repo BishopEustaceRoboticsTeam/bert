@@ -31,7 +31,6 @@ public class OI {
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
-	
 	public OI(){
 		rightTrigger.whileHeld(new SetShooterServo());
 		shooterSpeedButton.whileHeld(new SetShooterSpeed());
