@@ -18,7 +18,7 @@ public class JoystickDrive extends Command{
 	@Override
 	protected void execute() {
 		SmartDashboard.putBoolean("Is JoystickDrive executing?",true);
-		Robot.driveTrain.controllerDrive(Robot.oi.getLeftStick(), Robot.oi.getRightStick());
+		Robot.driveTrain.controllerDrive(Robot.oi.getLeftStick());
 	}
 
 	@Override

@@ -78,9 +78,9 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
-	public void controllerDrive(Joystick left, Joystick right){
+	public void controllerDrive(Joystick left){
+		driver.arcadeDrive(-left.getRawAxis(RobotValues.JOYSTICK_Y_AXIS), -left.getRawAxis(RobotValues.JOYSTICK_X_AXIS));
 		//driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
-		driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
 	}
 	
 	public void resetFunction(){

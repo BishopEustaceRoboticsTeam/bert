@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4750.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -46,7 +47,13 @@ public class Robot extends IterativeRobot {
 	
 
         autonomousCommand = new DriveStraight(1);
+        
+      CameraServer server;
 
+		 server = CameraServer.getInstance();
+		 server.setQuality(50);
+		 //the camera name (ex "cam0") can be found through the roborio web interface
+		 server.startAutomaticCapture("cam0");
         //SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 		//SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
 		//SmartDashboard.putBoolean("Is SetAimAngle executing?",false);

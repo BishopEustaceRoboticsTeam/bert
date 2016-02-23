@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
+import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
 
 /**w
  * This class is the glue that binds the controls on the physical operator
@@ -23,13 +24,15 @@ public class OI {
 
 
 
-
-    
+	Button right2 = new JoystickButton(rightStick, 2);
+    Button right6 = new JoystickButton(rightStick, 6);
+	
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
 	public OI(){
 		rightTrigger.whileHeld(new SetShooterServo(true));
+		right2.whileHeld(new SetShooterSpeed());
 	}
 	
 	public double getRightTwist(){
@@ -40,6 +43,21 @@ public class OI {
 		return leftStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
 	}
 	
+	public double getRightY(){
+		return rightStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS);
+	}
+	
+	public double getLeftY(){
+		return leftStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS);
+	}
+	
+	public double getRightX(){
+		return rightStick.getRawAxis(RobotValues.JOYSTICK_X_AXIS);
+	}
+	
+	public double getLeftX(){
+		return leftStick.getRawAxis(RobotValues.JOYSTICK_X_AXIS);
+	}
 	
 	public Joystick getLeftStick(){
 		return leftStick;

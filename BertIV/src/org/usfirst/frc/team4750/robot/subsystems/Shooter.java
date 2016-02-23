@@ -31,13 +31,21 @@ public class Shooter extends Subsystem{
 	}
 
 	
-	public void setLeftShooterMotorSpeed(double speed){
+	public void setLeftShootSpeed(double speed){
 		leftShooterMotor.set(speed);
 	}
 	
-	public void setRightShooterMotorSpeed(double speed){
+	public void setRightShootSpeed(double speed){
 		rightShooterMotor.set(speed);
 	}
+	
+	//public void setLeftSuckSpeed(){
+		//leftShooterMotor.set(-0.5);
+	//}
+	
+	//public void setRightSuckSpeed(){
+		//rightShooterMotor.set(0.5);
+	//}
 	
 	public void setShooterAimerMotorSpeed(double speed){
 		shooterAimerMotor.set(speed);
