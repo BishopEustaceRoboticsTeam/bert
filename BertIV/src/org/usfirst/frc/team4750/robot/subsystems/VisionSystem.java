@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4750.robot.subsystems;
 
 import java.util.Comparator;
+import java.util.Vector;
 
 import org.usfirst.frc.team4750.robot.RobotValues;
 
@@ -11,6 +12,7 @@ import com.ni.vision.NIVision.ImageType;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -46,10 +48,15 @@ public class VisionSystem extends Subsystem {
 	
 	//This is a structure to hold the scores of particles.
 	public class Scores{
-		public double AreaScore;
-		public double AspectScore;
+		public double area;
+		public double aspect;
 	};
 	
+	//Return vars
+	boolean targetDetected;
+	double targetDistance, towerDistance;
+	double targetVerticalAngle, targetHorizontalAngle;
+
 	
 	//Images
 	Image inputFrame;
@@ -58,9 +65,9 @@ public class VisionSystem extends Subsystem {
 	int imaqError;
 	
 	//Constants
-	NIVision.Range HUE_RANGE_1 = new NIVision.Range(0,63);	//Hue range for the tape 
-	NIVision.Range SAT_RANGE_1 = new NIVision.Range(3,89);	//Saturation range for the tape
-	NIVision.Range VAL_RANGE_1 = new NIVision.Range(90,213);	//Value (luminosity) range for the tape
+	NIVision.Range HUE_RANGE = new NIVision.Range(0,63);	//Hue range for the tape 
+	NIVision.Range SAT_RANGE = new NIVision.Range(3,89);	//Saturation range for the tape
+	NIVision.Range VAL_RANGE = new NIVision.Range(90,213);	//Value (luminosity) range for the tape
 	double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
 	double LONG_RATIO = 10/7; //A bounding retangle of the U-shaped target tape would have a length of 20 in. and a heigh of 14.
 	double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
@@ -74,8 +81,10 @@ public class VisionSystem extends Subsystem {
 	public VisionSystem(){
 		//Create images
 		inputFrame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
-		Image processedFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
-
+		processedFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
+		criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA,
+				AREA_MINIMUM, 100.0, 0, 0);
+		
 		//The camera name ("cam0") was found through the roborio web interface
 		session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
         NIVision.IMAQdxConfigureGrab(session);
@@ -91,16 +100,50 @@ public class VisionSystem extends Subsystem {
     public void detectTarget(){
 		NIVision.IMAQdxGrab(session, inputFrame, 1);
 
-		NIVision.imaqColorThreshold(processedFrame, inputFrame, 255, NIVision.ColorMode.HSV, RobotValues.TARGET_HUE_RANGE, RobotValues.TARGET_SATURATION_RANGE, RobotValues.TARGET_VALUE_RANGE);
-		/* There are CannyOpions constructors with parameters; the most useful one seems to be CannyEdge(double sigma, double upperThreshold, double
-		 * lowerThreshold, int windowSize). I have no idea what any of these parameters do, but the last three seem to match three of the four
-		 * options in GRIP. The fourth GRIP option if a checkbox, and since sigma isn't a boolean I suspect this will be the hardest one to figure out.
-		 */
-		NIVision.imaqCannyEdgeFilter(processedFrame,processedFrame,new CannyOptions());
+		NIVision.imaqColorThreshold(processedFrame, inputFrame, 255, NIVision.ColorMode.HSV, HUE_RANGE, SAT_RANGE, VAL_RANGE);
+		
+		int numParticles = NIVision.imaqCountParticles(processedFrame, 1);
 		
 		CameraServer.getInstance().setImage(inputFrame);
 		
+		criteria[0].lower = (float) AREA_MINIMUM;
+		imaqError = NIVision.imaqParticleFilter4(processedFrame, processedFrame, criteria, filterOptions, null);
+		
+		numParticles = NIVision.imaqCountParticles(processedFrame, 1);
+		
+		if(numParticles > 0){
+			Vector<ParticleReport> particles = new Vector<ParticleReport>();
+			
+			for(int particleIndex = 0; particleIndex < numParticles; particleIndex++){
+				ParticleReport par = new ParticleReport();
+				par.percentAreaToImageArea = NIVision.imaqMeasureParticle(processedFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA);
+				par.area = NIVision.imaqMeasureParticle(processedFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA);
+				par.boundingRectTop = NIVision.imaqMeasureParticle(processedFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_TOP);
+				par.boundingRectLeft = NIVision.imaqMeasureParticle(processedFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_LEFT);
+				par.boundingRectBottom = NIVision.imaqMeasureParticle(processedFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_BOTTOM);
+				par.boundingRectRight = NIVision.imaqMeasureParticle(processedFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_RIGHT);
+				particles.add(par);
+			}
+			particles.sort(null);
+			
+			scores.aspect = aspectScore(particles.elementAt(0));
+			scores.area = areaScore(particles.elementAt(0));
+			
+			targetDetected = scores.aspect > SCORE_MIN && scores.area > SCORE_MIN;
+			
+			targetDetected = scores.aspect > SCORE_MIN && scores.area > SCORE_MIN;
+//			targetDistance = computeTargetDistance(processedFrame, particles.elementAt(0));
+//			targetHorizontalAngle = computeHorizontalAngle(processedFrame, particles.elementAt(0));
+//			targetVerticalAngle = computeVerticalAngle(processedFrame, particles.elementAt(0));
+//			towerDistance = computeTowerDistance();
 
+		} else {
+			targetDetected = false;
+		}
     }
+    
+    private double areaScore(){
+    	
+    }
+    
 }
-
