@@ -37,6 +37,11 @@ public class Robot extends IterativeRobot {
 	RobotDrive driveTrain = new RobotDrive(frontLeftDrive, frontRightDrive);
 	RobotDrive roller = new RobotDrive(leftRollerMotor, rightRollerMotor);
 	
+	
+	
+	Victor raiseLifterMotor;
+	Joystick joystick;
+	
 	public void robotInit() {
 		 //CameraServer server;
 
@@ -47,7 +52,11 @@ public class Robot extends IterativeRobot {
 		 /**
 		  * start up automatic capture you should see the video stream from the
 		  * webcam in your FRC PC Dashboard.
-		  */	    		          
+		  */
+		
+		
+		raiseLifterMotor = new Victor(0);
+		joystick = new Joystick(0);
 	}
 		    
 
@@ -68,12 +77,17 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
         
-    	driveTrain.tankDrive(-leftStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS), -rightStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS));
-        //roller.arcadeDrive(leftStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS), 0);
-        //shooterJointMotor.set(rightStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS));
+//    	driveTrain.tankDrive(-leftStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS), -rightStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS));
+//        //roller.arcadeDrive(leftStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS), 0);
+//        shooterJointMotor.set(rightStick.getRawAxis(RobotValues.JOYSTICK_Z_AXIS));
+    	
+    	
+        raiseLifterMotor.set(joystick.getRawAxis(1));
+    	
+    	
         
         //if(rightStick.getRawButton(3)){
-        	manipulatorMotor.set(1);
+        	//manipulatorMotor.set(1);
         //}
         
         //else if(leftStick.getRawButton(3)){
