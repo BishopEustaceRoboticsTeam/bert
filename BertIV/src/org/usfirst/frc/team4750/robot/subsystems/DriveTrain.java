@@ -17,11 +17,11 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class DriveTrain extends Subsystem {
     
-	final double WHEEL_DIAMETER = 0.101; // in meters (4 inches)
+	final double WHEEL_DIAMETER = 0.0954929; // in meters (3.76 inches)
 	final double PI = 3.14159;
-	final double TICKS_PER_REVOLUTION = 250; //the number of ticks the encoder gets per one revolution
-	final double DIST_PER_TICK_LEFT = 0.0013245033;  //0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
-	final double DIST_PER_TICK_RIGHT = 0.0013831258; //0.0012692034;
+	final double TICKS_PER_REVOLUTION = 360; //the number of ticks the encoder gets per one revolution
+	final double DIST_PER_TICK_LEFT =0.000833332058;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
+	final double DIST_PER_TICK_RIGHT = 0.000833332058; 
 	//883 ticks for 90 degree turn with just one motor
 	final double RIGHT_ANGLE_TURN_SPEED = 0.6;
 	
@@ -30,6 +30,7 @@ public class DriveTrain extends Subsystem {
 	Encoder rightEncoder = new Encoder(RobotValues.RIGHT_ENCODER_A, RobotValues.RIGHT_ENCODER_B, RobotValues.REVERSE_RIGHT_ENCODER_DIRECTION, EncodingType.k2X);
 	
 	//global class vars go here
+	private boolean done = false;
 	
 	//375 ticks per wheel for 90 degree turn with both motors
 	final int TICKS_PER_90_RIGHT = 384;
@@ -37,8 +38,6 @@ public class DriveTrain extends Subsystem {
 	
 	private final double DISTANCE_PER_90 = 0.47876; //0.6; //in meters
 	
-	final int WHEEL_RADIUS = 3; //in inches
-	final double pi = 3.14159;
 	
 	private double driveDistance = 0;
 	//hold the current distance of the robot
@@ -84,6 +83,14 @@ public class DriveTrain extends Subsystem {
 		driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
 	}
 	
+	public void resetFunction(){
+		done = false;
+	}
+	
+	public boolean driveStatus(){
+		return done;
+	}
+	
 	public void straightDrive(double driveDistance){
 		currentDistance = (getLeftEncoderDistance() + getRightEncoderDistance())/2;
 		SmartDashboard.putNumber("Distance: ", currentDistance);
@@ -91,8 +98,9 @@ public class DriveTrain extends Subsystem {
 		printEncoderValues();
 		//check to see if the current distance has reach the desired distance
 		if(currentDistance >= driveDistance){
-			stop();
+			done = true;
 		}
+		
 		else{
 			//calculate the current error
 			currentError = getLeftEncoderDistance() - getRightEncoderDistance();
