@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team4750.robot.commands.DriveStraight;
+import org.usfirst.frc.team4750.robot.commands.SetIntakeSpeed;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
 
@@ -26,13 +28,15 @@ public class OI {
 
 	Button right2 = new JoystickButton(rightStick, 2);
     Button right6 = new JoystickButton(rightStick, 6);
-	
+	Button left2 = new JoystickButton(leftStick, 2);
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
 	public OI(){
 		rightTrigger.whileHeld(new SetShooterServo(true));
 		right2.whileHeld(new SetShooterSpeed());
+		left2.whileHeld(new DriveStraight(1));
+		right6.whileHeld(new SetIntakeSpeed());
 	}
 	
 	public double getRightTwist(){

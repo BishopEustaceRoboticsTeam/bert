@@ -24,7 +24,7 @@ public class DriveStraight extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		//SmartDashboard.putBoolean("Is DriveStraight executing?", true);
+		SmartDashboard.putBoolean("Is DriveStraight executing?", true);
 		Robot.driveTrain.straightDrive(dist);
 	}
 
@@ -37,7 +37,7 @@ public class DriveStraight extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		//SmartDashboard.putBoolean("Is DriveStraight executing?", true);
+		SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 	}
 
 	@Override
