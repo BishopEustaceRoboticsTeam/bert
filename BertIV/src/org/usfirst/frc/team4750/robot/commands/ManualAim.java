@@ -37,7 +37,7 @@ public class ManualAim extends Command {
 			//}
 		
 			//SmartDashboard.putBoolean("Is ManualAim executing?", true);
-		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getRightY());
+		Robot.shooter.setShooterAimerMotorSpeed((-0.7 * Robot.oi.getRightY()));
 		SmartDashboard.putNumber("Joystick Value", Robot.oi.getRightY());
 	}
 		
