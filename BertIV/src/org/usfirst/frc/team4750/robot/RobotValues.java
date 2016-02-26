@@ -39,8 +39,8 @@ public class RobotValues {
 		public static final int RIGHT_ENCODER_A = 2;
 		public static final int RIGHT_ENCODER_B = 3;
 		
-		public static final int CLOSED_REED_SWITCH_PORT = 4;
-		public static final int OPEN_REED_SWITCH_PORT = 5;
+		public static final int UPPER_SHOOTER_LIMIT_SWITCH = 4;
+		public static final int LOWER_SHOOTER_LIMIT_SWITCH = 5;
 		
 		public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
 		public static final int AUTO_SWITCH_PORT_2 = 7; 

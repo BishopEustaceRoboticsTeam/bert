@@ -24,11 +24,20 @@ public class OI {
 	Joystick leftStick = new Joystick(RobotValues.LEFT_JOYSTICK_USB_PORT);
 	Joystick rightStick = new Joystick(RobotValues.RIGHT_JOYSTICK_USB_PORT);
 
-
-
 	Button right2 = new JoystickButton(rightStick, 2);
-    Button right6 = new JoystickButton(rightStick, 6);
-	Button left2 = new JoystickButton(leftStick, 2);
+	Button right3 = new JoystickButton(rightStick, 3);
+	Button right4 = new JoystickButton(rightStick, 4);
+	Button right5 = new JoystickButton(rightStick, 4);
+	Button right6 = new JoystickButton(rightStick, 6);
+	Button right7 = new JoystickButton(rightStick, 7);
+	
+    Button left2 = new JoystickButton(leftStick, 2);
+    Button left3 = new JoystickButton(leftStick, 3);
+    Button left4 = new JoystickButton(leftStick, 4);
+    Button left5 = new JoystickButton(leftStick, 5);
+    Button left6 = new JoystickButton(leftStick, 6);
+    Button left7 = new JoystickButton(leftStick, 7);
+    
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	

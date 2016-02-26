@@ -5,6 +5,7 @@ import org.usfirst.frc.team4750.robot.commands.ManualAim;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.commands.Shoot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -17,7 +18,8 @@ public class Shooter extends Subsystem{
 	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
 	
 	Servo shooterServo = new Servo(RobotValues.SHOOTER_SERVO_PORT);
-	
+	DigitalInput upperLimit = new DigitalInput(RobotValues.UPPER_SHOOTER_LIMIT_SWITCH);
+	DigitalInput lowerLimit = new DigitalInput(RobotValues.LOWER_SHOOTER_LIMIT_SWITCH);
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
@@ -51,12 +53,18 @@ public class Shooter extends Subsystem{
 		shooterAimerMotor.set(speed);
 	}
 	
+	public boolean getUpperLimitSwitch(){
+		return upperLimit.get();
+	}
+	
+	public boolean getLowerLimitSwitch(){
+		return lowerLimit.get();
+	}
+	
 	public void setShooterServo(double position){
 		//This is just an abbreviated if statement. The format is ((condition) ? (value if true) : (value if false))
 		shooterServo.set(position);
 	}
-	
-	
 	
 	//Future self, implement these three:
 	public int getLeftMotorEncoder(){
