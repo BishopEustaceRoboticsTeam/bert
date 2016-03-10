@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team4750.robot.commands.DriveStraight;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
-import org.usfirst.frc.team4750.robot.commands.Shoot;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
 
 /**
@@ -30,8 +32,8 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     
     //Subsystems:
-
-    public static Shooter shooter = new Shooter();
+    public static final Manipulator manipulator = new Manipulator();
+    public static final Shooter shooter = new Shooter();
     public static final DriveTrain driveTrain = new DriveTrain();
 
     /**
@@ -41,12 +43,24 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
         // instantiate the command used for the autonomous period
-
+	
 
         //autonomousCommand = new DriveStraight(1);
 
-        
-        
+        //SmartDashboard.putBoolean("Is DriveStraight executing?", false);
+		//SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
+		//SmartDashboard.putBoolean("Is SetAimAngle executing?",false);
+		//SmartDashboard.putBoolean("Is SetShooterServo executing?",false);
+		SmartDashboard.putBoolean("Is SetShooterSpeed executing?",false);
+		SmartDashboard.putBoolean("Is Shoot executing?", false);
+		
+		
+		SmartDashboard.putBoolean("Has SetAimAngle.SetAimAngle() run?", false);
+		SmartDashboard.putBoolean("Has SetAimAngle.initialize() run", false);
+		SmartDashboard.putBoolean("Has SetAimAngle.execute() run?", false);
+		SmartDashboard.putBoolean("Has SetAimAngle.isFinished() run?", false);
+		SmartDashboard.putBoolean("Has SetAimAngle.interrupted() run?", false);
+		SmartDashboard.putBoolean("Has SetAimAngle.end() run?", false);
     }
 	
 	public void disabledPeriodic() {

@@ -1,11 +1,11 @@
 package org.usfirst.frc.team4750.robot.subsystems;
 
-import org.usfirst.frc.team4750.robot.Robot;
 import org.usfirst.frc.team4750.robot.RobotValues;
-import org.usfirst.frc.team4750.robot.commands.Shoot;
+import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Shooter extends Subsystem{
@@ -24,7 +24,8 @@ public class Shooter extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new Shoot());
+		setDefaultCommand(new SetAimAngle());
+		//setDefaultCommand(new SetAimAngle());
 	}
 
 	
@@ -40,9 +41,10 @@ public class Shooter extends Subsystem{
 		shooterAimerMotor.set(speed);
 	}
 	
-	public void setShooterServo(double position){
-		//This is just an abbreviated if statement. The format is ((condition) ? (value if true) : (value if false))
-		shooterServo.set(position);
+	public void setShooterServo(boolean position){
+		//This is just an abbreviated if-statement. The format is: (condition) ? (value if true) : (value if false)
+		//0 is the extended position on the servo; 1 is fully retracted.
+		shooterServo.set(position ? 0 : 1);
 	}
 	
 	

@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
+import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
 
 /**w
  * This class is the glue that binds the controls on the physical operator
@@ -21,15 +23,17 @@ public class OI {
 	Joystick leftStick = new Joystick(RobotValues.LEFT_JOYSTICK_USB_PORT);
 	Joystick rightStick = new Joystick(RobotValues.RIGHT_JOYSTICK_USB_PORT);
 
-
-
-
+	Button shooterSpeedButton = new JoystickButton(rightStick, 2);
+	Button liftButton = new JoystickButton(rightStick, 7);
+	Button unliftButton = new JoystickButton(leftStick, 7);
+	//Button raiseLiftButton= new JoystickButton(rightStick, 7);
     
 	Button leftTrigger = new JoystickButton(leftStick, 1);
 	Button rightTrigger = new JoystickButton(rightStick, 1);
 	
 	public OI(){
-		rightTrigger.whileHeld(new SetShooterServo(true));
+		rightTrigger.whileHeld(new SetShooterServo());
+		shooterSpeedButton.whileHeld(new SetShooterSpeed());
 	}
 	
 	public double getRightTwist(){
@@ -40,6 +44,9 @@ public class OI {
 		return leftStick.getRawAxis(RobotValues.JOYSTICK_TWIST_AXIS);
 	}
 	
+	public double getYAxis(){
+		return rightStick.getRawAxis(RobotValues.JOYSTICK_Y_AXIS);
+	}
 	
 	public Joystick getLeftStick(){
 		return leftStick;
@@ -48,6 +55,11 @@ public class OI {
 	public Joystick getRightStick(){
 		return rightStick;
 	}
+	
+	public double getRightStickPOV(){
+		return rightStick.getPOV();
+	}
+	
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.

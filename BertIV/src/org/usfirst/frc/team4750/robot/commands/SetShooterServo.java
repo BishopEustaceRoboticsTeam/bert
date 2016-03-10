@@ -7,11 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetShooterServo extends Command{
 	
-	boolean position;
-	
-	public SetShooterServo(boolean position) {
+	public SetShooterServo() {
 		// TODO Auto-generated constructor stub
-		this.position=position;
+		requires(Robot.shooter);
 	}
 	
 	
@@ -19,31 +17,33 @@ public class SetShooterServo extends Command{
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		
+		//true sets the servo to the extended position; false retracts it.
+		Robot.shooter.setShooterServo(true);
+
+		SmartDashboard.putBoolean("Is SetShooterServo executing?", true);
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Is SetShooter executing?", true);
-		Robot.shooter.setShooterServo(0);
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	}  	
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Is SetShooter executing?", false);
+		SmartDashboard.putBoolean("Is SetShooterServo executing?", false);
+		Robot.shooter.setShooterServo(false);
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		Robot.shooter.setShooterServo(1);
 		end();
 	}
 
