@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem {
 	final double PI = 3.14159;
 	final double TICKS_PER_REVOLUTION = 250; //the number of ticks the encoder gets per one revolution
 	final double DIST_PER_TICK_LEFT = 0.0013245033;  //0.0012692034;//(WHEEL_DIAMETER * PI)/ TICKS_PER_REVOLUTION;//Circumference/ number of ticks in one revolution
-	final double DIST_PER_TICK_RIGHT = 0.0013831258; //0.0012692034;
+	 final double DIST_PER_TICK_RIGHT = 0.0013831258; //0.0012692034;
 	//883 ticks for 90 degree turn with just one motor
 	final double RIGHT_ANGLE_TURN_SPEED = 0.6;
 	
@@ -62,6 +62,7 @@ public class DriveTrain extends Subsystem {
 	
 	private RobotDrive driver = new RobotDrive(leftMotor, rightMotor);
 	
+	boolean done = false;
 	
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -76,13 +77,21 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	private void printEncoderValues(){
-		
+		SmartDashboard.putNumber("Left encoder: ", getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right encoder: ", getRightEncoderDistance());
 	}
 	
-	public void controllerDrive(Joystick driveStick){
-		//driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
-		driver.arcadeDrive(-driveStick.getRawAxis(1), -driveStick.getRawAxis(0));
+	public void controllerDrive(
+			//Joystick driveStick
+			Joystick left, 
+			Joystick right
+			)
+			{
+		driver.tankDrive(-left.getRawAxis(1), -right.getRawAxis(1));
+		//driver.arcadeDrive(-driveStick.getRawAxis(1), -driveStick.getRawAxis(0));
+		SmartDashboard.putBoolean("Is controllerDrive running?",true);
 	}
+
 	
 	public void straightDrive(double driveDistance){
 		currentDistance = (getLeftEncoderDistance() + getRightEncoderDistance())/2;
@@ -157,6 +166,11 @@ public class DriveTrain extends Subsystem {
 	
 	public void stop(){
 		driver.drive(0,0);
+		done=true;
+	}
+	
+	public boolean isDone(){
+		return done;
 	}
 	
     public void initDefaultCommand() {

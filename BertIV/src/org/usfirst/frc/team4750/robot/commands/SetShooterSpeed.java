@@ -8,9 +8,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetShooterSpeed extends Command {
 	
-	public SetShooterSpeed() {
-		// TODO Auto-generated constructor stub
+	int direction;
+	
+	public SetShooterSpeed(boolean direction) {
+		//  TODO Auto-generated constructor stub
 		requires(Robot.shooter);
+		if(direction){
+			this.direction = 1;
+		} else{
+			this.direction = -1;
+		}
 	}
 
 	@Override
@@ -23,10 +30,9 @@ public class SetShooterSpeed extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", true);
-
-		Robot.shooter.setLeftShooterMotorSpeed(RobotValues.SHOOTER_SPEED);
-		Robot.shooter.setRightShooterMotorSpeed(-RobotValues.SHOOTER_SPEED);
-
+		//direction is either 1 or -1; 1 will make the motors shoot, -1 will reverse their direction (intake).
+		Robot.shooter.setLeftShooterMotorSpeed(direction * RobotValues.SHOOTER_SPEED);
+		Robot.shooter.setRightShooterMotorSpeed(direction * -RobotValues.SHOOTER_SPEED);
 	}
 
 	@Override
