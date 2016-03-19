@@ -31,9 +31,15 @@ public class SetShooterSpeed extends Command {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", true);
 		//direction is either 1 or -1; 1 will make the motors shoot, -1 will reverse their direction (intake).
-		Robot.shooter.setLeftShooterMotorSpeed(direction * RobotValues.SHOOTER_SPEED);
-		Robot.shooter.setRightShooterMotorSpeed(direction * -RobotValues.SHOOTER_SPEED);
-	}
+		if (direction == 1){
+		Robot.shooter.setLeftShooterMotorSpeed(direction * RobotValues.SHOOTER_SPEED_OUT);
+		Robot.shooter.setRightShooterMotorSpeed(direction * -RobotValues.SHOOTER_SPEED_OUT);
+		}
+		if (direction == -1){
+			Robot.shooter.setLeftShooterMotorSpeed(direction * RobotValues.SHOOTER_SPEED_IN);
+			Robot.shooter.setRightShooterMotorSpeed(direction * -RobotValues.SHOOTER_SPEED_IN);
+		}
+		}
 
 	@Override
 	protected boolean isFinished() {

@@ -2,6 +2,7 @@ package org.usfirst.frc.team4750.robot.subsystems;
 
 import org.usfirst.frc.team4750.robot.RobotValues;
 //import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
+import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
@@ -23,7 +24,7 @@ public class Shooter extends Subsystem{
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 		//setDefaultCommand(new SetAimAngle());
-		//setDefaultCommand(new SetAimAngle());
+		setDefaultCommand(new SetAimAngle());
 	}
 
 	
