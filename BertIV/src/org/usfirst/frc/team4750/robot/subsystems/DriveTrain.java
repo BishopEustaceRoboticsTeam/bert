@@ -66,6 +66,18 @@ public class DriveTrain extends Subsystem {
 	
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
+	
+	public void setLeftDriveMotor(double speed){
+		leftMotor.set(speed);
+	}
+	public void setRightDriveMotor(double speed){
+		rightMotor.set(speed);
+	}
+	public void setDriveMotors(double speed){
+		setLeftDriveMotor(speed);
+		setRightDriveMotor(speed);
+	}
+	
 	private double getRightEncoderDistance(){
 		double distanceRight = rightEncoder.get() * DIST_PER_TICK_RIGHT;
 		return distanceRight;
