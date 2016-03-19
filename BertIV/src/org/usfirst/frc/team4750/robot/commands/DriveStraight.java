@@ -4,20 +4,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4750.robot.Robot;
+import org.usfirst.frc.team4750.robot.RobotValues;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveStraight extends Command {
 	
-	private double dist;
-	Timer timer = new Timer();
-	//timer.get() has no documentation; I'm assuming timer.get() returns seconds. However, it might return milliseconds. 
-	private final static double DRIVE_TIME = 2; 
+	Timer timer = new Timer(); 
 	
-	public DriveStraight(double distance){
+	public DriveStraight(){
 		requires(Robot.driveTrain);
-		dist = distance;
-		
 	}
 	
 	@Override
@@ -36,7 +32,7 @@ public class DriveStraight extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		if(timer.get() > DRIVE_TIME){
+		if(timer.get() > RobotValues.DRIVE_TIME){
 			return true;
 		} else {
 			return false;

@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
 	
 		//The input is in meters
-        autonomousCommand = new DriveStraight(1);
+        autonomousCommand = new DriveStraight();
 
         SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 		SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
