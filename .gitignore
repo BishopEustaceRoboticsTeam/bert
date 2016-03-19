@@ -7,3 +7,6 @@ nbproject/
 .metadata/*
 */.metadata
 */.metadata/*
+*.jar
+*/*.xml
+*.xml
