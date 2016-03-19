@@ -31,6 +31,7 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 
+	AutoMode autoMode;
     Command autonomousCommand;
     
     //Subsystems:
@@ -38,7 +39,7 @@ public class Robot extends IterativeRobot {
     public static final Shooter shooter = new Shooter();
     public static final ShooterServo shooterServo = new ShooterServo();
     public static final DriveTrain driveTrain = new DriveTrain();
-
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -47,8 +48,21 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
 	
-		//The input is in meters
-        autonomousCommand = new DriveStraight();
+		//The input is the speed; -1 is full power reverse, 0 is stationary, and +1 is full power forwards.
+		
+		autoMode = AutoMode.CROSS_DEFENSE_FORWARDS;
+		autoMode = AutoMode.CROSS_DEFENSE_BACKWARDS;
+		
+		switch(autoMode){
+			case CROSS_DEFENSE_FORWARDS:
+				autonomousCommand = new DriveStraight(+1);
+				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Forwards");
+				break;
+			case CROSS_DEFENSE_BACKWARDS:
+				autonomousCommand = new DriveStraight(-1);
+				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Backwards");
+		}
+        
 
         SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 		SmartDashboard.putBoolean("Is JoystickDrive executing?",false);

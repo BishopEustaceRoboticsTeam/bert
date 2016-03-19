@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj.Timer;
 public class DriveStraight extends Command {
 	
 	Timer timer = new Timer(); 
-	
-	public DriveStraight(){
+	double speed;
+	public DriveStraight(double speed){
 		requires(Robot.driveTrain);
+		this.speed = speed;
 	}
 	
 	@Override
@@ -26,7 +27,7 @@ public class DriveStraight extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is DriveStraight executing?", true);
-		Robot.driveTrain.setDriveMotors(-1);
+		Robot.driveTrain.setDriveMotors(speed);
 	}
 
 	@Override
