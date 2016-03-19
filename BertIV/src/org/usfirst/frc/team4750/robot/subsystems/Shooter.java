@@ -14,8 +14,6 @@ public class Shooter extends Subsystem{
 	Talon rightShooterMotor = new Talon(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
 	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
 	
-	Servo shooterServo = new Servo(RobotValues.SHOOTER_SERVO_PORT);
-	
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
@@ -40,13 +38,7 @@ public class Shooter extends Subsystem{
 	public void setShooterAimerMotorSpeed(double speed){
 		shooterAimerMotor.set(speed);
 	}
-	
-	public void setShooterServo(boolean position){
-		//This is just an abbreviated if-statement. The format is: (condition) ? (value if true) : (value if false)
-		//0 is the extended position on the servo; 1 is fully retracted.
-		shooterServo.set(position ? 0 : 1);
-	}
-	
+		
 	
 	
 	//Future self, implement these three:

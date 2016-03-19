@@ -9,7 +9,7 @@ public class SetShooterServo extends Command{
 	
 	public SetShooterServo() {
 		// TODO Auto-generated constructor stub
-		requires(Robot.shooter);
+		requires(Robot.shooterServo);
 	}
 	
 	
@@ -18,7 +18,7 @@ public class SetShooterServo extends Command{
 		// TODO Auto-generated method stub
 		
 		//true sets the servo to the extended position; false retracts it.
-		Robot.shooter.setShooterServo(true);
+		Robot.shooterServo.setShooterServo(true);
 
 		SmartDashboard.putBoolean("Is SetShooterServo executing?", true);
 	}
@@ -38,7 +38,7 @@ public class SetShooterServo extends Command{
 	protected void end() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetShooterServo executing?", false);
-		Robot.shooter.setShooterServo(false);
+		Robot.shooterServo.setShooterServo(false);
 	}
 
 	@Override
