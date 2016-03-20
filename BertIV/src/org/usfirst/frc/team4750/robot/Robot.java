@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4750.robot.commands.DriveStraight;
+import org.usfirst.frc.team4750.robot.commands.CrossDefenseRotate;
+import org.usfirst.frc.team4750.robot.commands.Drive;
 //import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
 //import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
@@ -46,21 +48,36 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
-        // instantiate the command used for the autonomous period
-	
-		//The input is the speed; -1 is full power reverse, 0 is stationary, and +1 is full power forwards.
 		
-		autoMode = AutoMode.CROSS_DEFENSE_FORWARDS;
+        // instantiate the command used for the autonomous period
+		
 		autoMode = AutoMode.CROSS_DEFENSE_BACKWARDS;
 		
 		switch(autoMode){
+			case REACH_DEFENSE:
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				autonomousCommand = new DriveStraight(+1, RobotValues.REACH_TIME);
+				break;
 			case CROSS_DEFENSE_FORWARDS:
-				autonomousCommand = new DriveStraight(+1);
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				autonomousCommand = new DriveStraight(+1, RobotValues.CROSS_TIME);
 				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Forwards");
 				break;
 			case CROSS_DEFENSE_BACKWARDS:
-				autonomousCommand = new DriveStraight(-1);
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				autonomousCommand = new DriveStraight(-1, RobotValues.CROSS_TIME);
 				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Backwards");
+				break;
+			case CROSS_DEFENSE_ROTATE:
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				//input 3: Time to rotate
+				autonomousCommand = new CrossDefenseRotate(+1, RobotValues.CROSS_TIME, RobotValues.ROTATE_TIME);
+				break;
+				
 		}
         
 

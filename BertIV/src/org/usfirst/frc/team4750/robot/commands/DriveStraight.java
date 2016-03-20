@@ -1,57 +1,19 @@
 package org.usfirst.frc.team4750.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-import org.usfirst.frc.team4750.robot.Robot;
-import org.usfirst.frc.team4750.robot.RobotValues;
-import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.Timer;
+/**
+ *
+ */
+public class DriveStraight extends CommandGroup {
+    
+    public DriveStraight(double speed, double time) {
+    	addSequential(new Drive(speed, speed, time));
 
-public class DriveStraight extends Command {
-	
-	Timer timer = new Timer(); 
-	double speed;
-	public DriveStraight(double speed){
-		requires(Robot.driveTrain);
-		this.speed = speed;
-	}
-	
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		timer.start();
-	}
-
-	@Override
-	protected void execute() {
-		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Is DriveStraight executing?", true);
-		Robot.driveTrain.setDriveMotors(speed);
-	}
-
-	@Override
-	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		if(timer.get() > RobotValues.DRIVE_TIME){
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-
-	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Is DriveStraight executing?", false);
-		Robot.driveTrain.setDriveMotors(0);
-	}
-
-	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		end();
-	}
-
+    	// A command group will require all of the subsystems that each member
+        // would require.
+        // e.g. if Command1 requires chassis, and Command2 requires arm,
+        // a CommandGroup containing them would require both the chassis and the
+        // arm.
+    }
 }

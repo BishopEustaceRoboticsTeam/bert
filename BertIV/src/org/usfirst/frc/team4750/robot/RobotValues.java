@@ -55,7 +55,9 @@ public class RobotValues {
 		public static final boolean REVERSE_RIGHT_ENCODER_DIRECTION = false;	
 		
 		//Timer for Auto
-		public static final double DRIVE_TIME = 4;
+		public static final double REACH_TIME = 1;
+		public static final double CROSS_TIME = 3;		//Positive=forwards; negative=backwards
+		public static final double ROTATE_TIME = 0.5;	//Positive=clockwise; negative=counterclockwise;
 		
 		//Color ranges
 		//public static final NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(0,180);
