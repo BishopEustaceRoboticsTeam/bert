@@ -68,9 +68,6 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putBoolean("Has SetAimAngle.end() run?", false);
 //		
 		
-		CameraServer server = CameraServer.getInstance();
-		server.startAutomaticCapture();
-		
     }
 	
 	public void disabledPeriodic() {
