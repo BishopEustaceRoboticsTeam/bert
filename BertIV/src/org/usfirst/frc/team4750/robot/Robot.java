@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4750.robot.commands.DriveStraight;
+import org.usfirst.frc.team4750.robot.subsystems.Cameras;
 //import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
 //import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
@@ -38,7 +39,7 @@ public class Robot extends IterativeRobot {
     public static final Shooter shooter = new Shooter();
     public static final ShooterServo shooterServo = new ShooterServo();
     public static final DriveTrain driveTrain = new DriveTrain();
-
+    public static final Cameras cameras = new Cameras();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.

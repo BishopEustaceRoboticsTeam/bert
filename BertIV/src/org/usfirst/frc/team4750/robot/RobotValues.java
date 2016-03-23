@@ -36,6 +36,10 @@ public class RobotValues {
 		public static final int JOYSTICK_Z_AXIS = 2;
 		public static final int JOYSTICK_TWIST_AXIS = 3;
 		
+		//Camera names:
+		public static final String FRONT_CAMERA_NAME = "cam0";
+		public static final String BACK_CAMERA_NAME = "cam1";
+		
 		//Joystick buttons:
 		
 		//Other
