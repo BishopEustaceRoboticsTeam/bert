@@ -29,10 +29,22 @@ public class SetAimAngle extends Command{
 		}
 		
 		switch(currentPos){
+			case VERTICAL:
+				if(this.direction){
+					//This shouldn't change anything; targetPos should already be currentPos. This 
+					//statement is mostly for readability and to make it easier to extend this switching 
+					//mechanism to other states.
+					targetPos = ShooterPos.VERTICAL; 
+				}
+				else {
+					targetPos=ShooterPos.HIGH_GOAL;
+				}  //if direction is true, then targetPos will remain unchanged; i.e., it will be VERTICAL.
 			case HIGH_GOAL:
-				if(!this.direction){
+				if(this.direction){
+					targetPos = ShooterPos.VERTICAL;
+				} else {
 					targetPos = ShooterPos.LOW_GOAL;
-				} //if direction is true, then targetPos will remain unchanged; i.e., it will be HIGH_GOAL.
+				}
 				break;
 			case LOW_GOAL:
 				if(this.direction){
@@ -44,7 +56,12 @@ public class SetAimAngle extends Command{
 			case PICK_UP:
 				if(this.direction){
 					targetPos = ShooterPos.LOW_GOAL;
-				}//if direction is false, then targetPos will remain unchanged; ie, it will be PICK_UP.
+				} else {
+					//This shouldn't change anything; targetPos should already be currentPos. This 
+					//statement is mostly for readability and to make it easier to extend this switching 
+					//mechanism to other states.
+					targetPos = ShooterPos.PICK_UP;
+				}
 				break;
 		}
 	}

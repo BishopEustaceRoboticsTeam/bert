@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem{
 	
 	public enum ShooterPos{
-		PICK_UP, LOW_GOAL, HIGH_GOAL;
+		PICK_UP, LOW_GOAL, HIGH_GOAL, VERTICAL;
 	}
 	
 	Talon leftShooterMotor = new Talon(RobotValues.LEFT_SHOOTER_MOTOR_PORT);
@@ -23,6 +23,7 @@ public class Shooter extends Subsystem{
 	DigitalInput pickUpPosIRSensor = new DigitalInput(1);
 	DigitalInput lowGoalPosIRSensor = new DigitalInput(2);
 	DigitalInput highGoalPosIRSensor = new DigitalInput(3);
+	DigitalInput verticalPosIRSensor = new DigitalInput(4);
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
@@ -32,6 +33,9 @@ public class Shooter extends Subsystem{
 		boolean isSensorActivated = false;
 		
 		switch(shooterPos){
+			case VERTICAL:
+				isSensorActivated = verticalPosIRSensor.get();
+				break;
 			case HIGH_GOAL:
 				isSensorActivated = highGoalPosIRSensor.get();
 				break;
