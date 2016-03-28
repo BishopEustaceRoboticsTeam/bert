@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 //import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
+import org.usfirst.frc.team4750.robot.commands.ToggleCameras;
 
 /**w
  * This class is the glue that binds the controls on the physical operator
@@ -28,6 +29,8 @@ public class OI {
 	Button shooterButton = new JoystickButton(shootStick, 2);
 	Button intakeButton = new JoystickButton(shootStick, 3);
 	
+	Button toggleCamerasButton = new JoystickButton(shootStick, 5); //TODO: Figure out best button for toggling;
+	
 	
 	public OI(){
 		servoTrigger.whileHeld(new SetShooterServo());
@@ -35,6 +38,7 @@ public class OI {
 		//An input of "true" causes the motors to spin in one direction (for shooting) and "false" causes them to spin in the opposite direction (for intaking). 
 		shooterButton.whileHeld(new SetShooterSpeed(true));
 		intakeButton.whileHeld(new SetShooterSpeed(false));
+		toggleCamerasButton.whenPressed(new ToggleCameras());
 	}
 		
 	public double getRightYAxis(){
