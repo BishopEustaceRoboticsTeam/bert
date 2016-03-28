@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team4750.robot.CommandParameters.RollerDirection;
+import org.usfirst.frc.team4750.robot.CommandParameters.ShooterArmDirection;
+import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 //import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
@@ -28,17 +31,27 @@ public class OI {
 	Button servoTrigger = new JoystickButton(shootStick, 1);
 	Button shooterButton = new JoystickButton(shootStick, 2);
 	Button intakeButton = new JoystickButton(shootStick, 3);
+	Button aimerDownButton = new JoystickButton(shootStick, 4);
+	Button aimerUpButton = new JoystickButton(shootStick, 5);
 	
-	Button toggleCamerasButton = new JoystickButton(shootStick, 5); //TODO: Figure out best button for toggling;
+	//A button for each drive joystick; each will do the same thing. This way
+	//it will work equally for left-handed drivers and right-handed drivers.
+	Button toggleCamerasButton1 = new JoystickButton(leftStick, 2);
+	Button toggleCamerasButton2 = new JoystickButton(rightStick, 2);
 	
 	
 	public OI(){
 		servoTrigger.whileHeld(new SetShooterServo());
 		
-		//An input of "true" causes the motors to spin in one direction (for shooting) and "false" causes them to spin in the opposite direction (for intaking). 
-		shooterButton.whileHeld(new SetShooterSpeed(true));
-		intakeButton.whileHeld(new SetShooterSpeed(false));
-		toggleCamerasButton.whenPressed(new ToggleCameras());
+		//An input of "true" causes the motors to spin in one direction (for shooting) 
+		//and "false" causes them to spin in the opposite direction (for intaking). 
+		shooterButton.whileHeld(new SetShooterSpeed(RollerDirection.OUT));
+		intakeButton.whileHeld(new SetShooterSpeed(RollerDirection.IN));
+		aimerUpButton.whenPressed(new SetAimAngle(ShooterArmDirection.UP));
+		aimerDownButton.whenPressed(new SetAimAngle(ShooterArmDirection.DOWN));
+		
+		toggleCamerasButton1.whenPressed(new ToggleCameras());
+		toggleCamerasButton2.whenPressed(new ToggleCameras());
 	}
 		
 	public double getRightYAxis(){

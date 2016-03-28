@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4750.robot.commands;
 
+import org.usfirst.frc.team4750.robot.CommandParameters;
 import org.usfirst.frc.team4750.robot.Robot;
 import org.usfirst.frc.team4750.robot.RobotValues;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
@@ -12,13 +13,40 @@ public class SetAimAngle extends Command{
 	
 	ShooterPos targetPos;
 	ShooterPos currentPos;
+	boolean direction;
 	
-	public SetAimAngle(ShooterPos targetPos) {
+	public SetAimAngle(CommandParameters.ShooterArmDirection direction) {
 		// TODO Auto-generated constructor stub
 		requires(Robot.shooter);
 		SmartDashboard.putBoolean("Has SetAimAngle.SetAimAngle() run?", true);
+		switch(direction){
+			case UP:
+				this.direction = true;
+				break;
+			case DOWN:
+				this.direction = false;
+				break;
+		}
 		
-		this.targetPos = targetPos;
+		switch(currentPos){
+			case HIGH_GOAL:
+				if(!this.direction){
+					targetPos = ShooterPos.LOW_GOAL;
+				} //if direction is true, then targetPos will remain unchanged; i.e., it will be HIGH_GOAL.
+				break;
+			case LOW_GOAL:
+				if(this.direction){
+					targetPos = ShooterPos.HIGH_GOAL;
+				} else{
+					targetPos = ShooterPos.PICK_UP;
+				}
+				break;
+			case PICK_UP:
+				if(this.direction){
+					targetPos = ShooterPos.LOW_GOAL;
+				}//if direction is false, then targetPos will remain unchanged; ie, it will be PICK_UP.
+				break;
+		}
 	}
 
 	@Override
@@ -27,25 +55,30 @@ public class SetAimAngle extends Command{
 		SmartDashboard.putBoolean("Has SetAimAngle.initialize() run?",true);
 
 		if (targetPos != currentPos) {
-			switch (targetPos) {
-				case HIGH_GOAL:
-					Robot.shooter.setShooterAimerMotorSpeed(0.5);
-					break;
-				case LOW_GOAL:
-					switch(currentPos){
-						case HIGH_GOAL:
-							Robot.shooter.setShooterAimerMotorSpeed(-0.5);
-							break;
-						case PICK_UP:
-							Robot.shooter.setShooterAimerMotorSpeed(0.5);
-							break;
-					}
-					break;
-				case PICK_UP:
-					Robot.shooter.setShooterAimerMotorSpeed(-0.5);
-					break;
+			if(direction){
+				Robot.shooter.setShooterAimerMotorSpeed(0.5);
+			} else{
+				Robot.shooter.setShooterAimerMotorSpeed(-0.5);
 			}
 		}
+//			switch (targetPos) {
+//				case HIGH_GOAL:
+//					Robot.shooter.setShooterAimerMotorSpeed(0.5);
+//					break;
+//				case LOW_GOAL:
+//					switch(currentPos){
+//						case HIGH_GOAL:
+//							Robot.shooter.setShooterAimerMotorSpeed(-0.5);
+//							break;
+//						case PICK_UP:
+//							Robot.shooter.setShooterAimerMotorSpeed(0.5);
+//							break;
+//					}
+//					break;
+//				case PICK_UP:
+//					Robot.shooter.setShooterAimerMotorSpeed(-0.5);
+//					break;
+//			}
 
 	}
 

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4750.robot.commands;
 
+import org.usfirst.frc.team4750.robot.CommandParameters;
 import org.usfirst.frc.team4750.robot.Robot;
 import org.usfirst.frc.team4750.robot.RobotValues;
 
@@ -8,15 +9,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetShooterSpeed extends Command {
 	
-	int direction;
+	boolean direction;
 	
-	public SetShooterSpeed(boolean direction) {
+	public SetShooterSpeed(CommandParameters.RollerDirection direction) {
 		//  TODO Auto-generated constructor stub
 		requires(Robot.shooter);
-		if(direction){
-			this.direction = 1;
-		} else{
-			this.direction = -1;
+		switch(direction){
+			case OUT:
+				this.direction = true;
+				break;
+			case IN:
+				this.direction = false;
+				break;
 		}
 	}
 
@@ -30,16 +34,14 @@ public class SetShooterSpeed extends Command {
 	protected void execute() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetShooterSpeed executing?", true);
-		//direction is either 1 or -1; 1 will make the motors shoot, -1 will reverse their direction (intake).
-		if (direction == 1){
-		Robot.shooter.setLeftShooterMotorSpeed(direction * RobotValues.SHOOTER_SPEED_OUT);
-		Robot.shooter.setRightShooterMotorSpeed(direction * -RobotValues.SHOOTER_SPEED_OUT);
+		if (direction){
+			Robot.shooter.setLeftShooterMotorSpeed(RobotValues.SHOOTER_SPEED_OUT);
+			Robot.shooter.setRightShooterMotorSpeed(-RobotValues.SHOOTER_SPEED_OUT);
+		} else {
+			Robot.shooter.setLeftShooterMotorSpeed(RobotValues.SHOOTER_SPEED_IN);
+			Robot.shooter.setRightShooterMotorSpeed(-RobotValues.SHOOTER_SPEED_IN);
 		}
-		if (direction == -1){
-			Robot.shooter.setLeftShooterMotorSpeed(direction * RobotValues.SHOOTER_SPEED_IN);
-			Robot.shooter.setRightShooterMotorSpeed(direction * -RobotValues.SHOOTER_SPEED_IN);
-		}
-		}
+	}
 
 	@Override
 	protected boolean isFinished() {
