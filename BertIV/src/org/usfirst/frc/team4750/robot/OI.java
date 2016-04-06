@@ -8,9 +8,9 @@ import org.usfirst.frc.team4750.robot.CommandParameters.RollerDirection;
 import org.usfirst.frc.team4750.robot.CommandParameters.ShooterArmDirection;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 //import org.usfirst.frc.team4750.robot.commands.Manipulate;
-//import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
-//import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
-//import org.usfirst.frc.team4750.robot.commands.ToggleCameras;
+//import org.usfirst.frc.team4750.robot.commands.SetShooterServo; //TODO: Uncomment
+//import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed; //TODO: Uncomment
+//import org.usfirst.frc.team4750.robot.commands.ToggleCameras; //TODO: Uncomment
 
 /**w
  * This class is the glue that binds the controls on the physical operator
@@ -42,18 +42,18 @@ public class OI {
 	
 	
 	public OI(){
-//		servoTrigger.whileHeld(new SetShooterServo());
-//		
-//		//An input of "true" causes the motors to spin in one direction (for shooting) 
-//		//and "false" causes them to spin in the opposite direction (for intaking). 
-//		shooterButton.whileHeld(new SetShooterSpeed(RollerDirection.OUT));
-//		intakeButton.whileHeld(new SetShooterSpeed(RollerDirection.IN));
+		//servoTrigger.whileHeld(new SetShooterServo()); //TODO: Uncomment
+		
+		//An input of "true" causes the motors to spin in one direction (for shooting) 
+		//and "false" causes them to spin in the opposite direction (for intaking). 
+		//shooterButton.whileHeld(new SetShooterSpeed(RollerDirection.OUT)); TODO: Uncomment
+		//intakeButton.whileHeld(new SetShooterSpeed(RollerDirection.IN)); //TODO: Uncomment
 		
 		aimerDownButton.whenPressed(new SetAimAngle(ShooterArmDirection.DOWN));
 		aimerUpButton.whenPressed(new SetAimAngle(ShooterArmDirection.UP));
 		
-//		toggleCamerasButton1.whenPressed(new ToggleCameras());
-//		toggleCamerasButton2.whenPressed(new ToggleCameras());
+		//toggleCamerasButton1.whenPressed(new ToggleCameras()); //TODO: Uncomment
+		//toggleCamerasButton2.whenPressed(new ToggleCameras()); //TODO: Uncomment
 	}
 		
 	public double getRightYAxis(){

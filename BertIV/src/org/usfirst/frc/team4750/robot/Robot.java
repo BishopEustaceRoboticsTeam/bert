@@ -13,18 +13,20 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-//import org.usfirst.frc.team4750.robot.commands.DriveStraight;
-//
-//import org.usfirst.frc.team4750.robot.commands.CrossDefenseRotate;
-//import org.usfirst.frc.team4750.robot.commands.Drive;
-//
-//import org.usfirst.frc.team4750.robot.subsystems.Cameras;
-//
-////import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
-//import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
-////import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
+/* TODO: Uncomment
+import org.usfirst.frc.team4750.robot.commands.DriveStraight;
+
+import org.usfirst.frc.team4750.robot.commands.CrossDefenseRotate;
+import org.usfirst.frc.team4750.robot.commands.Drive;
+
+import org.usfirst.frc.team4750.robot.subsystems.Cameras;
+*/
+
+//import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
+//import org.usfirst.frc.team4750.robot.subsystems.DriveTrain; //TODO: Uncomment
+//import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
-//import org.usfirst.frc.team4750.robot.subsystems.ShooterServo;
+//import org.usfirst.frc.team4750.robot.subsystems.ShooterServo; //TODO: Uncomment
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,16 +39,16 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 
-//	AutoMode autoMode;
+	//AutoMode autoMode; //TODO: Uncomment
     Command autonomousCommand;
     
     //Subsystems:
     //public static final Manipulator manipulator = new Manipulator();
     public static final Shooter shooter = new Shooter();
-//    public static final ShooterServo shooterServo = new ShooterServo();
-//    public static final DriveTrain driveTrain = new DriveTrain();
-//
-//    public static final Cameras cameras = new Cameras();
+    //public static final ShooterServo shooterServo = new ShooterServo(); //TODO: Uncomment
+    //public static final DriveTrain driveTrain = new DriveTrain(); //TODO: Uncomment
+
+    //public static final Cameras cameras = new Cameras(); //TODO: Uncomment
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -56,37 +58,39 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = null;
         // instantiate the command used for the autonomous period
 		
-//		autoMode = AutoMode.CROSS_DEFENSE_BACKWARDS;
-//		
-//		switch(autoMode){
-//			case REACH_DEFENSE:
-//				//input 1: Drive motor speed
-//				//input 2: Time to cross
-//				autonomousCommand = new DriveStraight(+1, RobotValues.REACH_TIME);
-//				break;
-//			case CROSS_DEFENSE_FORWARDS:
-//				//input 1: Drive motor speed
-//				//input 2: Time to cross
-//				autonomousCommand = new DriveStraight(+1, RobotValues.CROSS_TIME);
-//				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Forwards");
-//				break;
-//			case CROSS_DEFENSE_BACKWARDS:
-//				//input 1: Drive motor speed
-//				//input 2: Time to cross
-//				autonomousCommand = new DriveStraight(-1, RobotValues.CROSS_TIME);
-//				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Backwards");
-//				break;
-//			case CROSS_DEFENSE_ROTATE:
-//				//input 1: Drive motor speed
-//				//input 2: Time to cross
-//				//input 3: Time to rotate
-//				autonomousCommand = new CrossDefenseRotate(+1, RobotValues.CROSS_TIME, RobotValues.ROTATE_TIME);
-//				break;
-//				
-//		}
-//        
-//
-//        SmartDashboard.putBoolean("Is DriveStraight executing?", false);
+		//TODO: Uncomment
+		/*
+		autoMode = AutoMode.CROSS_DEFENSE_BACKWARDS;
+		
+		switch(autoMode){
+			case REACH_DEFENSE:
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				autonomousCommand = new DriveStraight(+1, RobotValues.REACH_TIME);
+				break;
+			case CROSS_DEFENSE_FORWARDS:
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				autonomousCommand = new DriveStraight(+1, RobotValues.CROSS_TIME);
+				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Forwards");
+				break;
+			case CROSS_DEFENSE_BACKWARDS:
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				autonomousCommand = new DriveStraight(-1, RobotValues.CROSS_TIME);
+				SmartDashboard.putString("Autonomous Mode:", "Cross Defense Backwards");
+				break;
+			case CROSS_DEFENSE_ROTATE:
+				//input 1: Drive motor speed
+				//input 2: Time to cross
+				//input 3: Time to rotate
+				autonomousCommand = new CrossDefenseRotate(+1, RobotValues.CROSS_TIME, RobotValues.ROTATE_TIME);
+				break;
+				
+		}
+        */
+
+//      SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 //		SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
 //		SmartDashboard.putBoolean("Is SetAimAngle executing?",false);
 //		SmartDashboard.putBoolean("Is SetShooterServo executing?",false);

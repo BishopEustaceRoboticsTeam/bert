@@ -18,7 +18,7 @@ public class Shooter extends Subsystem{
 	
 	Talon leftShooterMotor = new Talon(RobotValues.LEFT_SHOOTER_MOTOR_PORT);
 	Talon rightShooterMotor = new Talon(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
-	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT); //If we switch to Victors, make sure they are in brake mode.
+	Victor shooterAimerMotor = new Victor(RobotValues.SHOOTER_AIMER_MOTOR_PORT); //If we switch to Victors, make sure they are in brake mode.
 	
 	DigitalInput pickUpPosIRSensor = new DigitalInput(1);
 	DigitalInput lowGoalPosIRSensor = new DigitalInput(2);
@@ -33,7 +33,7 @@ public class Shooter extends Subsystem{
 		boolean isSensorActivated = false;
 		
 		switch(shooterPos){
-			case VERTICAL:
+		 case VERTICAL:
 				isSensorActivated = verticalPosIRSensor.get();
 				break;
 			case HIGH_GOAL:
@@ -47,13 +47,12 @@ public class Shooter extends Subsystem{
 				break;
 		}
 		
-		return isSensorActivated;
+		return !isSensorActivated;
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		//setDefaultCommand(new SetAimAngle());
 		//setDefaultCommand(new SetAimAngle());
 	}
 

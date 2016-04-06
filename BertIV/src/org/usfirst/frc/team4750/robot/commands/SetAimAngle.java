@@ -14,11 +14,18 @@ public class SetAimAngle extends Command{
 	ShooterPos targetPos;
 	ShooterPos currentPos;
 	boolean direction;
+	private int count=0;
 	
 	public SetAimAngle(CommandParameters.ShooterArmDirection direction) {
 		// TODO Auto-generated constructor stub
 		requires(Robot.shooter);
-		SmartDashboard.putBoolean("Has SetAimAngle.SetAimAngle() run?", true);
+		
+		if(currentPos==null){
+			currentPos=ShooterPos.LOW_GOAL; //TODO: Make this dependent on auto mode.
+			count++;
+		}
+		SmartDashboard.putNumber("Number of times currentPos was null:",count);
+		SmartDashboard.putBoolean("Direction:",this.direction);
 		switch(direction){
 			case UP:
 				this.direction = true;
@@ -41,7 +48,7 @@ public class SetAimAngle extends Command{
 				}  //if direction is true, then targetPos will remain unchanged; i.e., it will be VERTICAL.
 			case HIGH_GOAL:
 				if(this.direction){
-					targetPos = ShooterPos.VERTICAL;
+					targetPos = ShooterPos.HIGH_GOAL;
 				} else {
 					targetPos = ShooterPos.LOW_GOAL;
 				}
@@ -64,13 +71,22 @@ public class SetAimAngle extends Command{
 				}
 				break;
 		}
+		
+		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", false);
+		SmartDashboard.putString("Current Position:", currentPos.toString());
+		SmartDashboard.putString("Target Position:", targetPos.toString());
+		
+		
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Has SetAimAngle.initialize() run?",true);
-
+		
+		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", false);
+		SmartDashboard.putString("Current Position:", currentPos.toString());
+		SmartDashboard.putString("Target Position:", targetPos.toString());
+		
 		if (targetPos != currentPos) {
 			if(direction){
 				Robot.shooter.setShooterAimerMotorSpeed(0.5);
@@ -102,7 +118,9 @@ public class SetAimAngle extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Has SetAimAngle.execute run?", true);
+		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", true);
+		SmartDashboard.putString("Current Position:", currentPos.toString());
+		SmartDashboard.putString("Target Position:", targetPos.toString());
 		
 		
 		//Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getShooterY());
@@ -111,7 +129,6 @@ public class SetAimAngle extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Has SetAimAngle.isFinished() run?", true);
 		return Robot.shooter.getIRSensor(targetPos);
 	}
 
@@ -119,20 +136,24 @@ public class SetAimAngle extends Command{
 	protected void end() {
 		// TODO Auto-generated method stub
 		
-		SmartDashboard.putBoolean("Has SetAimAngle.end() run?", true);
-		
 		//SmartDashboard.putBoolean("Is SetAimAngle executing?", false);
 		//SmartDashboard.putBoolean("Is SetAimAngle.execute() running?", false);
 		//SmartDashboard.putBoolean("Is SetAimAngle.isFinished() running?", false);
 		
 		currentPos = targetPos;
 		Robot.shooter.setShooterAimerMotorSpeed(0);
+		
+		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", false);
+		SmartDashboard.putString("Current Position:", currentPos.toString());
+		SmartDashboard.putString("Target Position:", targetPos.toString());
+		
+
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		SmartDashboard.putBoolean("Has SetAimAngle.interrupted() run?", true);
+		//SmartDashboard.putBoolean("Has SetAimAngle.interrupted() run?", true);
 		
 		//SmartDashboard.putBoolean("Is SetAimAngle executing?", false);
 		//SmartDashboard.putBoolean("Is SetAimAngle.execute() running?", false);
