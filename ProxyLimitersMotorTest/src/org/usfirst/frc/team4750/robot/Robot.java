@@ -28,13 +28,13 @@ public class Robot extends IterativeRobot {
 	
 	Victor aimingMotor = new Victor(2);
 	
-	DigitalInput verticalPosIRSensor = new DigitalInput(6);
-	DigitalInput highGoalPosIRSensor = new DigitalInput(5);
+	DigitalInput verticalPosIRSensor = new DigitalInput(0);
+	DigitalInput highGoalPosIRSensor = new DigitalInput(1);
 	
-	Joystick shootStick = new Joystick(0);
+	Joystick shootStick = new Joystick(3);
 	
-	JoystickButton aimerDown = new JoystickButton(shootStick, 4);
-	JoystickButton aimerUp = new JoystickButton(shootStick, 5);
+	JoystickButton aimerDown = new JoystickButton(shootStick, 3);
+	JoystickButton aimerUp = new JoystickButton(shootStick, 1);
 	
 	/**
      * This function is run when the robot is first started up and should be
@@ -67,6 +67,7 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
+        
     public void teleopPeriodic() {
     	SmartDashboard.putString("currentPos:", currentPos.toString());
 //    	SmartDashboard.putString("targetPos:", targetPos.toString());
