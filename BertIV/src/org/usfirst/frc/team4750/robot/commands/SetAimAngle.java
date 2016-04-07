@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetAimAngle extends Command{
 	
-	ShooterPos targetPos;
-	ShooterPos currentPos;
 	boolean direction;
 	private int count=0;
 	
@@ -20,11 +18,6 @@ public class SetAimAngle extends Command{
 		// TODO Auto-generated constructor stub
 		requires(Robot.shooter);
 		
-		if(currentPos==null){
-			currentPos=ShooterPos.LOW_GOAL; //TODO: Make this dependent on auto mode.
-			count++;
-		}
-		SmartDashboard.putNumber("Number of times currentPos was null:",count);
 		SmartDashboard.putBoolean("Direction:",this.direction);
 		switch(direction){
 			case UP:
@@ -35,46 +28,46 @@ public class SetAimAngle extends Command{
 				break;
 		}
 		
-		switch(currentPos){
+		switch(Robot.shooter.currentPos){
 			case VERTICAL:
 				if(this.direction){
 					//This shouldn't change anything; targetPos should already be currentPos. This 
 					//statement is mostly for readability and to make it easier to extend this switching 
 					//mechanism to other states.
-					targetPos = ShooterPos.VERTICAL; 
+					Robot.shooter.targetPos = ShooterPos.VERTICAL; 
 				}
 				else {
-					targetPos=ShooterPos.HIGH_GOAL;
+					Robot.shooter.targetPos=ShooterPos.HIGH_GOAL;
 				}  //if direction is true, then targetPos will remain unchanged; i.e., it will be VERTICAL.
 			case HIGH_GOAL:
 				if(this.direction){
-					targetPos = ShooterPos.HIGH_GOAL;
+					Robot.shooter.targetPos = ShooterPos.HIGH_GOAL;
 				} else {
-					targetPos = ShooterPos.LOW_GOAL;
+					Robot.shooter.targetPos = ShooterPos.LOW_GOAL;
 				}
 				break;
 			case LOW_GOAL:
 				if(this.direction){
-					targetPos = ShooterPos.HIGH_GOAL;
+					Robot.shooter.targetPos = ShooterPos.HIGH_GOAL;
 				} else{
-					targetPos = ShooterPos.PICK_UP;
+					Robot.shooter.targetPos = ShooterPos.PICK_UP;
 				}
 				break;
 			case PICK_UP:
 				if(this.direction){
-					targetPos = ShooterPos.LOW_GOAL;
+					Robot.shooter.targetPos = ShooterPos.LOW_GOAL;
 				} else {
 					//This shouldn't change anything; targetPos should already be currentPos. This 
 					//statement is mostly for readability and to make it easier to extend this switching 
 					//mechanism to other states.
-					targetPos = ShooterPos.PICK_UP;
+					Robot.shooter.targetPos = ShooterPos.PICK_UP;
 				}
 				break;
 		}
 		
 		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", false);
-		SmartDashboard.putString("Current Position:", currentPos.toString());
-		SmartDashboard.putString("Target Position:", targetPos.toString());
+		SmartDashboard.putString("Current Position:", Robot.shooter.currentPos.toString());
+		SmartDashboard.putString("Target Position:", Robot.shooter.targetPos.toString());
 		
 		
 	}
@@ -84,10 +77,10 @@ public class SetAimAngle extends Command{
 		// TODO Auto-generated method stub
 		
 		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", false);
-		SmartDashboard.putString("Current Position:", currentPos.toString());
-		SmartDashboard.putString("Target Position:", targetPos.toString());
+		SmartDashboard.putString("Current Position:", Robot.shooter.currentPos.toString());
+		SmartDashboard.putString("Target Position:", Robot.shooter.targetPos.toString());
 		
-		if (targetPos != currentPos) {
+		if (Robot.shooter.targetPos != Robot.shooter.currentPos) {
 			if(direction){
 				Robot.shooter.setShooterAimerMotorSpeed(0.5);
 			} else{
@@ -119,8 +112,8 @@ public class SetAimAngle extends Command{
 	protected void execute() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", true);
-		SmartDashboard.putString("Current Position:", currentPos.toString());
-		SmartDashboard.putString("Target Position:", targetPos.toString());
+		SmartDashboard.putString("Current Position:", Robot.shooter.currentPos.toString());
+		SmartDashboard.putString("Target Position:", Robot.shooter.targetPos.toString());
 		
 		
 		//Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getShooterY());
@@ -129,7 +122,7 @@ public class SetAimAngle extends Command{
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.shooter.getIRSensor(targetPos);
+		return (Robot.shooter.getIRSensor(Robot.shooter.targetPos))||(Robot.shooter.currentPos==Robot.shooter.targetPos);
 	}
 
 	@Override
@@ -140,12 +133,12 @@ public class SetAimAngle extends Command{
 		//SmartDashboard.putBoolean("Is SetAimAngle.execute() running?", false);
 		//SmartDashboard.putBoolean("Is SetAimAngle.isFinished() running?", false);
 		
-		currentPos = targetPos;
+		Robot.shooter.currentPos = Robot.shooter.targetPos;
 		Robot.shooter.setShooterAimerMotorSpeed(0);
 		
 		SmartDashboard.putBoolean("Is SetAimAngle.execute running?", false);
-		SmartDashboard.putString("Current Position:", currentPos.toString());
-		SmartDashboard.putString("Target Position:", targetPos.toString());
+		SmartDashboard.putString("Current Position:", Robot.shooter.currentPos.toString());
+		SmartDashboard.putString("Target Position:", Robot.shooter.targetPos.toString());
 		
 
 	}

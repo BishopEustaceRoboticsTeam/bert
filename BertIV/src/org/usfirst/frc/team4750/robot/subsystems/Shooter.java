@@ -3,6 +3,7 @@ package org.usfirst.frc.team4750.robot.subsystems;
 import org.usfirst.frc.team4750.robot.RobotValues;
 //import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
+import org.usfirst.frc.team4750.robot.subsystems.Shooter.ShooterPos;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
@@ -24,6 +25,9 @@ public class Shooter extends Subsystem{
 	DigitalInput lowGoalPosIRSensor = new DigitalInput(2);
 	DigitalInput highGoalPosIRSensor = new DigitalInput(3);
 	DigitalInput verticalPosIRSensor = new DigitalInput(4);
+	
+	public ShooterPos targetPos;
+	public ShooterPos currentPos = ShooterPos.LOW_GOAL;
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
