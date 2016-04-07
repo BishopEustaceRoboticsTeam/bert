@@ -56,6 +56,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		autonomousCommand = null;
+		SmartDashboard.putBoolean("Is anything working?", false);
         // instantiate the command used for the autonomous period
 		
 		//TODO: Uncomment

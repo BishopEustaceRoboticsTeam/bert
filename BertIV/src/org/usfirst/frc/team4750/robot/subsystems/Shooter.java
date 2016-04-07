@@ -26,12 +26,31 @@ public class Shooter extends Subsystem{
 	DigitalInput highGoalPosIRSensor = new DigitalInput(3);
 	DigitalInput verticalPosIRSensor = new DigitalInput(4);
 	
-	public ShooterPos targetPos;
-	public ShooterPos currentPos = ShooterPos.LOW_GOAL;
+	private ShooterPos targetPos;
+	private ShooterPos currentPos;
+	
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
+		currentPos=ShooterPos.VERTICAL;
 	}
+	
+	public ShooterPos getCurrentPos(){
+		return currentPos;
+	}
+	
+	public ShooterPos getTargetPos(){
+		return targetPos;
+	}
+	
+	public void setCurrentPos(ShooterPos currentPos){
+		this.currentPos = currentPos;
+	}
+	
+	public void setTargetPos(ShooterPos targetPos){
+		this.targetPos = targetPos;
+	}
+	
 	
 	public boolean getIRSensor(ShooterPos shooterPos){
 		boolean isSensorActivated = false;
