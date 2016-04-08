@@ -21,7 +21,7 @@ public class LowerShooter extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	timer.start();
-    	Robot.shooter.setShooterAimerMotorSpeed(-0.3);
+    	Robot.shooter.setShooterAimerMotorSpeed(0.3);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,7 +29,8 @@ public class LowerShooter extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (timer.get()>=STOP_TIME);
+        //return (timer.get()>=STOP_TIME);
+    	return (Robot.shooter.getLowerLimit());
     }
 
     // Called once after isFinished returns true

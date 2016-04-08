@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team4750.robot.commands.LowerShooter;
+import org.usfirst.frc.team4750.robot.commands.RaiseShooter;
 //import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
@@ -27,10 +29,13 @@ public class OI {
 	Button servoTrigger = new JoystickButton(shootStick, 1);
 	Button shooterButton = new JoystickButton(shootStick, 2);
 	Button intakeButton = new JoystickButton(shootStick, 3);
-	
+	Button shooterLowerButton = new JoystickButton(shootStick, 4);
+	Button shooterRaiseButton = new JoystickButton(shootStick, 5);
 	
 	public OI(){
 		servoTrigger.whileHeld(new SetShooterServo());
+		shooterLowerButton.whileHeld(new LowerShooter());
+		shooterRaiseButton.whileHeld(new RaiseShooter());
 		
 		//An input of "true" causes the motors to spin in one direction (for shooting) and "false" causes them to spin in the opposite direction (for intaking). 
 		shooterButton.whileHeld(new SetShooterSpeed(true));

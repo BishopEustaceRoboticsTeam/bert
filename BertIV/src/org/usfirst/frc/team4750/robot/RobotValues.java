@@ -19,6 +19,9 @@ public class RobotValues {
 		public static final int SHOOTER_SERVO_PORT = 8;
 		//public static final int LIFTER_MOTOR = 6;
 		//public static final int MANIPULATOR_MOTOR = 8;
+
+		public static final int LOWER_LIMIT_PORT = 4;
+		public static final int UPPER_LIMIT_PORT = 5;
 		
 		//Joystick USB ports
 		public static final int LEFT_JOYSTICK_USB_PORT = 0;
