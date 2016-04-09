@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4750.robot.commands.LowerShooter;
 import org.usfirst.frc.team4750.robot.commands.RaiseShooter;
+import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 //import org.usfirst.frc.team4750.robot.commands.Manipulate;
 import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
 import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
@@ -34,8 +35,8 @@ public class OI {
 	
 	public OI(){
 		servoTrigger.whileHeld(new SetShooterServo());
-		shooterLowerButton.whileHeld(new LowerShooter());
-		shooterRaiseButton.whileHeld(new RaiseShooter());
+		shooterLowerButton.whenPressed(new SetAimAngle(false));
+		shooterRaiseButton.whenPressed(new SetAimAngle(true));
 		
 		//An input of "true" causes the motors to spin in one direction (for shooting) and "false" causes them to spin in the opposite direction (for intaking). 
 		shooterButton.whileHeld(new SetShooterSpeed(true));

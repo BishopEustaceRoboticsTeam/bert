@@ -15,11 +15,22 @@ public class Shooter extends Subsystem{
 	Talon leftShooterMotor = new Talon(RobotValues.LEFT_SHOOTER_MOTOR_PORT);
 	Talon rightShooterMotor = new Talon(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
 	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
-	DigitalInput lowerLimit = new DigitalInput(RobotValues.LOWER_LIMIT_PORT);
-	DigitalInput upperLimit = new DigitalInput(RobotValues.UPPER_LIMIT_PORT);
+	
+	DigitalInput verticalLimit = new DigitalInput(RobotValues.VERTICAL_LIMIT_PORT);
+	DigitalInput highGoalLimit = new DigitalInput(RobotValues.HIGH_GOAL_LIMIT_PORT);
+	DigitalInput lowGoalLimit = new DigitalInput(RobotValues.LOW_GOAL_LIMIT_PORT);
+	DigitalInput pickUpLimit = new DigitalInput(RobotValues.PICK_UP_LIMIT_PORT);
+	
+	private ShooterPos currentPos;
+	private ShooterPos targetPos;
+	
+	public static enum ShooterPos{
+		VERTICAL, HIGH_GOAL, LOW_GOAL, PICK_UP;
+	}
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
+		currentPos=ShooterPos.VERTICAL;
 	}
 	
 	@Override
@@ -28,7 +39,42 @@ public class Shooter extends Subsystem{
 		//setDefaultCommand(new SetAimAngle());
 		//setDefaultCommand(new SetAimAngle());
 	}
-
+	
+	public ShooterPos getCurrentPos(){
+		return currentPos;
+	}
+	
+	public void setCurrentPos(ShooterPos currentPos){
+		this.currentPos = currentPos;
+	}
+	
+	public ShooterPos getTargetPos(){
+		return targetPos;
+	}
+	public void setTargetPos(ShooterPos targetPos){
+		this.currentPos = targetPos;
+	}
+	
+	public boolean getIRSensor(ShooterPos shooterPos){
+		boolean isActivated=true;
+		
+		switch(shooterPos){
+			case VERTICAL:
+				isActivated=verticalLimit.get();
+				break;
+			case HIGH_GOAL:
+				isActivated=highGoalLimit.get();
+				break;
+			case LOW_GOAL:
+				isActivated=lowGoalLimit.get();
+				break;
+			case PICK_UP:
+				isActivated=pickUpLimit.get();
+				break;
+		}
+		
+		return !isActivated;
+	}
 	
 	public void setLeftShooterMotorSpeed(double speed){
 		leftShooterMotor.set(speed);
@@ -56,11 +102,11 @@ public class Shooter extends Subsystem{
 	}
 	
 	public boolean getUpperLimit(){
-		return !upperLimit.get();
+		return !highGoalLimit.get();
 	}
 	
 	public boolean getLowerLimit(){
-		return !lowerLimit.get();
+		return !verticalLimit.get();
 	}
 	
 }
