@@ -56,7 +56,7 @@ public class SetAimAngle extends Command{
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Has SetAimAngle.initialize() run?",true);
-		if(Robot.shooter.getCurrentPos()==Robot.shooter.getTargetPos()){
+		if(Robot.shooter.getCurrentPos()!=Robot.shooter.getTargetPos()){
 			if(direction){
 				Robot.shooter.setShooterAimerMotorSpeed(-0.3);
 			}else{
