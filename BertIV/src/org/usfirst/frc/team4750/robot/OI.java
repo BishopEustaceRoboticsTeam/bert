@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team4750.robot.commands.LowerShooter;
-import org.usfirst.frc.team4750.robot.commands.RaiseShooter;
+//import org.usfirst.frc.team4750.robot.commands.LowerShooter;  TODO: Uncomment
+//import org.usfirst.frc.team4750.robot.commands.RaiseShooter;  TODO: Uncomment
 import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 //import org.usfirst.frc.team4750.robot.commands.Manipulate;
-import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
-import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
+//import org.usfirst.frc.team4750.robot.commands.SetShooterServo;  TODO: Uncomment
+//import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;  TODO: Uncomment
 
 /**w
  * This class is the glue that binds the controls on the physical operator
@@ -34,13 +34,13 @@ public class OI {
 	Button shooterRaiseButton = new JoystickButton(shootStick, 5);
 	
 	public OI(){
-		servoTrigger.whileHeld(new SetShooterServo());
+		//servoTrigger.whileHeld(new SetShooterServo());  TODO: Uncomment
 		shooterLowerButton.whenPressed(new SetAimAngle(false));
 		shooterRaiseButton.whenPressed(new SetAimAngle(true));
 		
 		//An input of "true" causes the motors to spin in one direction (for shooting) and "false" causes them to spin in the opposite direction (for intaking). 
-		shooterButton.whileHeld(new SetShooterSpeed(true));
-		intakeButton.whileHeld(new SetShooterSpeed(false));
+		//shooterButton.whileHeld(new SetShooterSpeed(true));  TODO: Uncomment
+		//intakeButton.whileHeld(new SetShooterSpeed(false));  TODO: Uncomment
 	}
 		
 	public double getRightYAxis(){

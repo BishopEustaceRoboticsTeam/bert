@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4750.robot.commands.DriveStraight;
-import org.usfirst.frc.team4750.robot.commands.LowerShooterDrive;
+//import org.usfirst.frc.team4750.robot.commands.DriveStraight;  TODO: Uncomment
+//import org.usfirst.frc.team4750.robot.commands.LowerShooterDrive;  TODO: Uncomment
 //import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
-import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
+//import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;  TODO: Uncomment
 //import org.usfirst.frc.team4750.robot.subsystems.Manipulator;
 import org.usfirst.frc.team4750.robot.subsystems.Shooter;
-import org.usfirst.frc.team4750.robot.subsystems.ShooterServo;
+//import org.usfirst.frc.team4750.robot.subsystems.ShooterServo;  TODO: Uncomment
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,8 +37,8 @@ public class Robot extends IterativeRobot {
     //Subsystems:
     //public static final Manipulator manipulator = new Manipulator();
     public static final Shooter shooter = new Shooter();
-    public static final ShooterServo shooterServo = new ShooterServo();
-    public static final DriveTrain driveTrain = new DriveTrain();
+    //public static final ShooterServo shooterServo = new ShooterServo();  TODO: Uncomment
+    //public static final DriveTrain driveTrain = new DriveTrain();  TODO: Uncomment
 
     /**
      * This function is run when the robot is first started up and should be
@@ -49,7 +49,8 @@ public class Robot extends IterativeRobot {
         // instantiate the command used for the autonomous period
 	
 		//The input is in meters
-        autonomousCommand = new LowerShooterDrive();
+        autonomousCommand=null; //autonomousCommand = new LowerShooterDrive();  TODO: Uncomment
+		
 
         SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 		SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
@@ -59,6 +60,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Is SetShooterSpeed executing?",false);
 		SmartDashboard.putBoolean("Is Shoot executing?", false);
 		
+		SmartDashboard.putString("DID IT WORK?", "NO!!!");
+
+		SmartDashboard.putBoolean("IS ANYTHING WORKING??",false);
+
 		
 //		SmartDashboard.putBoolean("Has SetAimAngle.SetAimAngle() run?", false);
 //		SmartDashboard.putBoolean("Has SetAimAngle.initialize() run", false);
@@ -68,8 +73,8 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putBoolean("Has SetAimAngle.end() run?", false);
 //		
 		
-		CameraServer server = CameraServer.getInstance();
-		server.startAutomaticCapture();
+//		CameraServer server = CameraServer.getInstance();  TODO: Uncomment
+//		server.startAutomaticCapture();  TODO: Uncomment
 		
     }
 	

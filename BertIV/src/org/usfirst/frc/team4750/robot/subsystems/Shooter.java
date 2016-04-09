@@ -52,7 +52,27 @@ public class Shooter extends Subsystem{
 		return targetPos;
 	}
 	public void setTargetPos(ShooterPos targetPos){
-		this.currentPos = targetPos;
+		this.targetPos = targetPos;
+	}
+	
+	public boolean getSwitchPos(ShooterPos shooterPos){
+		boolean isActivated=false;
+		switch(shooterPos){
+			case VERTICAL:
+				isActivated=verticalLimit.get() && highGoalLimit.get() && !lowGoalLimit.get();
+				break;
+			case HIGH_GOAL:
+				isActivated=verticalLimit.get() && !highGoalLimit.get() && !lowGoalLimit.get();
+				break;
+			case LOW_GOAL:
+				isActivated=verticalLimit.get() && !highGoalLimit.get() && lowGoalLimit.get();
+				break;
+			case PICK_UP:
+				isActivated=!verticalLimit.get() && !highGoalLimit.get() && lowGoalLimit.get();
+				break;
+			
+		}
+		return isActivated;
 	}
 	
 	public boolean getIRSensor(ShooterPos shooterPos){
