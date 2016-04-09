@@ -10,10 +10,13 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class DriveStraight extends Command {
 	
-	Timer timer = new Timer(); 
+	Timer timer = new Timer();
+	private double driveTime;
 	
-	public DriveStraight(){
+	public DriveStraight(double time){
 		requires(Robot.driveTrain);
+		driveTime = time;
+				
 	}
 	
 	@Override
@@ -32,7 +35,7 @@ public class DriveStraight extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		if(timer.get() > RobotValues.DRIVE_TIME){
+		if(timer.get() > driveTime){
 			return true;
 		} else {
 			return false;

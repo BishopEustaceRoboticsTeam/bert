@@ -10,17 +10,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class LowerShooter extends Command {
 
-	Timer timer = new Timer();
-	final static int STOP_TIME= 1;
-	
-    public LowerShooter() {
+	public LowerShooter() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.shooter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.start();
     	Robot.shooter.setShooterAimerMotorSpeed(0.3);
     }
 
@@ -29,8 +25,7 @@ public class LowerShooter extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        //return (timer.get()>=STOP_TIME);
-    	return (Robot.shooter.getLowerLimit());
+        return (Robot.shooter.getLowerLimit());
     }
 
     // Called once after isFinished returns true

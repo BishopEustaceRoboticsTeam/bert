@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4750.robot.commands;
 
+import org.usfirst.frc.team4750.robot.RobotValues;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -14,7 +16,7 @@ public class LowerShooterDrive extends CommandGroup {
         // these will run in order.
 
     	addSequential(new LowerShooter());
-    	addSequential(new DriveStraight());
+    	addSequential(new DriveStraight(RobotValues.LOW_DRIVE_TIME));
     	
         // To run multiple commands at the same time,
         // use addParallel()

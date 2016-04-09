@@ -22,6 +22,7 @@ public class RobotValues {
 
 		public static final int LOWER_LIMIT_PORT = 4;
 		public static final int UPPER_LIMIT_PORT = 5;
+		//public static final int HORIZ_LIMIT_PORT = 1;
 		
 		//Joystick USB ports
 		public static final int LEFT_JOYSTICK_USB_PORT = 0;
@@ -59,6 +60,7 @@ public class RobotValues {
 		
 		//Timer for Auto
 		public static final double DRIVE_TIME = 4;
+		public static final double LOW_DRIVE_TIME = 3.5;
 		
 		//Color ranges
 		//public static final NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(0,180);
@@ -68,9 +70,9 @@ public class RobotValues {
 //		public static final int CLOSED_REED_SWITCH_PORT = 4;
 //		public static final int OPEN_REED_SWITCH_PORT = 5;
 		
-//		public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
-//		public static final int AUTO_SWITCH_PORT_2 = 7; 
-//		public static final int AUTO_SWITCH_PORT_3 = 8;
+		public static final int AUTO_SWITCH_PORT_1 = 6;  //Closest to center
+		public static final int AUTO_SWITCH_PORT_2 = 7; 
+		public static final int AUTO_SWITCH_PORT_3 = 8;
 		
 //		public static final int TOTE_SENSOR_PORT = 9;
 		

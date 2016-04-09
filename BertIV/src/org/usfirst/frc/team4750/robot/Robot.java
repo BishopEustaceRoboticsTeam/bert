@@ -3,6 +3,7 @@ package org.usfirst.frc.team4750.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -39,18 +40,26 @@ public class Robot extends IterativeRobot {
     public static final Shooter shooter = new Shooter();
     public static final ShooterServo shooterServo = new ShooterServo();
     public static final DriveTrain driveTrain = new DriveTrain();
-
+    
+    DigitalInput autoSwitch1 = new DigitalInput(RobotValues.AUTO_SWITCH_PORT_1);
+    DigitalInput autoSwitch2 = new DigitalInput(RobotValues.AUTO_SWITCH_PORT_2);
+    DigitalInput autoSwitch3 = new DigitalInput(RobotValues.AUTO_SWITCH_PORT_3);
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
+		oi = new OI();	
         // instantiate the command used for the autonomous period
 	
-		//The input is in meters
-        autonomousCommand = new LowerShooterDrive();
-
+		if(autoSwitch1.get() && autoSwitch2.get() && !autoSwitch3.get()){
+        	autonomousCommand = new LowerShooterDrive();
+        }
+		
+        else if(autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get()){
+        	autonomousCommand = new DriveStraight(RobotValues.DRIVE_TIME);
+        }
+        
         SmartDashboard.putBoolean("Is DriveStraight executing?", false);
 		SmartDashboard.putBoolean("Is JoystickDrive executing?",false);
 		SmartDashboard.putBoolean("Is SetAimAngle executing?",false);
@@ -69,7 +78,7 @@ public class Robot extends IterativeRobot {
 //		
 		
 		CameraServer server = CameraServer.getInstance();
-		server.startAutomaticCapture();
+		server.startAutomaticCapture("cam1");
 		
     }
 	
@@ -79,6 +88,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
+    	
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

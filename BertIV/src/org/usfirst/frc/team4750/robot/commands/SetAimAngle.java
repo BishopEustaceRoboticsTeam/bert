@@ -24,7 +24,7 @@ public class SetAimAngle extends Command{
 	protected void execute() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Has SetAimAngle.execute run?", true);
-		Robot.shooter.setShooterAimerMotorSpeed(Robot.oi.getShooterY());
+		Robot.shooter.setShooterAimerMotorSpeed(-Robot.oi.getShooterY());
 	}
 
 	@Override
