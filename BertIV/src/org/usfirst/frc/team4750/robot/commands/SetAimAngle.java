@@ -85,7 +85,7 @@ public class SetAimAngle extends Command{
 		SmartDashboard.putString("TARGET POSITION:", Robot.shooter.getTargetPos().toString());
 //		SmartDashboard.putBoolean("Is motor activated?",false);
 		
-		return (Robot.shooter.getSwitchPos(Robot.shooter.getTargetPos())) || 
+		return (Robot.shooter.getIRSensor(Robot.shooter.getTargetPos())) || 
 			   (Robot.shooter.getCurrentPos()==Robot.shooter.getTargetPos());
 
 	}

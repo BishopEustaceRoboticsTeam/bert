@@ -16,14 +16,14 @@ public class Shooter extends Subsystem{
 	Talon rightShooterMotor = new Talon(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
 	Victor shooterAimerMotor = new Victor(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
 	
-//	DigitalInput verticalLimit = new DigitalInput(RobotValues.VERTICAL_LIMIT_PORT);
-//	DigitalInput highGoalLimit = new DigitalInput(RobotValues.HIGH_GOAL_LIMIT_PORT);
-//	DigitalInput lowGoalLimit = new DigitalInput(RobotValues.LOW_GOAL_LIMIT_PORT);
-//	DigitalInput pickUpLimit = new DigitalInput(RobotValues.PICK_UP_LIMIT_PORT);
+	DigitalInput verticalLimit = new DigitalInput(RobotValues.VERTICAL_LIMIT_PORT);
+	DigitalInput highGoalLimit = new DigitalInput(RobotValues.HIGH_GOAL_LIMIT_PORT);
+	DigitalInput lowGoalLimit = new DigitalInput(RobotValues.LOW_GOAL_LIMIT_PORT);
+	DigitalInput pickUpLimit = new DigitalInput(RobotValues.PICK_UP_LIMIT_PORT);
 	
-	DigitalInput switchPos1 = new DigitalInput(RobotValues.SWITCH_POS_1_PORT);
-	DigitalInput switchPos2 = new DigitalInput(RobotValues.SWITCH_POS_2_PORT);
-	DigitalInput switchPos3 = new DigitalInput(RobotValues.SWITCH_POS_3_PORT);
+//	DigitalInput switchPos1 = new DigitalInput(RobotValues.SWITCH_POS_1_PORT);
+//	DigitalInput switchPos2 = new DigitalInput(RobotValues.SWITCH_POS_2_PORT);
+//	DigitalInput switchPos3 = new DigitalInput(RobotValues.SWITCH_POS_3_PORT);
 	
 	private ShooterPos currentPos;
 	private ShooterPos targetPos;
@@ -59,47 +59,47 @@ public class Shooter extends Subsystem{
 		this.targetPos = targetPos;
 	}
 	
-	public boolean getSwitchPos(ShooterPos shooterPos){
-		boolean isActivated=false;
-		switch(shooterPos){
-			case VERTICAL:
-				isActivated=switchPos1.get() && switchPos2.get() && !switchPos3.get();
-				break;
-			case HIGH_GOAL:
-				isActivated=switchPos1.get() && !switchPos2.get() && !switchPos3.get();
-				break;
-			case LOW_GOAL:
-				isActivated=switchPos1.get() && !switchPos2.get() && switchPos3.get();
-				break;
-			case PICK_UP:
-				isActivated=!switchPos1.get() && !switchPos2.get() && switchPos3.get();
-				break;
-			
-		}
-		return isActivated;
-	}
-	
-//	public boolean getIRSensor(ShooterPos shooterPos){
-//		boolean isActivated=true;
-//		
+//	public boolean getSwitchPos(ShooterPos shooterPos){
+//		boolean isActivated=false;
 //		switch(shooterPos){
 //			case VERTICAL:
-//				isActivated=verticalLimit.get();
+//				isActivated=switchPos1.get() && switchPos2.get() && !switchPos3.get();
 //				break;
 //			case HIGH_GOAL:
-//				isActivated=highGoalLimit.get();
+//				isActivated=switchPos1.get() && !switchPos2.get() && !switchPos3.get();
 //				break;
 //			case LOW_GOAL:
-//				isActivated=lowGoalLimit.get();
+//				isActivated=switchPos1.get() && !switchPos2.get() && switchPos3.get();
 //				break;
 //			case PICK_UP:
-//				isActivated=pickUpLimit.get();
+//				isActivated=!switchPos1.get() && !switchPos2.get() && switchPos3.get();
 //				break;
+//			
 //		}
-//		
-//		return !isActivated;
+//		return isActivated;
 //	}
-//	
+	
+	public boolean getIRSensor(ShooterPos shooterPos){
+		boolean isActivated=true;
+		
+		switch(shooterPos){
+			case VERTICAL:
+				isActivated=verticalLimit.get();
+				break;
+			case HIGH_GOAL:
+				isActivated=highGoalLimit.get();
+				break;
+			case LOW_GOAL:
+				isActivated=lowGoalLimit.get();
+				break;
+			case PICK_UP:
+				isActivated=pickUpLimit.get();
+				break;
+		}
+		
+		return !isActivated;
+	}
+	
 	public void setLeftShooterMotorSpeed(double speed){
 		leftShooterMotor.set(speed);
 	}
@@ -125,12 +125,12 @@ public class Shooter extends Subsystem{
 		return -1;
 	}
 	
-//	public boolean getUpperLimit(){
-//		return !highGoalLimit.get();
-//	}
-//	
-//	public boolean getLowerLimit(){
-//		return !verticalLimit.get();
-//	}
-//	
+	public boolean getUpperLimit(){
+		return !highGoalLimit.get();
+	}
+	
+	public boolean getLowerLimit(){
+		return !verticalLimit.get();
+	}
+	
 }
