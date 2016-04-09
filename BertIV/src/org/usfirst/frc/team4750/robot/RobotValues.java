@@ -26,6 +26,10 @@ public class RobotValues {
 		public static final int LOW_GOAL_LIMIT_PORT = 6;
 		public static final int PICK_UP_LIMIT_PORT = 7;
 		
+		public static final int SWITCH_POS_1_PORT = 0; 
+		public static final int SWITCH_POS_2_PORT = 1;
+		public static final int SWITCH_POS_3_PORT = 2;
+		
 		
 		//Joystick USB ports
 		public static final int LEFT_JOYSTICK_USB_PORT = 0;
