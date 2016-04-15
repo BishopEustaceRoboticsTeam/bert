@@ -22,7 +22,7 @@ public class RobotValues {
 
 		public static final int LOWER_LIMIT_PORT = 4;
 		public static final int UPPER_LIMIT_PORT = 5;
-		//public static final int HORIZ_LIMIT_PORT = 1;
+		public static final int HORIZ_LIMIT_PORT = 1;
 		
 		//Joystick USB ports
 		public static final int LEFT_JOYSTICK_USB_PORT = 0;

@@ -17,7 +17,7 @@ public class Shooter extends Subsystem{
 	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
 	DigitalInput lowerLimit = new DigitalInput(RobotValues.LOWER_LIMIT_PORT);
 	DigitalInput upperLimit = new DigitalInput(RobotValues.UPPER_LIMIT_PORT);
-	//DigitalInput horizLimit = new DigitalInput(RobotValues.HORIZ_LIMIT_PORT);
+	DigitalInput horizLimit = new DigitalInput(RobotValues.HORIZ_LIMIT_PORT);
 	
 	public Shooter() {
 		// TODO Auto-generated constructor stub
@@ -63,8 +63,8 @@ public class Shooter extends Subsystem{
 		return !lowerLimit.get();
 	}
 	
-	//public boolean getHorizLimit(){
-		//return !horizLimit.get();
-	//}
+	public boolean getHorizLimit(){
+		return !horizLimit.get();
+	}
 	
 }

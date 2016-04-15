@@ -4,11 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team4750.robot.commands.LowerShooter;
-import org.usfirst.frc.team4750.robot.commands.RaiseShooter;
-//import org.usfirst.frc.team4750.robot.commands.Manipulate;
-import org.usfirst.frc.team4750.robot.commands.SetShooterServo;
-import org.usfirst.frc.team4750.robot.commands.SetShooterSpeed;
+import org.usfirst.frc.team4750.robot.commands.*;
 
 /**w
  * This class is the glue that binds the controls on the physical operator
@@ -31,6 +27,7 @@ public class OI {
 	Button intakeButton = new JoystickButton(shootStick, 3);
 	Button shooterLowerButton = new JoystickButton(shootStick, 4);
 	Button shooterRaiseButton = new JoystickButton(shootStick, 5);
+	Button shootPosButton = new JoystickButton(shootStick, 7);
 	
 	public OI(){
 		servoTrigger.whileHeld(new SetShooterServo());
@@ -40,6 +37,8 @@ public class OI {
 		//An input of "true" causes the motors to spin in one direction (for shooting) and "false" causes them to spin in the opposite direction (for intaking). 
 		shooterButton.whileHeld(new SetShooterSpeed(true));
 		intakeButton.whileHeld(new SetShooterSpeed(false));
+		
+		shootPosButton.whenPressed(new MoveToShootPos());
 	}
 		
 	public double getRightYAxis(){
