@@ -14,12 +14,12 @@ public class Shooter extends Subsystem{
 
 	Talon leftShooterMotor = new Talon(RobotValues.LEFT_SHOOTER_MOTOR_PORT);
 	Talon rightShooterMotor = new Talon(RobotValues.RIGHT_SHOOTER_MOTOR_PORT);
-	Victor shooterAimerMotor = new Victor(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
+	Talon shooterAimerMotor = new Talon(RobotValues.SHOOTER_AIMER_MOTOR_PORT);
 	
 	DigitalInput verticalLimit = new DigitalInput(RobotValues.VERTICAL_LIMIT_PORT);
 	DigitalInput highGoalLimit = new DigitalInput(RobotValues.HIGH_GOAL_LIMIT_PORT);
 	DigitalInput lowGoalLimit = new DigitalInput(RobotValues.LOW_GOAL_LIMIT_PORT);
-	DigitalInput pickUpLimit = new DigitalInput(RobotValues.PICK_UP_LIMIT_PORT);
+	//DigitalInput pickUpLimit = new DigitalInput(RobotValues.PICK_UP_LIMIT_PORT);
 	
 //	DigitalInput switchPos1 = new DigitalInput(RobotValues.SWITCH_POS_1_PORT);
 //	DigitalInput switchPos2 = new DigitalInput(RobotValues.SWITCH_POS_2_PORT);
@@ -29,7 +29,7 @@ public class Shooter extends Subsystem{
 	private ShooterPos targetPos;
 	
 	public static enum ShooterPos{
-		VERTICAL, HIGH_GOAL, LOW_GOAL, PICK_UP;
+		VERTICAL, HIGH_GOAL, LOW_GOAL//, PICK_UP;
 	}
 	
 	public Shooter() {
@@ -92,9 +92,9 @@ public class Shooter extends Subsystem{
 			case LOW_GOAL:
 				isActivated=lowGoalLimit.get();
 				break;
-			case PICK_UP:
-				isActivated=pickUpLimit.get();
-				break;
+//			case PICK_UP:
+//				isActivated=pickUpLimit.get();
+//				break;
 		}
 		
 		return !isActivated;

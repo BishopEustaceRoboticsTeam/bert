@@ -12,19 +12,19 @@ public class RobotValues {
 	
 	    //Motor Controller PWM ports
 		public static final int RIGHT_MOTOR_PORT = 1;
-		public static final int LEFT_MOTOR_PORT = 2;
+		public static final int LEFT_MOTOR_PORT = 0;
 		public static final int LEFT_SHOOTER_MOTOR_PORT = 3;
 		public static final int RIGHT_SHOOTER_MOTOR_PORT = 4;
-		public static final int SHOOTER_AIMER_MOTOR_PORT = 0;
+		public static final int SHOOTER_AIMER_MOTOR_PORT = 2;
 		public static final int SHOOTER_SERVO_PORT = 8;
 		//public static final int LIFTER_MOTOR = 6;
 		//public static final int MANIPULATOR_MOTOR = 8;
 
 		//Sensor DIO Ports:
-		public static final int VERTICAL_LIMIT_PORT = 4;
-		public static final int HIGH_GOAL_LIMIT_PORT = 5;
-		public static final int LOW_GOAL_LIMIT_PORT = 6;
-		public static final int PICK_UP_LIMIT_PORT = 7;
+		public static final int VERTICAL_LIMIT_PORT = 5;
+		public static final int HIGH_GOAL_LIMIT_PORT = 1;
+		public static final int LOW_GOAL_LIMIT_PORT = 4;
+		//public static final int PICK_UP_LIMIT_PORT = 7;
 		
 //		public static final int SWITCH_POS_1_PORT = 0; 
 //		public static final int SWITCH_POS_2_PORT = 1;
@@ -57,7 +57,7 @@ public class RobotValues {
 		
 		//Digital sensor ports:
 		public static final int LEFT_ENCODER_A = 0;
-		public static final int LEFT_ENCODER_B = 1;
+		public static final int LEFT_ENCODER_B = 6;
 		public static final int RIGHT_ENCODER_A = 2;
 		public static final int RIGHT_ENCODER_B = 3;
 		

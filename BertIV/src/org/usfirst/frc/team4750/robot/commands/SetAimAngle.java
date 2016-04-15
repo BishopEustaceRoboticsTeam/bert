@@ -43,16 +43,16 @@ public class SetAimAngle extends Command{
 				if(direction){
 					Robot.shooter.setTargetPos(ShooterPos.HIGH_GOAL);
 				} else{
-					Robot.shooter.setTargetPos(ShooterPos.PICK_UP);
-				}
-				break;
-			case PICK_UP:
-				if(direction){
 					Robot.shooter.setTargetPos(ShooterPos.LOW_GOAL);
-				} else{
-					Robot.shooter.setTargetPos(ShooterPos.PICK_UP);
 				}
 				break;
+//			case PICK_UP:
+//				if(direction){
+//					Robot.shooter.setTargetPos(ShooterPos.LOW_GOAL);
+//				} else{
+//					Robot.shooter.setTargetPos(ShooterPos.PICK_UP);
+//				}
+//				break;
 		}
 		
 		SmartDashboard.putString("CURRENT POSITION:", Robot.shooter.getCurrentPos().toString());
