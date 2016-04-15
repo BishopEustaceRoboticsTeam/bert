@@ -17,7 +17,7 @@ public class LowerShooter extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.setShooterAimerMotorSpeed(0.3);
+    	Robot.shooter.setShooterAimerMotorSpeed(0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run

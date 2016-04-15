@@ -31,14 +31,24 @@ public class SetAimAngle extends Command{
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Has SetAimAngle.isFinished() run?", true);
-		return false;
+		if(Robot.oi.getShooterY() <= 0 && Robot.shooter.getLowerLimit()){
+			return Robot.shooter.getLowerLimit();
+		}
+		
+		else if(Robot.oi.getShooterY() >= 0 && Robot.shooter.getUpperLimit()){
+			return Robot.shooter.getUpperLimit();
+		}
+		
+		else{
+			return false;
+		}
 	}
 
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
 		SmartDashboard.putBoolean("Has SetAimAngle.end() run?", true);
-		
+		Robot.shooter.setShooterAimerMotorSpeed(0);
 		//SmartDashboard.putBoolean("Is SetAimAngle executing?", false);
 		//SmartDashboard.putBoolean("Is SetAimAngle.execute() running?", false);
 		//SmartDashboard.putBoolean("Is SetAimAngle.isFinished() running?", false);

@@ -60,7 +60,8 @@ public class RobotValues {
 		
 		//Timer for Auto
 		public static final double DRIVE_TIME = 4;
-		public static final double LOW_DRIVE_TIME = 3.5;
+		public static final double LOW_DRIVE_TIME = 3;
+		public static final double TURN_TIME = 1;
 		
 		//Color ranges
 		//public static final NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(0,180);

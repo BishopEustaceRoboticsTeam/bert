@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4750.robot.commands.DriveStraight;
+import org.usfirst.frc.team4750.robot.commands.LowBarTurn;
 import org.usfirst.frc.team4750.robot.commands.LowerShooterDrive;
 //import org.usfirst.frc.team4750.robot.commands.SetAimAngle;
 import org.usfirst.frc.team4750.robot.subsystems.DriveTrain;
@@ -58,6 +59,10 @@ public class Robot extends IterativeRobot {
 		
         else if(autoSwitch1.get() && !autoSwitch2.get() && !autoSwitch3.get()){
         	autonomousCommand = new DriveStraight(RobotValues.DRIVE_TIME);
+        }
+		
+        else if (autoSwitch1.get() && !autoSwitch2.get() && autoSwitch3.get()){
+        	autonomousCommand = new LowBarTurn();
         }
         
         SmartDashboard.putBoolean("Is DriveStraight executing?", false);
